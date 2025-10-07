@@ -1,7 +1,7 @@
 import warnings
 from typing import Dict, List, Optional, Tuple, Union
 
-import lightning.pytorch as L
+import lightning.pytorch.pytorch as L
 import torch
 from torch import nn
 from torch.optim.adam import Adam
@@ -392,7 +392,7 @@ class _SetR_PUP(nn.Module):
         x = self.encoder(x)
         x = self.decoder(x)
         return x
-      
+
     def load_backbone(self, path: str, freeze: bool = False):
         self.encoder.load_backbone(path)
         if freeze:

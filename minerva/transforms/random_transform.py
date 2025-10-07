@@ -3,7 +3,15 @@ from typing import List, Optional, Tuple, Union
 
 import numpy as np
 
-from minerva.transforms.transform import Flip, Resize, _Transform
+from minerva.transforms.transform import (
+    Crop,
+    Flip,
+    GrayScale,
+    Resize,
+    Rotation,
+    Solarize,
+    _Transform,
+)
 
 
 class EmptyTransform(_Transform):
@@ -16,7 +24,7 @@ class EmptyTransform(_Transform):
 class _RandomSyncedTransform(_Transform):
     """Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them."""
 
-    def __init__(self, num_samples: int, seed: Optional[int] = None):
+    def __init__(self, num_samples: int = 1, seed: Optional[int] = None):
         """Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
 
         Parameters
@@ -28,6 +36,7 @@ class _RandomSyncedTransform(_Transform):
         seed : Optional[int], optional
             The seed that will be used to generate the random state, by default None.
         """
+        assert num_samples > 0, "num_samples must be greater than 0"
         self.num_samples = num_samples
         self.transformations_executed = 0
         self.rng = np.random.default_rng(seed)
@@ -35,17 +44,15 @@ class _RandomSyncedTransform(_Transform):
 
     def __call__(self, data):
         if self.transformations_executed == 0:
-            self.transform = self.select_transform(data)
-            self.transformations_executed += 1
-            return self.transform(data)
-        else:
-            if self.transformations_executed == self.num_samples - 1:
-                self.transformations_executed = 0
-            else:
-                self.transformations_executed += 1
-            return self.transform(data)
+            self.transform = self.select_transform()
 
-    def select_transform(self, data) -> _Transform:
+        self.transformations_executed = (
+            self.transformations_executed + 1
+        ) % self.num_samples
+
+        return self.transform(data)
+
+    def select_transform(self):
         raise NotImplementedError(
             "This method should be implemented by the child class."
         )
@@ -55,7 +62,7 @@ class RandomFlip(_RandomSyncedTransform):
 
     def __init__(
         self,
-        num_samples: int,
+        num_samples: int = 1,
         possible_axis: Union[int, List[int]] = 0,
         seed: Optional[int] = None,
     ):
@@ -73,7 +80,7 @@ class RandomFlip(_RandomSyncedTransform):
         super().__init__(num_samples, seed)
         self.possible_axis = possible_axis
 
-    def select_transform(self, data):
+    def select_transform(self):
         """selects the transform to be applied to the data."""
 
         if isinstance(self.possible_axis, int):
@@ -95,26 +102,85 @@ class RandomFlip(_RandomSyncedTransform):
         return EmptyTransform()
 
 
-class RandomResize(_RandomSyncedTransform):
-
+class RandomCrop(_RandomSyncedTransform):
     def __init__(
         self,
-        target_scale: Tuple[int, int],
-        ratio_range: Tuple[float, float],
-        num_samples: int,
+        crop_size: Tuple[int, int],
+        num_samples: int = 1,
         seed: Optional[int] = None,
+        pad_mode: str = "reflect",
     ):
         super().__init__(num_samples, seed)
-        self.target_scale = target_scale
-        self.ratio_range = ratio_range
-        self.resize: Optional[_Transform] = None
+        self.crop_size = crop_size
+        self.pad_mode = pad_mode
 
-    def select_transform(self, data):
-        orig_height, orig_width = data.shape[:2]
+    def select_transform(self):
+        X = self.rng.random()
+        Y = self.rng.random()
+        return Crop(output_size=self.crop_size, pad_mode=self.pad_mode, coords=(X, Y))
 
-        # Apply a random scaling factor within the ratio range
-        scale_factor = self.rng.uniform(*self.ratio_range)
-        new_width = int(self.target_scale[1] * scale_factor)
-        new_height = int(self.target_scale[0] * scale_factor)
 
-        return Resize(new_width, new_height)
+class RandomGrayScale(_RandomSyncedTransform):
+    def __init__(
+        self,
+        num_samples: int = 1,
+        seed: Optional[int] = None,
+        prob: float = 0.1,
+        method: str = "luminosity",
+    ):
+
+        super().__init__(num_samples, seed)
+        self.method = method
+        self.prob = prob
+
+    def select_transform(self):
+
+        if self.rng.random() < self.prob:
+            return GrayScale(method=self.method)
+
+        else:
+            return EmptyTransform()
+
+
+class RandomSolarize(_RandomSyncedTransform):
+    def __init__(
+        self,
+        num_samples: int = 1,
+        seed: Optional[int] = None,
+        threshold: int = 128,
+        prob: float = 1.0,
+    ):
+
+        super().__init__(num_samples, seed)
+        self.threshold = threshold
+        self.prob = prob
+
+    def select_transform(self):
+
+        if self.rng.random() < self.prob:
+            return Solarize(self.threshold)
+
+        else:
+            return EmptyTransform()
+
+
+class RandomRotation(_RandomSyncedTransform):
+    def __init__(
+        self,
+        degrees: float,
+        prob: float,
+        num_samples: int = 1,
+        seed: Optional[int] = None,
+    ):
+
+        super().__init__(num_samples, seed)
+        self.prob = prob
+        self.degrees = degrees
+
+    def select_transform(self):
+
+        if self.rng.random() < self.prob:
+            degrees = self.rng.uniform(-self.degrees, self.degrees)
+            return Rotation(degrees=degrees)
+        else:
+            return EmptyTransform()
