@@ -64,13 +64,13 @@ class TransformPipeline(_Transform):
 class Flip(_Transform):
     """Flip the input data along the specified axis."""
 
-    def __init__(self, axis: Union[int, List[int]] = 0):
+    def __init__(self, axis: Union[int, List[int]] = 1):
         """Flip the input data along the specified axis.
 
         Parameters
         ----------
         axis : int | List[int], optional
-            One or more axis to flip the input data along, by default 0.
+            One or more axis to flip the input data along, by default 1 (horizontal).
             If a list of axis is provided, the input data is flipped along all the specified axis in the order they are provided.
         """
         self.axis = axis
@@ -82,17 +82,12 @@ class Flip(_Transform):
         The input must have the same, or less, number of dimensions as the length of the list of axis.
         """
 
-        if isinstance(self.axis, int):
-            return np.flip(x, axis=self.axis).copy()
+        if isinstance(self.axis, list):
+            assert (
+                len(self.axis) <= x.ndim
+            ), "Axis list has more dimensions than input data. The length of axis needs to be less or equal to input dimensions."
 
-        assert (
-            len(self.axis) <= x.ndim
-        ), "Axis list has more dimensions than input data. The length of axis needs to be less or equal to input dimensions."
-
-        for axis in self.axis:
-            x = np.flip(x, axis=axis)
-
-        return x.copy()
+        return np.flip(x, axis=self.axis).copy()
 
     def __str__(self) -> str:
         return f"Flip(axis={self.axis})"
@@ -164,19 +159,30 @@ class Squeeze(_Transform):
 class Unsqueeze(_Transform):
     """Add a new axis to the input data at the specified position."""
 
-    def __init__(self, axis: int):
+    def __init__(self, axis: int, label_only: bool = False):
         """Add a new axis to the input data at the specified position.
 
         Parameters
         ----------
         axis : int
             The position of the new axis to be added.
+        label_only : bool, optional
+            If True, the transform will only apply to the label (second element) of the input tuple.
+            If False, it will apply to the entire input data, by default False.
         """
         self.axis = axis
+        self.label_only = label_only
 
-    def __call__(self, x: np.ndarray) -> np.ndarray:
+    def __call__(self, x: np.ndarray):
         """Add a new axis to the input data at the specified position."""
-        return np.expand_dims(x, axis=self.axis)
+        if self.label_only:
+            # Only apply to the second element (label) of the tuple
+            if np.issubdtype(x.dtype, np.unsignedinteger):
+                return np.expand_dims(x, axis=self.axis)
+            else:
+                return x
+        else:
+            return np.expand_dims(x, axis=self.axis)
 
     def __str__(self) -> str:
         return f"Unsqueeze(axis={self.axis})"
@@ -229,60 +235,72 @@ class Padding(_Transform):
         self,
         target_h_size: int,
         target_w_size: int,
-        padding_mode: Literal["reflect", "constant"] = "reflect",
-        constant_value: int = 0,
-        mask_value: int = 255,
+        padding_mode: str = "reflect",
+        padding_value: int = 0,
+        mask_padding_value: int = 255,
     ):
+        """
+        A transform that pads images and masks to reach target dimensions.
+
+        This transform automatically pads input arrays to the specified target dimensions
+        using different padding strategies. It intelligently determines whether the input
+        is an image or mask based on the data type and applies appropriate padding values.
+        For unsigned integer arrays (typically masks), it uses the mask padding value,
+        while for other arrays (typically images), it uses the regular padding value.
+
+        Parameters
+        ----------
+        target_h_size : int
+            Target height in pixels after padding.
+        target_w_size : int
+            Target width in pixels after padding.
+        padding_mode : str, default="reflect"
+            Padding mode to use. Options include "reflect", "constant", "edge", "wrap".
+            When using "constant", the padding values specified below will be used.
+        padding_value : int, default=0
+            Padding value to use for image data when padding_mode is "constant".
+            Only used for non-unsigned integer arrays.
+        mask_padding_value : int, default=255
+            Padding value to use for mask data when padding_mode is "constant".
+            Only used for unsigned integer arrays. Commonly set to 255 to represent
+            ignore class in segmentation masks.
+        """
         self.target_h_size = target_h_size
         self.target_w_size = target_w_size
         self.padding_mode = padding_mode
-        self.constant_value = constant_value
-        self.mask_value = mask_value
+        self.padding_value = padding_value if padding_mode == "constant" else None
+        self.mask_padding_value = (
+            mask_padding_value if padding_mode == "constant" else None
+        )
 
     def __call__(self, x: np.ndarray) -> np.ndarray:
         h, w = x.shape[:2]
         pad_h = max(0, self.target_h_size - h)
         pad_w = max(0, self.target_w_size - w)
-        is_label = True if x.dtype == np.uint8 else False
-
         if len(x.shape) == 2:
-            if self.padding_mode == "reflect":
-                padded = np.pad(x, ((0, pad_h), (0, pad_w)), mode="reflect")
-            elif self.padding_mode == "constant":
-                if is_label:
-                    padded = np.pad(
-                        x,
-                        ((0, pad_h), (0, pad_w)),
-                        mode="constant",
-                        constant_values=self.mask_value,
-                    )
-                else:
-                    padded = np.pad(
-                        x,
-                        ((0, pad_h), (0, pad_w)),
-                        mode="constant",
-                        constant_values=self.constant_value,
-                    )
+            padded = np.pad(
+                x,
+                ((0, pad_h), (0, pad_w)),
+                mode=self.padding_mode,  # type: ignore
+                constant_values=(
+                    self.mask_padding_value
+                    if np.issubdtype(x.dtype, np.unsignedinteger)
+                    else self.padding_value
+                ),
+            )  # type: ignore
             padded = np.expand_dims(padded, axis=2)
-
         else:
-            if self.padding_mode == "reflect":
-                padded = np.pad(x, ((0, pad_h), (0, pad_w), (0, 0)), mode="reflect")
-            elif self.padding_mode == "constant":
-                if is_label:
-                    padded = np.pad(
-                        x,
-                        ((0, pad_h), (0, pad_w), (0, 0)),
-                        mode="constant",
-                        constant_values=self.mask_value,
-                    )
-                else:
-                    padded = np.pad(
-                        x,
-                        ((0, pad_h), (0, pad_w), (0, 0)),
-                        mode="constant",
-                        constant_values=self.constant_value,
-                    )
+            padded = np.pad(
+                x,
+                ((0, pad_h), (0, pad_w), (0, 0)),
+                mode=self.padding_mode,  # type: ignore
+                constant_values=(
+                    self.mask_padding_value
+                    if np.issubdtype(x.dtype, np.unsignedinteger)
+                    else self.padding_value
+                ),
+            )  # type: ignore
+
         return padded
 
     def __str__(self) -> str:
@@ -404,32 +422,39 @@ class Crop(_Transform):
         output_size: Tuple[int, int],
         pad_mode: str = "reflect",
         coords: Tuple[float, float] = (0, 0),
+        bbox: Optional[Tuple[int, int, int, int]] = None,
     ):
         """
-        Crops the input image to a specified output size, with optional padding if needed.
-
         Parameters
         ----------
         output_size : Tuple[int, int]
             Desired output size as (height, width).
         pad_mode : str, optional
             Padding mode used if output size is larger than input size. Defaults to 'reflect'.
-        coords : Tuple[int, int], optional
-            Top-left coordinates for the crop box.
+            Valid modes include: 'constant', 'edge', 'linear_ramp', 'maximum', 'mean', 'median',
+            'minimum', 'reflect', 'symmetric', 'wrap', 'empty'.
+        coords : Tuple[float, float], optional
+            Top-left coordinates for the crop box as (X, Y).
             Values must go from 0 to 1 indicating the relative position on where the
-            new top-left corner can be set, taking in consideration the new size
+            new top-left corner can be set, taking in consideration the new size.
+            Defaults to (0, 0) which corresponds to the top-left corner of the image.
+        bbox : Optional[Tuple[int, int, int, int]], optional
+            If provided, crops the image to the bounding box defined by (y1, y2, x1, x2).
+            If this parameter is set, the `coords` parameter is ignored. Defaults to None.
 
         Returns
         -------
         np.ndarray
-            Cropped image, padded as necessary.
+            Cropped image, padded as necessary. Works with both 2D (grayscale) and
+            3D (color) images. Padding is applied symmetrically around the image
+            before cropping to the desired output size.
         """
         self.output_size = output_size
         self.pad_mode = pad_mode
         self.coords = coords
+        self.bbox = bbox
 
     def __call__(self, image: np.ndarray) -> np.ndarray:
-        X, Y = self.coords
         h, w = image.shape[:2]
         new_h, new_w = self.output_size
 
@@ -437,22 +462,32 @@ class Crop(_Transform):
         if new_h > h or new_w > w:
             pad_h = max(new_h - h, 0)
             pad_w = max(new_w - w, 0)
-            image = np.pad(
-                image,
-                (
+
+            # Handle both 2D and 3D arrays (grayscale and color images)
+            if len(image.shape) == 3:
+                pad_width = (
                     (pad_h // 2, pad_h - pad_h // 2),
                     (pad_w // 2, pad_w - pad_w // 2),
                     (0, 0),
-                ),
-                mode=self.pad_mode,
-            )
+                )
+            else:
+                pad_width = (
+                    (pad_h // 2, pad_h - pad_h // 2),
+                    (pad_w // 2, pad_w - pad_w // 2),
+                )
 
-        # Update dimensions after padding
-        h, w = image.shape[:2]
+            image = np.pad(image, pad_width, mode=self.pad_mode)
 
+            # Update dimensions after padding
+            h, w = image.shape[:2]
+
+        if self.bbox is not None:
+            y1, y2, x1, x2 = self.bbox
+            return image[y1:y2, x1:x2]
+
+        X, Y = self.coords
         x = int((h - new_h) * X)
         y = int((w - new_w) * Y)
-
         return image[x : x + new_h, y : y + new_w]
 
     def __str__(self) -> str:
@@ -543,27 +578,45 @@ class Solarize(_Transform):
 class Rotation(_Transform):
     def __init__(self, degrees: float):
         """
-        Rotates the image by a specified angle.
+        Rotates an image by a specified angle using reflection padding.
 
         Parameters
         ----------
         degrees : float
-            Angle in degrees to rotate the image.
+            Angle in degrees to rotate the image counterclockwise.
 
-        Returns
-        -------
-        np.ndarray
-            Rotated image with reflection padding.
+        Notes
+        -----
+        - Accepts input with shape (H, W) or (H, W, C), where C can be any number of channels.
+        - For multi-channel images, the same transformation is applied to all channels.
+        - Uses OpenCV's warpAffine with reflection padding.
         """
         self.degrees = degrees
 
     def __call__(self, image: np.ndarray) -> np.ndarray:
+        if image.ndim not in (2, 3):
+            raise ValueError(
+                f"Unsupported image shape: {image.shape}. Expected 2D or 3D with channels last."
+            )
+
         h, w = image.shape[:2]
         center = (w // 2, h // 2)
         rotation_matrix = cv2.getRotationMatrix2D(center, self.degrees, 1.0)
-        return cv2.warpAffine(
-            image, rotation_matrix, (w, h), borderMode=cv2.BORDER_REFLECT
-        )
+
+        if image.ndim == 2:
+            # Single-channel 2D image
+            return cv2.warpAffine(
+                image, rotation_matrix, (w, h), borderMode=cv2.BORDER_REFLECT
+            )
+
+        # Multi-channel image (H, W, C)
+        channels = [
+            cv2.warpAffine(
+                image[:, :, c], rotation_matrix, (w, h), borderMode=cv2.BORDER_REFLECT
+            )
+            for c in range(image.shape[2])
+        ]
+        return np.stack(channels, axis=-1)
 
     def __str__(self) -> str:
         return f"Rotation(degrees={self.degrees})"
@@ -737,7 +790,7 @@ class Repeat(_Transform):
 class Normalize(_Transform):
     def __init__(self, mean, std, to_rgb=False, normalize_labels=False):
         """
-        Normalize the input data using the provided means and standard deviations.
+        Normalize the input data using the provided means and standard deviations. I assumes the data shape is (C, H, W)
 
         Parameters
         ----------
@@ -761,12 +814,13 @@ class Normalize(_Transform):
 
     def __call__(self, data):
 
-        is_label = True if data.dtype == np.uint8 else False
+        is_label = np.issubdtype(data.dtype, np.unsignedinteger)
 
         if (is_label and self.normalize_labels) or not is_label:
             # Convert from gray scale (1 channel) to RGB (3 channels) if to_rgb is True
             if self.to_rgb and data.shape[0] == 1:
                 data = np.repeat(data, 3, axis=0)
+                cv2.cvtColor(data, cv2.COLOR_BGR2RGB, data)
 
             assert data.shape[0] == len(
                 self.mean
@@ -784,6 +838,20 @@ class Normalize(_Transform):
 
 class ContrastiveTransform(_Transform):
     def __init__(self, transform: _Transform):
+        """
+        A transformation wrapper that applies the same transform twice to create contrastive pairs.
+
+        This transform is commonly used in contrastive learning approaches where you need two
+        different augmented versions of the same input. It takes a base transformation and applies
+        it twice independently to the same input, potentially producing different results if the
+        underlying transform includes randomness.
+
+        Parameters
+        ----------
+        transform : _Transform
+            The base transformation to be applied twice. This should be a callable that takes
+            a numpy array and returns a transformed numpy array.
+        """
         self.transform = transform
 
     def __call__(self, x: np.ndarray) -> Tuple:
@@ -791,3 +859,88 @@ class ContrastiveTransform(_Transform):
 
     def __str__(self) -> str:
         return f"ContrastiveTransform(transform={self.transform})"
+
+
+class Reshape(_Transform):
+    def __init__(self, shape: Tuple[int, ...]):
+        """Reshape the input data to the specified shape.
+
+        Parameters
+        ----------
+        shape : Tuple[int, ...]
+            The target shape for the input data.
+        """
+        self.shape = shape
+
+    def __call__(self, x: np.ndarray) -> np.ndarray:
+        return x.reshape(self.shape)
+
+    def __str__(self) -> str:
+        return f"Reshape(shape={self.shape})"
+
+
+class Resize(_Transform):
+
+    def __init__(
+        self,
+        target_h_size: int,
+        target_w_size: int,
+        keep_aspect_ratio: bool = False,
+        detect_mask: bool = False,
+    ):
+        """
+        A transformation class for resizing images with optional aspect ratio preservation.
+
+        This transform can resize images to specified target dimensions either by direct resizing
+        or by preserving the aspect ratio. When preserving aspect ratio, the transform scales
+        the image using the smaller of the two scaling factors to ensure the image fits within
+        the target dimensions without distortion.
+
+        Parameters
+        ----------
+        target_h_size : int
+            Target height for the resized image in pixels.
+        target_w_size : int
+            Target width for the resized image in pixels.
+        keep_aspect_ratio : bool, default=False
+            If True, preserves the original aspect ratio by scaling with the smaller
+            scaling factor. If False, directly resizes to target dimensions which
+            may distort the image.
+        detect_mask : bool, default=False
+            If True, uses nearest neighbor interpolation for resizing masks (integer types).
+
+        """
+        self.target_h_size = target_h_size
+        self.target_w_size = target_w_size
+        self.keep_aspect_ratio = keep_aspect_ratio
+        self.detect_mask = detect_mask
+
+    def __call__(self, x: np.ndarray) -> np.ndarray:
+        original_height, original_width = x.shape[:2]
+        width, height = self.target_w_size, self.target_h_size
+
+        if self.keep_aspect_ratio:
+
+            # Calculate scaling factors for both dimensions
+            width_scale = self.target_w_size / original_width
+            height_scale = self.target_h_size / original_height
+
+            # Choose the smaller scale to keep aspect ratio, and round down
+            scale = min(width_scale, height_scale)
+
+            # Compute new dimensions, rounding down to match MMsegmentation's behavior
+            width = int(original_width * scale)
+            height = int(original_height * scale)
+
+        if np.issubdtype(x.dtype, np.unsignedinteger) and self.detect_mask:
+            return cv2.resize(
+                x,
+                (width, height),
+                interpolation=cv2.INTER_NEAREST,
+            )
+
+        return cv2.resize(
+            x,
+            (width, height),
+            interpolation=cv2.INTER_LINEAR,
+        )
