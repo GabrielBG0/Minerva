@@ -13,7 +13,7 @@ from uuid import uuid4
 
 import git
 import lightning as L
-import pkg_resources
+import importlib.metadata
 import yaml
 from lightning.pytorch.core.mixins import HyperparametersMixin  # type: ignore
 from lightning.pytorch.utilities import rank_zero_only
@@ -227,7 +227,8 @@ class Pipeline(HyperparametersMixin):
 
         # ---------- Add python information ----------
         packages = [
-            f"{pkg.project_name}=={pkg.version}" for pkg in pkg_resources.working_set
+            f"{dist.metadata['Name']}=={dist.version}"
+            for dist in importlib.metadata.distributions()
         ]
         d["python"] = {
             "pip_packages": packages,
