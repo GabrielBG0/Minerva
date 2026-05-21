@@ -1,0 +1,1587 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>minerva.transforms.transform - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Minerva Design</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/har_getting_started.html">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/minerva/index.html">minerva</a><input aria-label="Toggle navigation of minerva" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/data/index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/data/data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/har/index.html">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/data_modules/har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/data/readers/index.html">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/data/readers/zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../autoapi/minerva/models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/pipelines/index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/pipelines/base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/pipelines/experiment/index.html">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/pipelines/lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../autoapi/minerva/utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autoapi/minerva/utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for minerva.transforms.transform</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">perlin_noise</span><span class="w"> </span><span class="kn">import</span> <span class="n">PerlinNoise</span>
+
+
+<div class="viewcode-block" id="_Transform">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms._Transform">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">_Transform</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is a base class for all transforms. Transforms is just a</span>
+<span class="sd">    fancy word for a function that takes an input and returns an output. The</span>
+<span class="sd">    input and output can be anything. However, transforms operates over a</span>
+<span class="sd">    single sample of data and does not require any additional information to</span>
+<span class="sd">    perform the transformation. The __call__ method should be overridden in</span>
+<span class="sd">    subclasses to define the transformation logic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="_Transform.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms._Transform.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implement the transformation logic in this method. Usually, the</span>
+<span class="sd">        transformation is applied on a single sample of data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TransformPipeline">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.TransformPipeline">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TransformPipeline</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply a sequence of transforms to a single sample of data and return the</span>
+<span class="sd">    transformed data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transforms</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">_Transform</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply a sequence of transforms to a single sample of data and return</span>
+<span class="sd">        the transformed data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transforms : List[_Transform]</span>
+<span class="sd">            A list of transforms to be applied to the input data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="n">transforms</span>
+
+<div class="viewcode-block" id="TransformPipeline.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.TransformPipeline.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply a sequence of transforms to a single sample of data and return</span>
+<span class="sd">        the transformed data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">transform</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="TransformPipeline.__add__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.TransformPipeline.__add__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">_Transform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TransformPipeline&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a transform to the pipeline.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TransformPipeline</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TransformPipeline</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">transforms</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">TransformPipeline</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">other</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="TransformPipeline.__radd__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.TransformPipeline.__radd__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">_Transform</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TransformPipeline&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a transform to the pipeline.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TransformPipeline.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.TransformPipeline.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;TransformPipeline(transforms=[</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">])</span><span class="si">}</span><span class="s2">])&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Flip">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Flip">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Flip</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flip the input data along the specified axis.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flip the input data along the specified axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int | List[int], optional</span>
+<span class="sd">            One or more axis to flip the input data along, by default 1 (horizontal).</span>
+<span class="sd">            If a list of axis is provided, the input data is flipped along all the specified axis in the order they are provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+
+<div class="viewcode-block" id="Flip.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Flip.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flip the input data along the specified axis.</span>
+<span class="sd">        if axis is an integer, the input data is flipped along the specified axis.</span>
+<span class="sd">        if axis is a list of integers, the input data is flipped along all the specified axis in the order they are provided.</span>
+<span class="sd">        The input must have the same, or less, number of dimensions as the length of the list of axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span>
+            <span class="p">),</span> <span class="s2">&quot;Axis list has more dimensions than input data. The length of axis needs to be less or equal to input dimensions.&quot;</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Flip.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Flip.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Flip(axis=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PerlinMasker">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PerlinMasker">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PerlinMasker</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Zeroes entries of a tensor according to the sign of Perlin noise. Seed for the noise generator given by torch.randint&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">octaves</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Zeroes entries of a tensor according to the sign of Perlin noise. Seed for the noise generator given by torch.randint</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        octaves: int</span>
+<span class="sd">            Level of detail for the Perlin noise generator</span>
+<span class="sd">        scale: float = 1</span>
+<span class="sd">            Optionally rescale the Perlin noise. Default is 1 (no rescaling)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">octaves</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of octaves must be positive, but got </span><span class="si">{</span><span class="n">octaves</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">scale</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scale can&#39;t be 0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">octaves</span> <span class="o">=</span> <span class="n">octaves</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+
+<div class="viewcode-block" id="PerlinMasker.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PerlinMasker.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Zeroes entries of a tensor according to the sign of Perlin noise.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x: np.ndarray</span>
+<span class="sd">            The tensor whose entries to zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">PerlinNoise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">octaves</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">]):</span>
+            <span class="n">mask</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">noise</span><span class="p">([</span><span class="n">i</span> <span class="o">/</span> <span class="n">denom</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">mask</span></div>
+
+
+<div class="viewcode-block" id="PerlinMasker.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PerlinMasker.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PerlinMasker(octaves=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">octaves</span><span class="si">}</span><span class="s2">, scale=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Squeeze">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Squeeze">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Squeeze</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove single-dimensional entries from the shape of an array.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove single-dimensional entries from the shape of an array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            The position of the axis to be removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+
+<div class="viewcode-block" id="Squeeze.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Squeeze.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove single-dimensional entries from the shape of an array.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Squeeze.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Squeeze.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Squeeze(axis=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Unsqueeze">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Unsqueeze">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Unsqueeze</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a new axis to the input data at the specified position.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">label_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a new axis to the input data at the specified position.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            The position of the new axis to be added.</span>
+<span class="sd">        label_only : bool, optional</span>
+<span class="sd">            If True, the transform will only apply to the label (second element) of the input tuple.</span>
+<span class="sd">            If False, it will apply to the entire input data, by default False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_only</span> <span class="o">=</span> <span class="n">label_only</span>
+
+<div class="viewcode-block" id="Unsqueeze.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Unsqueeze.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a new axis to the input data at the specified position.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_only</span><span class="p">:</span>
+            <span class="c1"># Only apply to the second element (label) of the tuple</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Unsqueeze.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Unsqueeze.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Unsqueeze(axis=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Transpose">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Transpose">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Transpose</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reorder the axes of numpy arrays.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reorder the axes of numpy arrays.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : int</span>
+<span class="sd">            The order of the new axes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
+
+<div class="viewcode-block" id="Transpose.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Transpose.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reorder the axes of numpy arrays.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Transpose.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Transpose.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Transpose(axes=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CastTo">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.CastTo">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CastTo</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cast the input data to the specified data type.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cast the input data to the specified data type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dtype : type</span>
+<span class="sd">            The data type to which the input data will be cast.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+
+<div class="viewcode-block" id="CastTo.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.CastTo.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cast the input data to the specified data type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CastTo.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.CastTo.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;CastTo(dtype=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Padding">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Padding">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Padding</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_h_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">target_w_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;reflect&quot;</span><span class="p">,</span>
+        <span class="n">padding_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">mask_padding_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">255</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A transform that pads images and masks to reach target dimensions.</span>
+
+<span class="sd">        This transform automatically pads input arrays to the specified target dimensions</span>
+<span class="sd">        using different padding strategies. It intelligently determines whether the input</span>
+<span class="sd">        is an image or mask based on the data type and applies appropriate padding values.</span>
+<span class="sd">        For unsigned integer arrays (typically masks), it uses the mask padding value,</span>
+<span class="sd">        while for other arrays (typically images), it uses the regular padding value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_h_size : int</span>
+<span class="sd">            Target height in pixels after padding.</span>
+<span class="sd">        target_w_size : int</span>
+<span class="sd">            Target width in pixels after padding.</span>
+<span class="sd">        padding_mode : str, default=&quot;reflect&quot;</span>
+<span class="sd">            Padding mode to use. Options include &quot;reflect&quot;, &quot;constant&quot;, &quot;edge&quot;, &quot;wrap&quot;.</span>
+<span class="sd">            When using &quot;constant&quot;, the padding values specified below will be used.</span>
+<span class="sd">        padding_value : int, default=0</span>
+<span class="sd">            Padding value to use for image data when padding_mode is &quot;constant&quot;.</span>
+<span class="sd">            Only used for non-unsigned integer arrays.</span>
+<span class="sd">        mask_padding_value : int, default=255</span>
+<span class="sd">            Padding value to use for mask data when padding_mode is &quot;constant&quot;.</span>
+<span class="sd">            Only used for unsigned integer arrays. Commonly set to 255 to represent</span>
+<span class="sd">            ignore class in segmentation masks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">=</span> <span class="n">target_h_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">=</span> <span class="n">target_w_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">=</span> <span class="n">padding_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding_value</span> <span class="o">=</span> <span class="n">padding_value</span> <span class="k">if</span> <span class="n">padding_mode</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_padding_value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">mask_padding_value</span> <span class="k">if</span> <span class="n">padding_mode</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Padding.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Padding.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">pad_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">pad_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_w</span><span class="p">)),</span>
+                <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+                <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mask_padding_value</span>
+                    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_value</span>
+                <span class="p">),</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="n">padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pad_w</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+                <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+                <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mask_padding_value</span>
+                    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_value</span>
+                <span class="p">),</span>
+            <span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+        <span class="k">return</span> <span class="n">padded</span></div>
+
+
+<div class="viewcode-block" id="Padding.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Padding.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Padding(target_h_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span><span class="si">}</span><span class="s2">, target_w_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Gradient">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Gradient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Gradient</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="n">directions</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;x (width)&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;y (height)&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        direction:</span>
+<span class="sd">            0 -&gt; Gradient along the x-axis (width)</span>
+<span class="sd">            1 -&gt; Gradient along the y-axis (height)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="n">direction</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Direction must be 0 (x-axis) or 1 (y-axis)&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
+
+<div class="viewcode-block" id="Gradient.generate_gradient">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Gradient.generate_gradient">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inputs in format (H, W)</span>
+<span class="sd">        Outputs a gradient from 0 to 1 in either x or y direction based on the direction parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Gradient along the x-axis</span>
+            <span class="k">return</span> <span class="n">xx</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Gradient along the y-axis</span>
+            <span class="k">return</span> <span class="n">yy</span></div>
+
+
+<div class="viewcode-block" id="Gradient.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Gradient.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_gradient</span><span class="p">(</span>
+            <span class="n">shape</span>
+        <span class="p">)</span>  <span class="c1"># Generate gradient in the specified direction</span>
+
+        <span class="n">x_expanded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">x</span>
+        <span class="n">gradient_expanded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x_expanded</span><span class="p">,</span> <span class="n">gradient_expanded</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">output</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span>
+            <span class="n">x_expanded</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Output shape </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> does not match expected shape </span><span class="si">{</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">x_expanded</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="Gradient.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Gradient.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Gradient(direction=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ColorJitter">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ColorJitter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ColorJitter</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">brightness</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">contrast</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">saturation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">hue</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies fixed adjustments to brightness, contrast, saturation, and hue to an input image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        brightness : float, optional</span>
+<span class="sd">            Fixed factor for brightness adjustment. A value of 1.0 means no change. Defaults to 1.0.</span>
+<span class="sd">        contrast : float, optional</span>
+<span class="sd">            Fixed factor for contrast adjustment. A value of 1.0 means no change. Defaults to 1.0.</span>
+<span class="sd">        saturation : float, optional</span>
+<span class="sd">            Fixed factor for saturation adjustment. A value of 1.0 means no change. Defaults to 1.0.</span>
+<span class="sd">        hue : float, optional</span>
+<span class="sd">            Fixed degree shift for hue adjustment, in the range [-180, 180]. Defaults to 0.0.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            The transformed image with fixed brightness, contrast, saturation, and hue adjustments applied.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brightness</span> <span class="o">=</span> <span class="n">brightness</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contrast</span> <span class="o">=</span> <span class="n">contrast</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saturation</span> <span class="o">=</span> <span class="n">saturation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hue</span> <span class="o">=</span> <span class="n">hue</span>
+
+<div class="viewcode-block" id="ColorJitter.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ColorJitter.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="c1"># Convert to HSV for hue/saturation adjustment</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2HSV</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="c1"># Brightness adjustment</span>
+        <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">brightness</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+        <span class="c1"># Saturation adjustment</span>
+        <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">saturation</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+        <span class="c1"># Contrast adjustment</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">((</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">contrast</span> <span class="o">+</span> <span class="n">mean</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+        <span class="c1"># Hue adjustment</span>
+        <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="p">)</span> <span class="o">%</span> <span class="mi">180</span>
+
+        <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_HSV2RGB</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ColorJitter.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ColorJitter.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ColorJitter(brightness=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">brightness</span><span class="si">}</span><span class="s2">, contrast=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">contrast</span><span class="si">}</span><span class="s2">, saturation=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">saturation</span><span class="si">}</span><span class="s2">, hue=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hue</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Crop">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Crop">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Crop</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Crop an image to a given output size, with optional padding and bounding-box support.</span>
+
+<span class="sd">    Expects inputs in CHW (C, H, W) or 2D (H, W) format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">output_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">pad_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;reflect&quot;</span><span class="p">,</span>
+        <span class="n">coords</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">bbox</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_size : Tuple[int, int]</span>
+<span class="sd">            Desired output size as (height, width).</span>
+<span class="sd">        pad_mode : str, optional</span>
+<span class="sd">            Padding mode used if output size is larger than input size. Defaults to &#39;reflect&#39;.</span>
+<span class="sd">            Valid modes include: &#39;constant&#39;, &#39;edge&#39;, &#39;linear_ramp&#39;, &#39;maximum&#39;, &#39;mean&#39;, &#39;median&#39;,</span>
+<span class="sd">            &#39;minimum&#39;, &#39;reflect&#39;, &#39;symmetric&#39;, &#39;wrap&#39;, &#39;empty&#39;.</span>
+<span class="sd">        coords : Tuple[float, float], optional</span>
+<span class="sd">            Top-left coordinates for the crop box as (row, col).</span>
+<span class="sd">            Values must go from 0 to 1 indicating the relative position on where the</span>
+<span class="sd">            new top-left corner can be set, taking in consideration the new size.</span>
+<span class="sd">            Defaults to (0, 0) which corresponds to the top-left corner of the image.</span>
+<span class="sd">        bbox : Optional[Tuple[int, int, int, int]], optional</span>
+<span class="sd">            If provided, crops the image to the bounding box defined by (y1, y2, x1, x2).</span>
+<span class="sd">            If this parameter is set, the `coords` parameter is ignored. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pad_mode</span> <span class="o">=</span> <span class="n">pad_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span>
+
+<div class="viewcode-block" id="Crop.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Crop.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crop the image to the configured output size.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        image : np.ndarray</span>
+<span class="sd">            Input array in CHW (C, H, W) or 2D (H, W) format.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Cropped array. Shape is (C, new_h, new_w) for 3D input or</span>
+<span class="sd">            (new_h, new_w) for 2D input. Padded symmetrically if the</span>
+<span class="sd">            output size exceeds the input size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Always read spatial dims from the last two axes (consistent with CHW)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">new_h</span><span class="p">,</span> <span class="n">new_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span>
+
+        <span class="c1"># Apply padding if output size is larger than input size</span>
+        <span class="k">if</span> <span class="n">new_h</span> <span class="o">&gt;</span> <span class="n">h</span> <span class="ow">or</span> <span class="n">new_w</span> <span class="o">&gt;</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">pad_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_h</span> <span class="o">-</span> <span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">pad_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">new_w</span> <span class="o">-</span> <span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># 3D (C, H, W): pad only H and W, leave C untouched</span>
+            <span class="c1"># 2D (H, W): pad both dims directly</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">pad_width</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">pad_h</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pad_h</span> <span class="o">-</span> <span class="n">pad_h</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">pad_w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pad_w</span> <span class="o">-</span> <span class="n">pad_w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pad_width</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="n">pad_h</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pad_h</span> <span class="o">-</span> <span class="n">pad_h</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">pad_w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pad_w</span> <span class="o">-</span> <span class="n">pad_w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="p">)</span>
+
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">pad_width</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pad_mode</span><span class="p">)</span>
+
+            <span class="c1"># Update spatial dims from last two axes after padding (CHW fix)</span>
+            <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span>
+            <span class="k">return</span> <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span><span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span><span class="n">x2</span><span class="p">]</span>
+
+        <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">new_h</span><span class="p">)</span> <span class="o">*</span> <span class="n">row</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="n">new_w</span><span class="p">)</span> <span class="o">*</span> <span class="n">col</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">r</span> <span class="p">:</span> <span class="n">r</span> <span class="o">+</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">c</span> <span class="p">:</span> <span class="n">c</span> <span class="o">+</span> <span class="n">new_w</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Crop.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Crop.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Crop(output_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="si">}</span><span class="s2">, pad_mode=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pad_mode</span><span class="si">}</span><span class="s2">, coords=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="GrayScale">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.GrayScale">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GrayScale</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;average&quot;</span><span class="p">,</span> <span class="s2">&quot;luminosity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;luminosity&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts an image to grayscale using the specified method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        method : {&#39;average&#39;, &#39;luminosity&#39;}, optional</span>
+<span class="sd">            The method to compute grayscale:</span>
+<span class="sd">            - &#39;average&#39;: (R + G + B) / 3</span>
+<span class="sd">            - &#39;luminosity&#39;: 0.299R + 0.587G + 0.114B</span>
+<span class="sd">            Defaults to &#39;luminosity&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;average&quot;</span><span class="p">,</span> <span class="s2">&quot;luminosity&quot;</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;method must be &#39;average&#39; or &#39;luminosity&#39;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+
+<div class="viewcode-block" id="GrayScale.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.GrayScale.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies grayscale conversion to the input RGB image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        image : np.ndarray</span>
+<span class="sd">            Input image in RGB format with shape (H, W, 3).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Grayscale image with shape (H, W, 3) where all channels are equal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="p">),</span> <span class="s2">&quot;Input must have shape (H, W, 3)&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;average&quot;</span><span class="p">:</span>
+            <span class="n">gray</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># luminosity</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.299</span><span class="p">,</span> <span class="mf">0.587</span><span class="p">,</span> <span class="mf">0.114</span><span class="p">])</span>
+            <span class="n">gray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">weights</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">gray</span><span class="p">,</span> <span class="n">gray</span><span class="p">,</span> <span class="n">gray</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GrayScale.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.GrayScale.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;GrayScale(method=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Solarize">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Solarize">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Solarize</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Solarizes the image by inverting pixel values above a specified threshold.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        threshold : int, optional</span>
+<span class="sd">            Intensity threshold for inversion, default is 128.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Solarized image with inverted pixel values above threshold.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+
+<div class="viewcode-block" id="Solarize.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Solarize.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Color image</span>
+            <span class="n">channels</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">solarized_channels</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">channel</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="mi">255</span> <span class="o">-</span> <span class="n">channel</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span>
+            <span class="p">]</span>
+            <span class="n">solarized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">solarized_channels</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Grayscale image</span>
+            <span class="n">solarized_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">image</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="mi">255</span> <span class="o">-</span> <span class="n">image</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">solarized_image</span></div>
+
+
+<div class="viewcode-block" id="Solarize.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Solarize.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Solarize(threshold=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Rotation">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Rotation">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Rotation</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rotates an image by a specified angle using reflection padding.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        degrees : float</span>
+<span class="sd">            Angle in degrees to rotate the image counterclockwise.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        - Accepts input with shape (H, W) or (H, W, C), where C can be any number of channels.</span>
+<span class="sd">        - For multi-channel images, the same transformation is applied to all channels.</span>
+<span class="sd">        - Uses OpenCV&#39;s warpAffine with reflection padding.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span> <span class="o">=</span> <span class="n">degrees</span>
+
+<div class="viewcode-block" id="Rotation.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Rotation.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported image shape: </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Expected 2D or 3D with channels last.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">h</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Single-channel 2D image</span>
+            <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span>
+                <span class="n">image</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">borderMode</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">BORDER_REFLECT</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Multi-channel image (H, W, C)</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span>
+                <span class="n">image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">c</span><span class="p">],</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">borderMode</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">BORDER_REFLECT</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Rotation.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Rotation.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Rotation(degrees=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">degrees</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PadCrop">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PadCrop">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PadCrop</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_h_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">target_w_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">padding_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;reflect&quot;</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">constant_values</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforms image and pads or crops it to the target size. If the</span>
+<span class="sd">        target size is larger than the input size, the image is padded, else,</span>
+<span class="sd">        the image is cropped. The same happens for both height and width.</span>
+<span class="sd">        The padding mode can be specified, as well as the seed for the random</span>
+<span class="sd">        number generator.</span>
+
+<span class="sd">        For padding, the padding is applied symmetrically on both sides of the</span>
+<span class="sd">        image, thus, image will be centered in the padded image. For cropping,</span>
+<span class="sd">        the crop is applied from a random position in the image.</span>
+
+<span class="sd">        Image is expected to be in C x H x W, or H x W format.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_h_size : int</span>
+<span class="sd">            Desired height size.</span>
+<span class="sd">        target_w_size : int</span>
+<span class="sd">            Desired width size.</span>
+<span class="sd">        padding_mode : str, optional</span>
+<span class="sd">            The padding mode to use, by default &quot;reflect&quot;</span>
+<span class="sd">        seed : int, optional</span>
+<span class="sd">            The seed for the random number generator. It is used to generate</span>
+<span class="sd">            the random crop position. By default, None.</span>
+<span class="sd">        constant_values : int, optional</span>
+<span class="sd">            If padding mode is &#39;constant&#39;, the value to use for padding. By</span>
+<span class="sd">            default 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">=</span> <span class="n">target_h_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">=</span> <span class="n">target_w_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">=</span> <span class="n">padding_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span>
+            <span class="n">seed</span>
+        <span class="p">)</span>  <span class="c1"># Random number generator with the provided seed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constant_values</span> <span class="o">=</span> <span class="n">constant_values</span>
+
+<div class="viewcode-block" id="PadCrop.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PadCrop.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="c1"># Input is expected to be in C x H x W format or H x W format</span>
+
+        <span class="c1"># If input is in C x H x W format, convert to H x W x C format</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Get the height and width of the input image (H and W)</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1">#### HEIGHT ####</span>
+        <span class="c1"># Handle height dimension independently: pad if target_h_size &gt; h, else crop</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">&gt;</span> <span class="n">h</span><span class="p">:</span>
+            <span class="n">pad_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">-</span> <span class="n">h</span>
+            <span class="n">pad_top</span> <span class="o">=</span> <span class="n">pad_h</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">pad_bottom</span> <span class="o">=</span> <span class="n">pad_h</span> <span class="o">-</span> <span class="n">pad_top</span>
+            <span class="n">pad_args</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;array&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+                <span class="s2">&quot;pad_width&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="p">((</span><span class="n">pad_top</span><span class="p">,</span> <span class="n">pad_bottom</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+                    <span class="k">else</span> <span class="p">((</span><span class="n">pad_top</span><span class="p">,</span> <span class="n">pad_bottom</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+                <span class="n">pad_args</span><span class="p">[</span><span class="s2">&quot;constant_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_values</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="o">**</span><span class="n">pad_args</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">:</span>
+            <span class="n">crop_h_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">crop_h_start</span> <span class="p">:</span> <span class="n">crop_h_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+        <span class="c1">#### WIDTH ####</span>
+        <span class="c1"># Handle width dimension independently: pad if target_w_size &gt; w, else crop</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">&gt;</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">pad_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">-</span> <span class="n">w</span>
+            <span class="n">pad_left</span> <span class="o">=</span> <span class="n">pad_w</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">pad_right</span> <span class="o">=</span> <span class="n">pad_w</span> <span class="o">-</span> <span class="n">pad_left</span>
+
+            <span class="n">pad_args</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;array&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+                <span class="s2">&quot;pad_width&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">pad_left</span><span class="p">,</span> <span class="n">pad_right</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+                    <span class="k">else</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">pad_left</span><span class="p">,</span> <span class="n">pad_right</span><span class="p">))</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+                <span class="n">pad_args</span><span class="p">[</span><span class="s2">&quot;constant_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_values</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="o">**</span><span class="n">pad_args</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">crop_w_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">crop_w_start</span> <span class="p">:</span> <span class="n">crop_w_start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+        <span class="c1">#  If input is 3D, convert back to C x H x W format</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="PadCrop.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.PadCrop.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PadCrop(target_h_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span><span class="si">}</span><span class="s2">, target_w_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span><span class="si">}</span><span class="s2">, padding_mode=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padding_mode</span><span class="si">}</span><span class="s2">, constant_values=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">constant_values</span><span class="si">}</span><span class="s2">, seed=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Identity">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Identity">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Identity</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is a dummy transform that does nothing. It is useful when</span>
+<span class="sd">    you want to skip a transform in a pipeline.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Identity.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Identity.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="Identity.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Identity.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Identity()&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Indexer">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Indexer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Indexer</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This transform extracts a single channel from a multi-channel image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            The index of the channel to extract.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+
+<div class="viewcode-block" id="Indexer.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Indexer.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Indexer.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Indexer.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Indexer(index=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Repeat">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Repeat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Repeat</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_repetitions</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This transform repeats the input data along the specified axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axis : int</span>
+<span class="sd">            The axis along which to repeat the input data.</span>
+<span class="sd">        n_repetitions : int</span>
+<span class="sd">            The number of repetitions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_repetitions</span> <span class="o">=</span> <span class="n">n_repetitions</span>
+
+<div class="viewcode-block" id="Repeat.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Repeat.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_repetitions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Repeat.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Repeat.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Repeat(axis=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="si">}</span><span class="s2">, n_repetitions=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_repetitions</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Normalize">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Normalize">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Normalize</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">to_rgb</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">normalize_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalize the input data using the provided means and standard deviations. I assumes the data shape is (C, H, W)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mean : List[float]</span>
+<span class="sd">            List of means for each channel.</span>
+<span class="sd">        std : List[float]</span>
+<span class="sd">            List of standard deviations for each channel.</span>
+<span class="sd">        to_rgb : bool, optional</span>
+<span class="sd">            Convert grayscale images to RGB format, by default False.</span>
+<span class="sd">        normalize_labels : bool, optional</span>
+<span class="sd">            Normalize label images, by default False.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">std</span>
+        <span class="p">),</span> <span class="s2">&quot;Means and standard deviations must have the same length.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">std</span> <span class="o">=</span> <span class="n">std</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_rgb</span> <span class="o">=</span> <span class="n">to_rgb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize_labels</span> <span class="o">=</span> <span class="n">normalize_labels</span>
+
+<div class="viewcode-block" id="Normalize.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Normalize.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+
+        <span class="n">is_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">is_label</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_labels</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_label</span><span class="p">:</span>
+            <span class="c1"># Convert from gray scale (1 channel) to RGB (3 channels) if to_rgb is True</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_rgb</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+            <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Number of channels in data does not match the number of provided mean/std. </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="c1"># Normalize each channel</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">)):</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Normalize.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Normalize.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Normalize(mean=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="si">}</span><span class="s2">, std=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="si">}</span><span class="s2">, to_rgb=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">to_rgb</span><span class="si">}</span><span class="s2">, normalize_labels=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">normalize_labels</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ContrastiveTransform">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ContrastiveTransform">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ContrastiveTransform</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">_Transform</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A transformation wrapper that applies the same transform twice to create contrastive pairs.</span>
+
+<span class="sd">        This transform is commonly used in contrastive learning approaches where you need two</span>
+<span class="sd">        different augmented versions of the same input. It takes a base transformation and applies</span>
+<span class="sd">        it twice independently to the same input, potentially producing different results if the</span>
+<span class="sd">        underlying transform includes randomness.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transform : _Transform</span>
+<span class="sd">            The base transformation to be applied twice. This should be a callable that takes</span>
+<span class="sd">            a numpy array and returns a transformed numpy array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+
+<div class="viewcode-block" id="ContrastiveTransform.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ContrastiveTransform.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ContrastiveTransform.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.ContrastiveTransform.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;ContrastiveTransform(transform=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Reshape">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Reshape">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Reshape</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reshape the input data to the specified shape.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        shape : Tuple[int, ...]</span>
+<span class="sd">            The target shape for the input data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+
+<div class="viewcode-block" id="Reshape.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Reshape.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reshape.__str__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Reshape.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Reshape(shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Resize">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Resize">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Resize</span><span class="p">(</span><span class="n">_Transform</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_h_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">target_w_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">keep_aspect_ratio</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">detect_mask</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A transformation class for resizing images with optional aspect ratio preservation.</span>
+
+<span class="sd">        This transform can resize images to specified target dimensions either by direct resizing</span>
+<span class="sd">        or by preserving the aspect ratio. When preserving aspect ratio, the transform scales</span>
+<span class="sd">        the image using the smaller of the two scaling factors to ensure the image fits within</span>
+<span class="sd">        the target dimensions without distortion.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target_h_size : int</span>
+<span class="sd">            Target height for the resized image in pixels.</span>
+<span class="sd">        target_w_size : int</span>
+<span class="sd">            Target width for the resized image in pixels.</span>
+<span class="sd">        keep_aspect_ratio : bool, default=False</span>
+<span class="sd">            If True, preserves the original aspect ratio by scaling with the smaller</span>
+<span class="sd">            scaling factor. If False, directly resizes to target dimensions which</span>
+<span class="sd">            may distort the image.</span>
+<span class="sd">        detect_mask : bool, default=False</span>
+<span class="sd">            If True, uses nearest neighbor interpolation for resizing masks (integer types).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">=</span> <span class="n">target_h_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">=</span> <span class="n">target_w_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keep_aspect_ratio</span> <span class="o">=</span> <span class="n">keep_aspect_ratio</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detect_mask</span> <span class="o">=</span> <span class="n">detect_mask</span>
+
+<div class="viewcode-block" id="Resize.__call__">
+<a class="viewcode-back" href="../../../autoapi/minerva/transforms/transform/index.html#minerva.transforms.Resize.__call__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">original_height</span><span class="p">,</span> <span class="n">original_width</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_aspect_ratio</span><span class="p">:</span>
+
+            <span class="c1"># Calculate scaling factors for both dimensions</span>
+            <span class="n">width_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_w_size</span> <span class="o">/</span> <span class="n">original_width</span>
+            <span class="n">height_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_h_size</span> <span class="o">/</span> <span class="n">original_height</span>
+
+            <span class="c1"># Choose the smaller scale to keep aspect ratio, and round down</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">width_scale</span><span class="p">,</span> <span class="n">height_scale</span><span class="p">)</span>
+
+            <span class="c1"># Compute new dimensions, rounding down to match MMsegmentation&#39;s behavior</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_width</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_height</span> <span class="o">*</span> <span class="n">scale</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_mask</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+                <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_NEAREST</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+            <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_LINEAR</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

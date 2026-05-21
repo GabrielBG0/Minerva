@@ -1,0 +1,45 @@
+minerva.data.data_modules.datamodule_descriptor
+===============================================
+
+.. py:module:: minerva.data.data_modules.datamodule_descriptor
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.data.data_modules.datamodule_descriptor.DataModuleDescriptor
+
+
+Module Contents
+---------------
+
+.. py:class:: DataModuleDescriptor(train_dataset, val_dataset, test_dataset)
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Interface for describing datasets.
+
+   Each implementation must initialize with train/val/test datasets,
+   and return a detailed description in the __call__() method.
+
+
+   .. py:method:: __call__()
+      :abstractmethod:
+
+
+      Returns a description based on the provided datasets.
+
+
+
+   .. py:attribute:: test_dataset
+
+
+   .. py:attribute:: train_dataset
+
+
+   .. py:attribute:: val_dataset
+
+

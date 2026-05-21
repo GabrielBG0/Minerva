@@ -1,0 +1,196 @@
+minerva.transforms.tfc
+======================
+
+.. py:module:: minerva.transforms.tfc
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.transforms.tfc.TFC_Transforms
+
+
+Module Contents
+---------------
+
+.. py:class:: TFC_Transforms(jitter_ratio = 0.08, jitter_function = None)
+
+   Bases: :py:obj:`minerva.transforms.transform._Transform`
+
+
+   Transformations used in the TFC model.
+   It consists of time and frequency domain data augmentation.
+
+   Initialize the TFC_Transforms class.
+
+   Parameters
+   ----------
+   - jitter_ratio: float
+       The ratio of the jittering transformation. Default is 0.08.
+   - jitter_function: Optional[callable]
+       A custom jittering function. If None, the default proportional jittering function is used.
+
+
+   .. py:method:: DataTransform_FD(sample)
+
+      Weak and strong augmentations.
+      Consists of jittering and adding or removing frequency components.
+
+      Parameters
+      ----------
+      - sample: np.ndarray
+          The input data to be augmented
+
+      Returns
+      -------
+      - np.ndarray
+          The augmented data
+
+
+
+
+   .. py:method:: DataTransform_TD(sample, jitter_ratio = 0.08)
+
+      Weak and strong augmentations.
+      Consists of jittering and removing time components.
+
+      Parameters
+      ----------
+      - sample: np.ndarray
+          The input data to be augmented
+      - jitter_ratio: float
+          The ratio of the jittering transformation
+      - jitter_function: Optional[function]
+          A custom jittering function. If None, the default jittering function is used.
+
+      Returns
+      -------
+      - np.ndarray
+          The augmented data
+
+
+
+
+   .. py:method:: __call__(x, jitter_ratio = None)
+
+      Method that applies the transformations to the input data.
+
+      Parameters
+      ----------
+      - x: Union[np.ndarray, torch.Tensor]
+          The input data to be transformed
+      - jitter_ratio: Optional[float]
+          The ratio of the jittering transformation. If None, the default value is used.
+
+      Returns
+      -------
+      - Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]
+          A tuple with the original data, the transformed data in the time domain the frequency version of the data and the tranformed data in frequency domain
+
+
+
+   .. py:method:: add_frequency(x, pertub_ratio = 0)
+
+      function to add frequency components to the input data.
+
+      Parameters
+      ----------
+      - x: np.ndarray
+          The input data to be augmented
+      - pertub_ratio: float
+          The ratio of the frequency components to be added
+
+      Returns
+      -------
+      - np.ndarray
+          The data with added frequency components
+
+
+
+
+
+   .. py:method:: jitter(x, sigma = 0.8)
+
+      Add noise to the input data.
+
+      Parameters
+      ----------
+      - x: np.ndarray
+          The input data to be augmented
+      - sigma: float
+          The standard deviation of the noise
+
+      Returns
+      -------
+      - np.ndarray
+          The data with added noise
+
+
+
+
+
+   .. py:attribute:: jitter_operation
+
+
+   .. py:attribute:: jitter_ration
+      :value: 0.08
+
+
+
+   .. py:method:: one_hot_encoding(X, n_values = None)
+
+      One-hot encoding of the input data
+
+      Parameters
+      ----------
+      - X: np.ndarray
+          The input data to be encoded
+      - n_values: int
+          The number of classes in the data. If None, the number of classes is inferred from the data
+
+      Returns
+      -------
+      - np.ndarray
+          The one-hot encoded data
+
+
+
+   .. py:method:: proportional_jitter(x, ratio = 0.08)
+
+      Proportional jittering of the input data.
+
+      Parameters
+      ----------
+      - x: np.ndarray
+          The input data to be augmented
+      - ratio: float
+          The ratio of the jittering transformation
+
+      Returns
+      -------
+      - np.ndarray
+          The data with proportional jittering applied
+
+
+
+
+   .. py:method:: remove_frequency(x, maskout_ratio = 0)
+
+      function to remove frequency components from the input data.
+
+      Parameters
+      ----------
+      - x: np.ndarray
+          The input data to be augmented
+      - maskout_ratio: float
+          The ratio of the frequency components to be removed
+
+      Returns
+      -------
+      - np.ndarray
+          The data with removed frequency components
+
+
+

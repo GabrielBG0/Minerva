@@ -1,0 +1,67 @@
+minerva.data.datasets.context_dataset
+=====================================
+
+.. py:module:: minerva.data.datasets.context_dataset
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.data.datasets.context_dataset.ContextDataset
+
+
+Module Contents
+---------------
+
+.. py:class:: ContextDataset(readers, transform = None)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   An abstract class representing a :class:`Dataset`.
+
+   All datasets that represent a map from keys to data samples should subclass
+   it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+   data sample for a given key. Subclasses could also optionally overwrite
+   :meth:`__len__`, which is expected to return the size of the dataset by many
+   :class:`~torch.utils.data.Sampler` implementations and the default options
+   of :class:`~torch.utils.data.DataLoader`. Subclasses could also
+   optionally implement :meth:`__getitems__`, for speedup batched samples
+   loading. This method accepts list of indices of samples of batch and returns
+   list of samples.
+
+   .. note::
+     :class:`~torch.utils.data.DataLoader` by default constructs an index
+     sampler that yields integral indices.  To make it work with a map-style
+     dataset with non-integral indices/keys, a custom sampler must be provided.
+
+   A PyTorch Dataset class for handling paired image and mask data with optional context transformations.
+
+   Parameters
+   ----------
+   readers : Tuple[_Reader, _Reader]
+       A tuple containing two reader objects. The first reader should provide images,
+       and the second reader should provide corresponding masks. Both readers must
+       support indexing and have the same length.
+   transform : Optional[_Transform], default=None
+       An optional transformation function or callable that takes a tuple of (image, mask)
+       and returns a transformed tuple of (image, mask). If None, no transformations
+       are applied.
+
+
+   .. py:method:: __getitem__(idx)
+
+
+   .. py:method:: __len__()
+
+
+   .. py:attribute:: readers
+
+
+   .. py:attribute:: transform
+      :value: None
+
+
+

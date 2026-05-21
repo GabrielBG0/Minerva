@@ -1,0 +1,262 @@
+minerva.models.nets.image.deeplabv3
+===================================
+
+.. py:module:: minerva.models.nets.image.deeplabv3
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.deeplabv3.DeepLabV3
+   minerva.models.nets.image.deeplabv3.DeepLabV3Backbone
+   minerva.models.nets.image.deeplabv3.DeepLabV3PredictionHead
+   minerva.models.nets.image.deeplabv3.DeepLabV3RegressionHead
+
+
+Module Contents
+---------------
+
+.. py:class:: DeepLabV3(backbone = None, pred_head = None, loss_fn = None, learning_rate = 0.001, num_classes = 6, pretrained = False, weights_path = None, train_metrics = None, val_metrics = None, test_metrics = None, optimizer = torch.optim.Adam, optimizer_kwargs = None, lr_scheduler = None, lr_scheduler_kwargs = None, output_shape = None, freeze_backbone = False, interpolate_mode = 'bilinear', flatten = False, loss_squeeze = True, loss_long = True)
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A DeeplabV3 with a ResNet50 backbone
+
+   References
+   ----------
+   Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.
+   "Rethinking Atrous Convolution for Semantic Image Segmentation", 2017
+
+   Initializes a DeepLabV3 model.
+
+   Parameters
+   ----------
+   backbone: Optional[nn.Module]
+       The backbone network. Defaults to None, which will use a ResNet50
+       backbone.
+   pred_head: Optional[nn.Module]
+       The prediction head network. Defaults to None, which will use a
+       DeepLabV3PredictionHead with specified number of classes.
+   loss_fn: Optional[nn.Module]
+       The loss function. Defaults to None, which will use a
+       CrossEntropyLoss.
+   learning_rate: float
+       The learning rate for the optimizer. Defaults to 0.001.
+   num_classes: int
+       The number of classes for prediction. Defaults to 6.
+   pretrained: bool
+       Whether to use pretrained weights. Defaults to False.
+   weights_path: Optional[str]
+       Path to local pretrained weights file. If provided with pretrained=True,
+       loads weights from this path instead of downloading. Defaults to None.
+   train_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during training. Defaults to None.
+   val_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during validation. Defaults to None.
+   test_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during testing. Defaults to None.
+   optimizer: type
+       Optimizer class to be instantiated. By default, it is set to
+       `torch.optim.Adam`. Should be a subclass of
+       `torch.optim.Optimizer` (e.g., `torch.optim.SGD`).
+   optimizer_kwargs : dict, optional
+       Additional kwargs passed to the optimizer constructor.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+   output_shape: Optional[Tuple[int, ...]]
+       The output shape of the model. If None, the output shape will be
+       the same as the input shape. Defaults to None. This is useful for
+       models that require a specific output shape, that is different from
+       the input shape.
+   freeze_backbone: bool
+       Whether to freeze the backbone weights during training. Defaults to
+       False.
+   interpolate_mode: Optional[str]
+       The interpolation mode to use when upscaling the output to the
+       desired output shape. Defaults to "bilinear". Other options include
+       "nearest", "bicubic", etc. See PyTorch documentation for
+       `torch.nn.functional.interpolate` for all options. Use None to
+       disable upscaling.
+   flatten: bool
+       Whether to flatten the output of the backbone before passing it to
+       the prediction head. Defaults to False. Set to True for classification
+       tasks where the prediction head is a fully connected layer.
+   loss_squeeze: bool
+       Whether to squeeze the target tensor in the loss function. Defaults
+       to True. This is useful for segmentation tasks where the target tensor
+       has a singleton channel dimension (e.g., shape (B, 1, H, W)) and the
+       loss function expects shape (B, H, W).
+   loss_long: bool
+       Whether to convert the target tensor to long type in the loss
+       function. Defaults to True. This is useful for classification tasks
+       where the target tensor is of integer type.
+
+
+
+   .. py:method:: _loss_func(y_hat, y)
+
+      Computes the loss between predictions and ground truth.
+
+      Parameters
+      ----------
+      y_hat : Tensor
+          Predicted tensor of shape (batch_size, num_classes, height, width)
+      y : Tensor
+          Ground truth tensor of shape (batch_size, 1, height, width)
+
+
+
+   .. py:method:: forward(x)
+
+      Performs the forward pass of the DeepLabV3 model.
+
+      Parameters
+      ----------
+      x : Tensor
+          Input tensor of shape (batch_size, channels, height, width)
+
+      Returns
+      -------
+      Tensor
+          Output tensor of shape (batch_size, num_classes, height, width)
+
+
+
+   .. py:attribute:: interpolate_mode
+      :value: 'bilinear'
+
+
+
+   .. py:attribute:: loss_long
+      :value: True
+
+
+
+   .. py:attribute:: output_shape
+      :value: None
+
+
+
+   .. py:attribute:: squeeze_loss
+      :value: True
+
+
+
+.. py:class:: DeepLabV3Backbone(num_classes = 6, pretrained = False, weights_path = None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A ResNet50 backbone for DeepLabV3
+
+   Initializes the DeepLabV3 backbone model.
+
+   Parameters
+   ----------
+   num_classes: int
+       The number of classes for classification. Default is 6.
+   pretrained: bool
+       Whether to use pretrained weights. If True and weights_path is None,
+       will attempt to download ImageNet pretrained weights. Default is False.
+   weights_path: Optional[str]
+       Path to local pretrained weights file. If provided with pretrained=True,
+       loads weights from this path instead of downloading. Default is None.
+
+
+   .. py:attribute:: RN50model
+
+
+   .. py:method:: forward(x)
+
+      Performs the forward pass of the backbone.
+
+      Parameters
+      ----------
+      x : Tensor
+          Input tensor of shape (batch_size, channels, height, width)
+
+      Returns
+      -------
+      Tensor
+          Feature map tensor from the ResNet50 backbone
+
+
+
+   .. py:method:: freeze_weights()
+
+      Freezes all parameters in the backbone, making them non-trainable.
+
+
+
+   .. py:method:: unfreeze_weights()
+
+      Unfreezes all parameters in the backbone, making them trainable.
+
+
+
+.. py:class:: DeepLabV3PredictionHead(in_channels = 2048, num_classes = 6, atrous_rates = (12, 24, 36))
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   The prediction head for DeepLabV3
+
+   Initializes the DeepLabV3 prediction head.
+
+   Parameters
+   ----------
+   in_channels: int
+       Number of input channels. Defaults to 2048.
+   num_classes: int
+       Number of output classes. Defaults to 6.
+   atrous_rates: Sequence[int]
+       A sequence of atrous rates for the ASPP module. Defaults to (12, 24, 36).
+
+
+   .. py:method:: forward(input)
+
+      Performs the forward pass of the prediction head.
+
+      Parameters
+      ----------
+      input : Tensor
+          Input tensor from the backbone
+
+      Returns
+      -------
+      Tensor
+          Output tensor with class predictions
+
+
+
+.. py:class:: DeepLabV3RegressionHead(in_channels = 2048, out_channels = 1, atrous_rates = (12, 24, 36))
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   Regression head for DeepLabV3 (continuous per-pixel/voxel prediction).
+
+   Parameters
+   ----------
+   in_channels : int
+       Number of input channels from the backbone (typically 2048 for ResNet50).
+   out_channels : int
+       Number of output channels (1 for single regression target).
+   atrous_rates : Sequence[int]
+       Atrous (dilation) rates for ASPP.
+
+
+   .. py:method:: forward(x)
+
+      Forward pass for regression head.
+
+
+

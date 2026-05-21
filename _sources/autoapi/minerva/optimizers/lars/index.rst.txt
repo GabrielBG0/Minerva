@@ -1,0 +1,84 @@
+minerva.optimizers.lars
+=======================
+
+.. py:module:: minerva.optimizers.lars
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.optimizers.lars.LARS
+
+
+Module Contents
+---------------
+
+.. py:class:: LARS(params, lr, momentum = 0.9, weight_decay = 1e-06, eta = 0.001, epsilon = 1e-08, exclude_from_layer_adaptation = None)
+
+   Bases: :py:obj:`torch.optim.optimizer.Optimizer`
+
+
+   Layer-wise Adaptive Rate Scaling (LARS) optimizer.
+
+   This optimizer implements the LARS algorithm, which adapts the learning rate
+   for each layer based on the ratio of the weight norm to the gradient norm.
+   This helps stabilize training and allows for larger learning rates.
+
+   Layer-wise Adaptive Rate Scaling (LARS) optimizer.
+
+   This optimizer implements the LARS algorithm, which adapts the learning rate
+   for each layer based on the ratio of the weight norm to the gradient norm.
+   This helps stabilize training and allows for larger learning rates.
+
+   Parameters
+   ----------
+   params : Any
+       Parameters to optimize.
+   lr : float
+       Base learning rate.
+   momentum : float, optional, default: 0.9
+       Momentum factor.
+   weight_decay : float, optional, default: 1e-6
+       Weight decay (L2 penalty) coefficient.
+   eta : float, optional, default: 0.001
+       Trust coefficient for layer-wise rate scaling.
+   epsilon : float, optional, default: 1e-8
+       Small constant for numerical stability.
+   exclude_from_layer_adaptation : Set[str], optional
+       Set of parameter names to exclude from layer-wise adaptation
+       (e.g., batch normalization layers and biases).
+
+   Attributes
+   ----------
+   exclude_set : Set[str]
+       Set of parameter names excluded from layer-wise adaptation.
+
+   References
+   ----------
+   .. [1] You, Yang, et al. "Large batch training of convolutional networks."
+       arXiv preprint arXiv:1708.03888 (2017).
+
+
+
+   .. py:attribute:: exclude_set
+
+
+   .. py:method:: step(closure = None)
+
+      Performs a single optimization step.
+
+      Parameters
+      ----------
+      closure : callable, optional
+          A closure that reevaluates the model and returns the loss.
+
+      Returns
+      -------
+      loss : torch.Tensor or None
+          Loss from the closure if provided, otherwise None.
+
+
+
+

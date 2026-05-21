@@ -1,0 +1,92 @@
+minerva.callback.specific_checkpoint_callback
+=============================================
+
+.. py:module:: minerva.callback.specific_checkpoint_callback
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.callback.specific_checkpoint_callback.SpecificCheckpointCallback
+
+
+Module Contents
+---------------
+
+.. py:class:: SpecificCheckpointCallback(specific_epochs = None, specific_steps = None, epoch_var_name = None, step_var_name = None)
+
+   Bases: :py:obj:`lightning.Callback`
+
+
+   Abstract base class used to build new callbacks.
+
+   Subclass this class and override any of the relevant hooks
+
+
+   Callback to save model checkpoints at specific epochs and/or steps.
+
+   Parameters
+   ----------
+   specific_epochs : list of dict or int, optional
+       A list specifying the epoch indices at which to save the checkpoints.
+       Each item can be an integer epoch index (starting at 0) or a dictionary
+       defining a range of epoch indexes. If -1 is included, the model initial
+       random weights will be saved.
+   specific_steps : list of dict or int, optional
+       A list specifying the step indices at which to save the checkpoints.
+       Each item can be an integer step index (starting at 1) or a dictionary
+       defining a range of step indexes.
+   epoch_var_name : string, optional
+       The name of the trainer attribute that holds the current epoch, by default
+       None. If None, 'current_epoch' is used.
+   step_var_name : string, optional
+       The name of the trainer attribute that holds the current step, by default
+       None. If None, 'global_step' is used.
+
+
+   .. py:attribute:: checkpoint_path
+      :value: None
+
+
+
+   .. py:attribute:: epoch_var_name
+      :value: 'current_epoch'
+
+
+
+   .. py:method:: on_train_batch_end(trainer, pl_module, outputs, batch, batch_idx)
+
+      Checks the step index and saves the checkpoint if specified.
+
+
+
+   .. py:method:: on_train_epoch_end(trainer, pl_module)
+
+      Checks the epoch index and saves the checkpoint if specified.
+
+
+
+   .. py:method:: on_train_start(trainer, pl_module)
+
+      It creates the checkpoints folder at the start of the training. If required,
+      it also saves the model initial random weights.
+
+
+
+   .. py:attribute:: specific_epochs
+      :value: []
+
+
+
+   .. py:attribute:: specific_steps
+      :value: []
+
+
+
+   .. py:attribute:: step_var_name
+      :value: 'global_step'
+
+
+

@@ -1,0 +1,1690 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../../../genindex.html"><link rel="search" title="Search" href="../../../../../search.html"><link rel="next" title="minerva.data.data_modules.har_rodrigues_24" href="../har_rodrigues_24/index.html"><link rel="prev" title="minerva.data.data_modules.datamodule_descriptor" href="../datamodule_descriptor/index.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>minerva.data.data_modules.har - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../../index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../design.html">Minerva Design</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../notebooks/seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../notebooks/har_getting_started.html">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../notebooks/experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../../api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../../index.html">minerva</a><input aria-label="Toggle navigation of minerva" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="../../index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 current has-children"><a class="reference internal" href="../index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l5"><a class="reference internal" href="../base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5 current current-page"><a class="current reference internal" href="#">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../readers/index.html">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../readers/zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../../models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../pipelines/index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../pipelines/base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../pipelines/experiment/index.html">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../pipelines/lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../../../_sources/autoapi/minerva/data/data_modules/har/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-minerva.data.data_modules.har">
+<span id="minerva-data-data-modules-har"></span><h1>minerva.data.data_modules.har<a class="headerlink" href="#module-minerva.data.data_modules.har" title="Link to this heading">¶</a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule</span></code></a></p></td>
+<td><p>A DataModule standardizes the training, val, test splits, data preparation and transforms. The main advantage is</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule" title="minerva.data.data_modules.har.UserActivityFolderDataModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UserActivityFolderDataModule</span></code></a></p></td>
+<td><p>A DataModule standardizes the training, val, test splits, data preparation and transforms. The main advantage is</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.data_modules.har.parse_num_workers" title="minerva.data.data_modules.har.parse_num_workers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_num_workers</span></code></a>([num_workers])</p></td>
+<td><p>Parse the num_workers parameter. If None, use all cores.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.data_modules.har.parse_transforms" title="minerva.data.data_modules.har.parse_transforms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_transforms</span></code></a>(transforms)</p></td>
+<td><p>Parse the transforms parameter to a dictionary with the split name as</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.data_modules.har.</span></span><span class="sig-name descname"><span class="pre">MultiModalHARSeriesDataModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_prefixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('accel-x',</span> <span class="pre">'accel-y',</span> <span class="pre">'accel-z',</span> <span class="pre">'gyro-x',</span> <span class="pre">'gyro-y',</span> <span class="pre">'gyro-z')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard</span> <span class="pre">activity</span> <span class="pre">code'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_as_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transforms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_train_as_validation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_val_with_train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_domains_per_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples_per_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'test'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle_train</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">lightning.LightningDataModule</span></code></p>
+<p>A DataModule standardizes the training, val, test splits, data preparation and transforms. The main advantage is
+consistent data splits, data preparation and transforms across models.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">L</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightning.pytorch.demos.boring_classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomDataset</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDataModule</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># download, IO, etc. Useful with shared filesystems</span>
+        <span class="c1"># only called on 1 GPU/TPU in distributed</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">):</span>
+        <span class="c1"># make assignments here (val/train/test split)</span>
+        <span class="c1"># called on every process in DDP</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">RandomDataset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">random_split</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">generator</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+        <span class="c1"># clean up state after the trainer faced an exception</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># clean up state after the trainer stops, delete files...</span>
+        <span class="c1"># called on every process in DDP</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>Define the dataloaders for train, validation and test splits for
+HAR datasets. This datasets assumes that the data is in a single CSV
+file with series of data. Each row is a single sample that can be
+composed of multiple modalities (series). Each column is a feature of
+some series with the prefix indicating the series. The suffix may
+indicates the time step. For instance, if we have two series, accel-x
+and accel-y, the data will look something like:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>accel-x-0</p></td>
+<td><p>accel-x-1</p></td>
+<td><p>accel-y-0</p></td>
+<td><p>accel-y-1</p></td>
+<td><p>class</p></td>
+</tr>
+<tr class="row-even"><td><p>0.502123
+0.6820123
+0.498217</p></td>
+<td><p>0.02123
+0.02123
+0.00001</p></td>
+<td><p>0.502123
+0.502123
+1.414141</p></td>
+<td><p>0.502123
+0.502123
+3.141592</p></td>
+<td><p>0
+1
+2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">feature_prefixes</span></code> parameter is used to select the columns that
+will be used as features. For instance, if we want to use only the
+accel-x series, we can set <code class="docutils literal notranslate"><span class="pre">feature_prefixes=[&quot;accel-x&quot;]</span></code>. If we want
+to use both accel-x and accel-y, we can set
+<code class="docutils literal notranslate"><span class="pre">feature_prefixes=[&quot;accel-x&quot;,</span> <span class="pre">&quot;accel-y&quot;]</span></code>. If None is passed, all
+columns will be used as features, except the label column.
+The label column is specified by the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter.</p>
+<p>The dataset will return a 2-element tuple with the data and the label,
+if the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter is specified, otherwise return only the data.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">features_as_channels</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the data will be returned as a
+vector of shape <cite>(C, T)</cite>, where C is the number of channels (features)
+and <cite>T</cite> is the number of time steps. Else, the data will be returned as
+a vector of shape  T*C (a single vector with all the features).</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>data_path<span class="classifier">PathLike</span></dt><dd><p>The path to the folder with “train.csv”, “validation.csv” and
+“test.csv” files inside it.</p>
+</dd>
+<dt>feature_prefixes<span class="classifier">Union[str, List[str]], optional</span></dt><dd><p>The prefix of the column names in the dataframe that will be used
+to become features. If None, all columns except the label will be
+used as features.</p>
+</dd>
+<dt>label<span class="classifier">str, optional</span></dt><dd><p>The name of the column that will be used as label</p>
+</dd>
+<dt>features_as_channels<span class="classifier">bool, optional</span></dt><dd><p>If True, the data will be returned as a vector of shape (C, T),
+else the data will be returned as a vector of shape  T*C.</p>
+</dd>
+<dt>cast_to: str, optional</dt><dd><p>Cast the numpy data to the specified type</p>
+</dd>
+<dt>transforms<span class="classifier">Union[List[Callable], Dict[str, List[Callable]]], optional</span></dt><dd><p>This could be:
+- None: No transforms will be applied
+- List[Callable]: A list of transforms that will be applied to the</p>
+<blockquote>
+<div><p>data. The same transforms will be applied to all splits.</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Dict[str, List[Callable]]: A dictionary with the split name as</dt><dd><p>key and a list of transforms as value. The split name must be
+one of: “train”, “validation”, “test” or “predict”.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>batch_size<span class="classifier">int, optional</span></dt><dd><p>The size of the batch</p>
+</dd>
+<dt>num_workers<span class="classifier">int, optional</span></dt><dd><p>Number of workers to load data. If None, then use all cores</p>
+</dd>
+<dt>data_percentage<span class="classifier">float, optional</span></dt><dd><p>The percentage of the data that will be used. This is useful to
+create a small datasets.</p>
+</dd>
+<dt>use_train_as_validation<span class="classifier">bool, optional</span></dt><dd><p>If True, the train dataset will be used as validation dataset.</p>
+</dd>
+<dt>use_val_with_train: bool, optional</dt><dd><p>If True, the validation and train sets will be concatenated in
+order to create a large train set. By default, this is False.</p>
+</dd>
+<dt>map_labels<span class="classifier">Dict[int, int], optional</span></dt><dd><p>A dictionary to map the labels to a new label. The key is the
+original label and the value is the new label.</p>
+</dd>
+<dt>drop_last<span class="classifier">bool, optional</span></dt><dd><p>Drop the last batch if it is not complete.</p>
+</dd>
+<dt>n_domains_per_sample<span class="classifier">int, optional</span></dt><dd><p>This is inly useful when using multiple domains (<cite>data_path</cite>). It
+will allow creating batches with same number of samples from
+multiple domains. If None, it will just use concatenate all
+datasets and sample in a non-stratified way. By default, None-</p>
+</dd>
+<dt>samples_per_class<span class="classifier">int, optional</span></dt><dd><p>If not None, use this number of samples per class for the train
+split. This will override the data_percentage parameter.</p>
+</dd>
+<dt>seed: Optional[int] = None</dt><dd><p>Seed for sampling the dataset. If None, no seed is set.</p>
+</dd>
+<dt>predict_split: str</dt><dd><p>The name of the split to use for prediction. This will be used to
+load the dataset for prediction. By default, this is “test”.</p>
+</dd>
+<dt>shuffle_train: str</dt><dd><p>If True, the train dataset will be shuffled.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>If <cite>data_percentage</cite> is set to a value less than 1.0, a random subset</dt><dd><p>of the dataset will be used, containing approximately the specified
+percentage of the total data. This sampling is not stratified.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>If <cite>samples_per_class</cite> is specified, the train split will contain an</dt><dd><p>equal number of samples for each class, as defined by this
+parameter. This option is mutually exclusive with data_percentage;
+both cannot be used at the same time.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>The <cite>seed</cite> parameter controls the randomness of sampling: If <cite>seed</cite> is</dt><dd><p>set (i.e., an integer), sampling becomes deterministic, ensuring
+the same subset is selected on each run. This improves
+reproducibility and supports cumulative sampling—for example,
+progressively increasing <cite>samples_per_class</cite> will retain consistency
+across runs by sampling the same initial elements. If seed is
+<cite>None</cite>,  sampling is non-deterministic, and different subsets may
+be chosen each time.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <cite>samples_per_class</cite> and <cite>data_percentage</cite> are both set.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__repr__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Return a string representation of the datasets that are set up.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A string representation of the datasets that are setup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule._get_loader">
+<span class="sig-name descname"><span class="pre">_get_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule._get_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._get_loader" title="Link to this definition">¶</a></dt>
+<dd><p>Get a dataloader for the given split.</p>
+<section id="id1">
+<h4>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>split_name<span class="classifier">str</span></dt><dd><p>The name of the split. This must be one of: “train”, “validation”,
+“test” or “predict”.</p>
+</dd>
+<dt>shuffle<span class="classifier">bool</span></dt><dd><p>Shuffle the data or not.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>DataLoader</dt><dd><p>A dataloader for the given split.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>split_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule._load_dataset">
+<span class="sig-name descname"><span class="pre">_load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule._load_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._load_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Create a <code class="docutils literal notranslate"><span class="pre">MultiModalSeriesCSVDataset</span></code> dataset with the given split.</p>
+<section id="id2">
+<h4>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>split_name<span class="classifier">str</span></dt><dd><p>The name of the split. This must be one of: “train”, “validation”,
+“test” or “predict”.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h4>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>MultiModalSeriesCSVDataset</dt><dd><p>A MultiModalSeriesCSVDataset dataset with the given split.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>split_name</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[Union[<a class="reference internal" href="../../datasets/series_dataset/index.html#minerva.data.datasets.series_dataset.MultiModalSeriesCSVDataset" title="minerva.data.datasets.series_dataset.MultiModalSeriesCSVDataset">minerva.data.datasets.series_dataset.MultiModalSeriesCSVDataset</a>, torch.utils.data.ConcatDataset], List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule._sample_dataset">
+<span class="sig-name descname"><span class="pre">_sample_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule._sample_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._sample_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Sample the dataset based on the specified parameters.</p>
+<p>If <cite>samples_per_class</cite> is specified, a subset will be created
+containing the specified number of samples for each class. If
+<cite>data_percentage</cite> is specified, a random subset of the dataset
+will be created containing approximately the specified percentage
+of the total data. If neither is specified, the entire dataset
+will be returned.</p>
+<section id="note">
+<h4>Note<a class="headerlink" href="#note" title="Link to this heading">¶</a></h4>
+<p>The <cite>seed</cite> parameter controls the randomness of sampling:
+If <cite>seed</cite> is set (i.e., an integer), sampling becomes deterministic,
+ensuring the same subset is selected on each run and allowing for
+cumulative sampling (e.g., progressively increasing <cite>samples_per_class</cite>
+will retain consistency across runs by sampling the same initial
+elements). If <cite>seed</cite> is <cite>None</cite>, sampling is non-deterministic, and
+different subsets may be chosen each time.</p>
+</section>
+<section id="id4">
+<h4>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>dataset: Dataset</dt><dd><p>A map-like dataset to sample from. This should be a-</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h4>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Dataset</dt><dd><p>A sampled dataset.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h4>Raises<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If <cite>samples_per_class</cite> is specified and a class has fewer
+samples than the specified number.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.batch_size">
+<span class="sig-name descname"><span class="pre">batch_size</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.batch_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.cast_to">
+<span class="sig-name descname"><span class="pre">cast_to</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.cast_to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_path">
+<span class="sig-name descname"><span class="pre">data_path</span></span><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_percentage">
+<span class="sig-name descname"><span class="pre">data_percentage</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_percentage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.datasets">
+<span class="sig-name descname"><span class="pre">datasets</span></span><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.datasets" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.drop_last">
+<span class="sig-name descname"><span class="pre">drop_last</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.drop_last" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.feature_prefixes">
+<span class="sig-name descname"><span class="pre">feature_prefixes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('accel-x',</span> <span class="pre">'accel-y',</span> <span class="pre">'accel-z',</span> <span class="pre">'gyro-x',</span> <span class="pre">'gyro-y',</span> <span class="pre">'gyro-z')</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.feature_prefixes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.features_as_channels">
+<span class="sig-name descname"><span class="pre">features_as_channels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.features_as_channels" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'standard</span> <span class="pre">activity</span> <span class="pre">code'</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.map_labels">
+<span class="sig-name descname"><span class="pre">map_labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.map_labels" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.n_domains_per_sample">
+<span class="sig-name descname"><span class="pre">n_domains_per_sample</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.n_domains_per_sample" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.num_workers">
+<span class="sig-name descname"><span class="pre">num_workers</span></span><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.num_workers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_dataloader">
+<span class="sig-name descname"><span class="pre">predict_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.predict_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying prediction samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>It’s recommended that all data downloads and preparation happen in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code>.</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware
+There is no need to set it yourself.</p>
+</dd>
+<dt>Return:</dt><dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.DataLoader</span></code> or a sequence of them specifying prediction samples.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_split">
+<span class="sig-name descname"><span class="pre">predict_split</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'test'</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_split" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.rng">
+<span class="sig-name descname"><span class="pre">rng</span></span><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.rng" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.samples_per_class">
+<span class="sig-name descname"><span class="pre">samples_per_class</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.samples_per_class" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="Link to this definition">¶</a></dt>
+<dd><p>Assign the datasets to the corresponding split. <code class="docutils literal notranslate"><span class="pre">self.datasets</span></code>
+will be a dictionary with the split name as key and the dataset as
+value.</p>
+<section id="id7">
+<h4>Parameters<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>stage<span class="classifier">str</span></dt><dd><p>The stage of the setup. This could be:
+- “fit”: Load the train and validation datasets
+- “test”: Load the test dataset
+- “predict”: Load the predict dataset</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h4>Raises<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the stage is not one of: “fit”, “test” or “predict”</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stage</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.shuffle_train">
+<span class="sig-name descname"><span class="pre">shuffle_train</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.shuffle_train" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.test_dataloader">
+<span class="sig-name descname"><span class="pre">test_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.test_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.test_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying test samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>For data processing use the following pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>download in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p>process and split in <a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>However, the above are only necessary for distributed processing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>do not assign state in prepare_data</p>
+</div>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+There is no need to set it yourself.</p>
+</dd>
+<dt>Note:</dt><dd><p>If you don’t need a test dataset and a <code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code>, you don’t need to implement
+this method.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.train_dataloader">
+<span class="sig-name descname"><span class="pre">train_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.train_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.train_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying training samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>The dataloader you return will not be reloaded unless you set
+<a href="#id9"><span class="problematic" id="id10">:paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs`</span></a> to
+a positive integer.</p>
+<p>For data processing use the following pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>download in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p>process and split in <a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>However, the above are only necessary for distributed processing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>do not assign state in prepare_data</p>
+</div>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+There is no need to set it yourself.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.transforms">
+<span class="sig-name descname"><span class="pre">transforms</span></span><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.transforms" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_train_as_validation">
+<span class="sig-name descname"><span class="pre">use_train_as_validation</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_train_as_validation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_val_with_train">
+<span class="sig-name descname"><span class="pre">use_val_with_train</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_val_with_train" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.val_dataloader">
+<span class="sig-name descname"><span class="pre">val_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#MultiModalHARSeriesDataModule.val_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.val_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying validation samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>The dataloader you return will not be reloaded unless you set
+<a href="#id11"><span class="problematic" id="id12">:paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs`</span></a> to
+a positive integer.</p>
+<p>It’s recommended that all data downloads and preparation happen in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code>.</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">validate()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup" title="minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware
+There is no need to set it yourself.</p>
+</dd>
+<dt>Note:</dt><dd><p>If you don’t need a validation dataset and a <code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code>, you don’t need to
+implement this method.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>minerva.utils.typing.PathLike</em><em> | </em><em>List</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+<li><p><strong>feature_prefixes</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>label</strong> (<em>str</em>)</p></li>
+<li><p><strong>features_as_channels</strong> (<em>bool</em>)</p></li>
+<li><p><strong>transforms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>cast_to</strong> (<em>str</em>)</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_workers</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>data_percentage</strong> (<em>float</em>)</p></li>
+<li><p><strong>use_train_as_validation</strong> (<em>bool</em>)</p></li>
+<li><p><strong>use_val_with_train</strong> (<em>bool</em>)</p></li>
+<li><p><strong>map_labels</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>drop_last</strong> (<em>bool</em>)</p></li>
+<li><p><strong>n_domains_per_sample</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>samples_per_class</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>predict_split</strong> (<em>str</em>)</p></li>
+<li><p><strong>shuffle_train</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.data_modules.har.</span></span><span class="sig-name descname"><span class="pre">UserActivityFolderDataModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('accel-x',</span> <span class="pre">'accel-y',</span> <span class="pre">'accel-z',</span> <span class="pre">'gyro-x',</span> <span class="pre">'gyro-y',</span> <span class="pre">'gyro-z')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'standard</span> <span class="pre">activity</span> <span class="pre">code'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transforms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float32'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">lightning.LightningDataModule</span></code></p>
+<p>A DataModule standardizes the training, val, test splits, data preparation and transforms. The main advantage is
+consistent data splits, data preparation and transforms across models.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">L</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightning.pytorch.demos.boring_classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomDataset</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDataModule</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># download, IO, etc. Useful with shared filesystems</span>
+        <span class="c1"># only called on 1 GPU/TPU in distributed</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">):</span>
+        <span class="c1"># make assignments here (val/train/test split)</span>
+        <span class="c1"># called on every process in DDP</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">RandomDataset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">random_split</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">generator</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">val_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_dataloader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+        <span class="c1"># clean up state after the trainer faced an exception</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># clean up state after the trainer stops, delete files...</span>
+        <span class="c1"># called on every process in DDP</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>Define the dataloaders for train, validation and test splits for
+HAR datasets. The data must be in the following folder structure:
+It is a wrapper around <code class="docutils literal notranslate"><span class="pre">SeriesFolderCSVDataset</span></code> dataset class.
+The <code class="docutils literal notranslate"><span class="pre">SeriesFolderCSVDataset</span></code> class assumes that the data is in a
+folder with multiple CSV files. Each CSV file is a single sample that
+can be composed of multiple time steps (rows). Each column is a feature
+of the sample.</p>
+<p>For instance, if we have two samples, user-1.csv and user-2.csv,
+the directory structure will look something like:</p>
+<p>data_path
+├── user-1.csv
+└── user-2.csv</p>
+<p>And the data will look something like:
+- user-1.csv:</p>
+<blockquote>
+<div><div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>accel-x</p></td>
+<td><p>accel-y</p></td>
+<td><p>class</p></td>
+</tr>
+<tr class="row-even"><td><p>0.502123
+0.682012
+0.498217</p></td>
+<td><p>0.02123
+0.02123
+0.00001</p></td>
+<td><p>1
+1
+1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<ul>
+<li><dl>
+<dt>user-2.csv:</dt><dd><div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>accel-x</p></td>
+<td><p>accel-y</p></td>
+<td><p>class</p></td>
+</tr>
+<tr class="row-even"><td><p>0.502123
+0.682012
+0.498217
+3.141592</p></td>
+<td><p>0.02123
+0.02123
+0.00001
+1.414141</p></td>
+<td><p>0
+0
+0
+0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">features</span></code> parameter is used to select the columns that will be
+used as features. For instance, if we want to use only the accel-x
+column, we can set <code class="docutils literal notranslate"><span class="pre">features=[&quot;accel-x&quot;]</span></code>. If we want to use both
+accel-x and accel-y, we can set <code class="docutils literal notranslate"><span class="pre">features=[&quot;accel-x&quot;,</span> <span class="pre">&quot;accel-y&quot;]</span></code>.</p>
+<p>The label column is specified by the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter. Note that we
+have one label per time-step and not a single label per sample.</p>
+<p>The dataset will return a 2-element tuple with the data and the label,
+if the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter is specified, otherwise return only the data.</p>
+<section id="id13">
+<h3>Parameters<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>data_path<span class="classifier">PathLike</span></dt><dd><p>The location of the directory with CSV files.</p>
+</dd>
+<dt>features: List[str]</dt><dd><p>A list with column names that will be used as features. If None,
+all columns except the label will be used as features.</p>
+</dd>
+<dt>pad: bool, optional</dt><dd><p>If True, the data will be padded to the length of the longest
+sample. Note that padding will be applyied after the transforms,
+and also to the labels if specified.</p>
+</dd>
+<dt>label: str, optional</dt><dd><p>Specify the name of the column with the label of the data</p>
+</dd>
+<dt>transforms<span class="classifier">Union[List[Callable], Dict[str, List[Callable]]], optional</span></dt><dd><p>This could be:
+- None: No transforms will be applied
+- List[Callable]: A list of transforms that will be applied to the</p>
+<blockquote>
+<div><p>data. The same transforms will be applied to all splits.</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Dict[str, List[Callable]]: A dictionary with the split name as</dt><dd><p>key and a list of transforms as value. The split name must be
+one of: “train”, “validation”, “test” or “predict”.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>cast_to: str, optional</dt><dd><p>Cast the numpy data to the specified type</p>
+</dd>
+<dt>batch_size<span class="classifier">int, optional</span></dt><dd><p>The size of the batch</p>
+</dd>
+<dt>num_workers<span class="classifier">int, optional</span></dt><dd><p>Number of workers to load data. If None, then use all cores</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.__repr__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Return a string representation of the datasets that are set up.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A string representation of the datasets that are setup.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule._get_loader">
+<span class="sig-name descname"><span class="pre">_get_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule._get_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule._get_loader" title="Link to this definition">¶</a></dt>
+<dd><p>Get a dataloader for the given split.</p>
+<section id="id14">
+<h4>Parameters<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>split_name<span class="classifier">str</span></dt><dd><p>The name of the split. This must be one of: “train”, “validation”,
+“test” or “predict”.</p>
+</dd>
+<dt>shuffle<span class="classifier">bool</span></dt><dd><p>Shuffle the data or not.</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h4>Returns<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>DataLoader</dt><dd><p>A dataloader for the given split.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>split_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule._load_dataset">
+<span class="sig-name descname"><span class="pre">_load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule._load_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule._load_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Create a <code class="docutils literal notranslate"><span class="pre">SeriesFolderCSVDataset</span></code> dataset with the given split.</p>
+<section id="id16">
+<h4>Parameters<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>split_name<span class="classifier">str</span></dt><dd><p>Name of the split (train, validation or test). This will be used to
+load the corresponding CSV file.</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h4>Returns<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>SeriesFolderCSVDataset</dt><dd><p>The dataset with the given split.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>split_name</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../../datasets/series_dataset/index.html#minerva.data.datasets.series_dataset.SeriesFolderCSVDataset" title="minerva.data.datasets.series_dataset.SeriesFolderCSVDataset">minerva.data.datasets.series_dataset.SeriesFolderCSVDataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.batch_size">
+<span class="sig-name descname"><span class="pre">batch_size</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.batch_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.cast_to">
+<span class="sig-name descname"><span class="pre">cast_to</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.cast_to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.data_path">
+<span class="sig-name descname"><span class="pre">data_path</span></span><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.data_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.datasets">
+<span class="sig-name descname"><span class="pre">datasets</span></span><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.datasets" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.features">
+<span class="sig-name descname"><span class="pre">features</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('accel-x',</span> <span class="pre">'accel-y',</span> <span class="pre">'accel-z',</span> <span class="pre">'gyro-x',</span> <span class="pre">'gyro-y',</span> <span class="pre">'gyro-z')</span></em><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.features" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'standard</span> <span class="pre">activity</span> <span class="pre">code'</span></em><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.num_workers">
+<span class="sig-name descname"><span class="pre">num_workers</span></span><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.num_workers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.pad">
+<span class="sig-name descname"><span class="pre">pad</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.pad" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.predict_dataloader">
+<span class="sig-name descname"><span class="pre">predict_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.predict_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.predict_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying prediction samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>It’s recommended that all data downloads and preparation happen in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code>.</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">predict()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware
+There is no need to set it yourself.</p>
+</dd>
+<dt>Return:</dt><dd><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.DataLoader</span></code> or a sequence of them specifying prediction samples.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="Link to this definition">¶</a></dt>
+<dd><p>Assign the datasets to the corresponding split. <code class="docutils literal notranslate"><span class="pre">self.datasets</span></code>
+will be a dictionary with the split name as key and the dataset as
+value.</p>
+<section id="id18">
+<h4>Parameters<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>stage<span class="classifier">str</span></dt><dd><p>The stage of the setup. This could be:
+- “fit”: Load the train and validation datasets
+- “test”: Load the test dataset
+- “predict”: Load the predict dataset</p>
+</dd>
+</dl>
+</section>
+<section id="id19">
+<h4>Raises<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the stage is not one of: “fit”, “test” or “predict”</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>stage</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.test_dataloader">
+<span class="sig-name descname"><span class="pre">test_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.test_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.test_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying test samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>For data processing use the following pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>download in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p>process and split in <a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>However, the above are only necessary for distributed processing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>do not assign state in prepare_data</p>
+</div>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">test()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+There is no need to set it yourself.</p>
+</dd>
+<dt>Note:</dt><dd><p>If you don’t need a test dataset and a <code class="xref py py-meth docutils literal notranslate"><span class="pre">test_step()</span></code>, you don’t need to implement
+this method.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.train_dataloader">
+<span class="sig-name descname"><span class="pre">train_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.train_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.train_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying training samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>The dataloader you return will not be reloaded unless you set
+<a href="#id20"><span class="problematic" id="id21">:paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs`</span></a> to
+a positive integer.</p>
+<p>For data processing use the following pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>download in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p>process and split in <a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>However, the above are only necessary for distributed processing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>do not assign state in prepare_data</p>
+</div>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+There is no need to set it yourself.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.transforms">
+<span class="sig-name descname"><span class="pre">transforms</span></span><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.transforms" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.UserActivityFolderDataModule.val_dataloader">
+<span class="sig-name descname"><span class="pre">val_dataloader</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#UserActivityFolderDataModule.val_dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.val_dataloader" title="Link to this definition">¶</a></dt>
+<dd><p>An iterable or collection of iterables specifying validation samples.</p>
+<p>For more information about multiple dataloaders, see this <span class="xref std std-ref">section</span>.</p>
+<p>The dataloader you return will not be reloaded unless you set
+<a href="#id22"><span class="problematic" id="id23">:paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs`</span></a> to
+a positive integer.</p>
+<p>It’s recommended that all data downloads and preparation happen in <code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code>.</p>
+<ul class="simple">
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">validate()</span></code></p></li>
+<li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">prepare_data()</span></code></p></li>
+<li><p><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup" title="minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup()</span></code></a></p></li>
+</ul>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Lightning tries to add the correct sampler for distributed and arbitrary hardware
+There is no need to set it yourself.</p>
+</dd>
+<dt>Note:</dt><dd><p>If you don’t need a validation dataset and a <code class="xref py py-meth docutils literal notranslate"><span class="pre">validation_step()</span></code>, you don’t need to
+implement this method.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.utils.data.DataLoader</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>features</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>label</strong> (<em>str</em>)</p></li>
+<li><p><strong>pad</strong> (<em>bool</em>)</p></li>
+<li><p><strong>transforms</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>cast_to</strong> (<em>str</em>)</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_workers</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.parse_num_workers">
+<span class="sig-prename descclassname"><span class="pre">minerva.data.data_modules.har.</span></span><span class="sig-name descname"><span class="pre">parse_num_workers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#parse_num_workers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.parse_num_workers" title="Link to this definition">¶</a></dt>
+<dd><p>Parse the num_workers parameter. If None, use all cores.</p>
+<section id="id24">
+<h3>Parameters<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>num_workers<span class="classifier">int</span></dt><dd><p>Number of workers to load data. If None, then use all cores</p>
+</dd>
+</dl>
+</section>
+<section id="id25">
+<h3>Returns<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>int</dt><dd><p>Number of workers to load data.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_workers</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.data.data_modules.har.parse_transforms">
+<span class="sig-prename descclassname"><span class="pre">minerva.data.data_modules.har.</span></span><span class="sig-name descname"><span class="pre">parse_transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transforms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/minerva/data/data_modules/har.html#parse_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.data_modules.har.parse_transforms" title="Link to this definition">¶</a></dt>
+<dd><p>Parse the transforms parameter to a dictionary with the split name as
+key and a list of transforms as value.</p>
+<section id="id26">
+<h3>Parameters<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>transforms<span class="classifier">Union[List[Callable], Dict[str, List[Callable]]]</span></dt><dd><p>This could be:
+- None: No transforms will be applied
+- List[Callable]: A list of transforms that will be applied to the</p>
+<blockquote>
+<div><p>data. The same transforms will be applied to all splits.</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Dict[str, List[Callable]]: A dictionary with the split name as</dt><dd><p>key and a list of transforms as value. The split name must be
+one of: “train”, “validation”, “test” or “predict”.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h3>Returns<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Dict[str, List[Callable]]</dt><dd><p>A dictionary with the split name as key and a list of transforms as
+value.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>transforms</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>, </em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>Callable</em><em>]</em><em>]</em><em>]</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, List[Callable]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../har_rodrigues_24/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">minerva.data.data_modules.har_rodrigues_24</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../datamodule_descriptor/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">minerva.data.data_modules.datamodule_descriptor</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">minerva.data.data_modules.har</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__repr__"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.__repr__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.__str__"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._get_loader"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule._get_loader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._load_dataset"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule._load_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule._sample_dataset"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule._sample_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.batch_size"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.batch_size</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.cast_to"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.cast_to</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_path"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.data_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.data_percentage"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.data_percentage</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.datasets"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.datasets</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.drop_last"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.drop_last</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.feature_prefixes"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.feature_prefixes</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.features_as_channels"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.features_as_channels</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.label"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.label</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.map_labels"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.map_labels</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.n_domains_per_sample"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.n_domains_per_sample</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.num_workers"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.num_workers</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_dataloader"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.predict_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.predict_split"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.predict_split</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.rng"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.rng</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.samples_per_class"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.samples_per_class</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.seed"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.seed</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.setup"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.setup()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.shuffle_train"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.shuffle_train</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.test_dataloader"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.test_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.train_dataloader"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.train_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.transforms"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.transforms</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_train_as_validation"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.use_train_as_validation</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.use_val_with_train"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.use_val_with_train</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.MultiModalHARSeriesDataModule.val_dataloader"><code class="docutils literal notranslate"><span class="pre">MultiModalHARSeriesDataModule.val_dataloader()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.__repr__"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.__repr__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.__str__"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule._get_loader"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule._get_loader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule._load_dataset"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule._load_dataset()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.batch_size"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.batch_size</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.cast_to"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.cast_to</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.data_path"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.data_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.datasets"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.datasets</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.features"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.features</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.label"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.label</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.num_workers"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.num_workers</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.pad"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.pad</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.predict_dataloader"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.predict_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.setup"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.setup()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.test_dataloader"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.test_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.train_dataloader"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.train_dataloader()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.transforms"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.transforms</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.UserActivityFolderDataModule.val_dataloader"><code class="docutils literal notranslate"><span class="pre">UserActivityFolderDataModule.val_dataloader()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.parse_num_workers"><code class="docutils literal notranslate"><span class="pre">parse_num_workers()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.data_modules.har.parse_transforms"><code class="docutils literal notranslate"><span class="pre">parse_transforms()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

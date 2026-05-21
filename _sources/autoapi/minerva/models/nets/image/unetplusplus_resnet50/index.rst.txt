@@ -1,0 +1,432 @@
+minerva.models.nets.image.unetplusplus_resnet50
+===============================================
+
+.. py:module:: minerva.models.nets.image.unetplusplus_resnet50
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.unetplusplus_resnet50.ConvBlock
+   minerva.models.nets.image.unetplusplus_resnet50.DeepLabV3ResNet50Backbone
+   minerva.models.nets.image.unetplusplus_resnet50.LitUNetPlusPlusDeepLabV3
+   minerva.models.nets.image.unetplusplus_resnet50.UNetPlusPlusDeepLabV3
+
+
+Module Contents
+---------------
+
+.. py:class:: ConvBlock(in_channels, out_channels)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Double convolution block for UNet++ decoder.
+
+   Applies two consecutive 3x3 convolutions, each followed by batch normalization
+   and ReLU activation, commonly used in U-Net architectures for feature refinement.
+
+   Parameters
+   ----------
+   in_channels : int
+       Number of input channels.
+   out_channels : int
+       Number of output channels.
+
+
+   .. py:attribute:: conv
+
+
+   .. py:method:: forward(x)
+
+      Forward pass through the double convolution block.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Input feature tensor of shape (batch_size, in_channels, H, W).
+
+
+
+
+.. py:class:: DeepLabV3ResNet50Backbone(pretrained = True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Notes
+   -----
+   The dilation rates are set as follows:
+   - layer3: dilation=2, stride=1
+   - layer4: dilation=4, stride=1
+   This preserves the spatial resolution at H/8, W/8 for c3, c4, and c5.
+
+   References
+   ----------
+   .. [1] He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image
+   recognition. In Proceedings of the IEEE conference on computer vision and pattern
+   recognition (pp. 770-778).
+
+
+   .. py:attribute:: bn1
+
+
+   .. py:attribute:: conv1
+
+
+   .. py:method:: forward(x)
+
+      Forward pass through the ResNet50 backbone.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Input tensor of shape (batch_size, 3, H, W).
+
+
+
+   .. py:attribute:: layer1
+
+
+   .. py:attribute:: layer2
+
+
+   .. py:attribute:: layer3
+
+
+   .. py:attribute:: layer4
+
+
+   .. py:attribute:: maxpool
+
+
+   .. py:attribute:: relu
+
+
+.. py:class:: LitUNetPlusPlusDeepLabV3(in_channels = 3, num_classes = 6, deep_supervision = True, lr = 0.0003, pretrained = True)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   PyTorch Lightning module for UNet++ with DeepLabV3 backbone.
+
+   Wraps the UNet++ DeepLabV3 model with training, validation, and testing loops,
+   optimizer configuration, and metrics for multi-class segmentation.
+
+   Parameters
+   ----------
+   in_channels : int, optional
+       Number of input image channels (default is 3).
+   num_classes : int, optional
+       Number of segmentation classes (default is 6).
+   deep_supervision : bool, optional
+       If True, enables deep supervision training (default is True).
+   lr : float, optional
+       Learning rate for the optimizer (default is 3e-4).
+   pretrained : bool, optional
+       If True, uses ImageNet pre-trained backbone (default is True).
+
+   Notes
+   -----
+   Metrics include accuracy, F1-score, mean IoU, precision, and recall, all computed
+   using torchmetrics.
+
+
+   .. py:method:: configure_optimizers()
+
+      Configure optimizer for training.
+
+
+
+   .. py:method:: forward(x)
+
+      Forward pass through the model.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Input batch of images of shape (batch_size, in_channels, H, W).
+
+
+
+   .. py:attribute:: loss_fn
+
+
+   .. py:attribute:: lr
+      :value: 0.0003
+
+
+
+   .. py:attribute:: model
+
+
+   .. py:attribute:: num_classes
+      :value: 6
+
+
+
+   .. py:attribute:: test_accuracy
+
+
+   .. py:attribute:: test_f1
+
+
+   .. py:attribute:: test_miou
+
+
+   .. py:attribute:: test_precision
+
+
+   .. py:attribute:: test_recall
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Test step for one batch with metrics evaluation.
+
+      Parameters
+      ----------
+      batch : tuple of torch.Tensor
+          Batch containing (images, masks).
+      batch_idx : int
+          Index of the current batch.
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Training step for one batch.
+
+      Parameters
+      ----------
+      batch : tuple of torch.Tensor
+          Batch containing (images, masks).
+      batch_idx : int
+          Index of the current batch.
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Validation step for one batch.
+
+      Parameters
+      ----------
+      batch : tuple of torch.Tensor
+          Batch containing (images, masks).
+      batch_idx : int
+          Index of the current batch.
+
+
+
+.. py:class:: UNetPlusPlusDeepLabV3(in_channels = 3, num_classes = 6, deep_supervision = True, pretrained = True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   UNet++ with DeepLabV3 ResNet50 backbone for semantic segmentation.
+
+   Combines DeepLabV3's multi-scale feature extraction with UNet++'s nested skip
+   connections for robust semantic segmentation, particularly suited for seismic
+   image segmentation tasks.
+
+   Parameters
+   ----------
+   in_channels : int, optional
+       Number of input channels (default is 3 for RGB images).
+   num_classes : int, optional
+       Number of segmentation classes (default is 6).
+   deep_supervision : bool, optional
+       If True, enables deep supervision with auxiliary losses (default is True).
+   pretrained : bool, optional
+       If True, uses ImageNet pre-trained ResNet50 backbone (default is True).
+
+
+   Notes
+   -----
+   The architecture includes:
+   - DeepLabV3 ResNet50 backbone with dilated convolutions.
+   - UNet++ decoder with nested skip connections for feature refinement.
+   - Bilinear upsampling to restore original input resolution.
+   - Optional deep supervision for improved training stability.
+
+   References
+   ----------
+   .. [1] Zhou, Z., Rahman Siddiquee, M. M., Tajbakhsh, N., & Liang, J. (2018).
+   Unet++: A nested u-net architecture for medical image segmentation. In Deep
+   learning in medical image analysis and multimodal learning for clinical decision
+   support (pp. 3-11). Springer.
+   .. [2] He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for
+   image recognition. In Proceedings of the IEEE conference on computer vision and
+   pattern recognition (pp. 770-778).
+
+
+   .. py:method:: _safe_upsample(x, target)
+
+      Upsample tensor to match target spatial dimensions.
+
+      Handles cases where spatial dimensions may not align due to rounding errors
+      in pooling or upsampling operations.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Tensor to be upsampled.
+      target : torch.Tensor
+          Reference tensor with target spatial dimensions.
+
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:attribute:: conv0_1
+
+
+   .. py:attribute:: conv0_2
+
+
+   .. py:attribute:: conv0_3
+
+
+   .. py:attribute:: conv1_1
+
+
+   .. py:attribute:: conv1_2
+
+
+   .. py:attribute:: conv2_1
+
+
+   .. py:attribute:: deep_supervision
+      :value: True
+
+
+
+   .. py:method:: forward(x)
+
+      Forward pass through the UNet++ DeepLabV3 network.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Input tensor of shape (batch_size, in_channels, H, W).
+
+
+
+   .. py:attribute:: proj0
+
+
+   .. py:attribute:: proj1
+
+
+   .. py:attribute:: proj2
+
+
+   .. py:attribute:: proj3
+
+
+   .. py:attribute:: up
+
+
+   .. py:attribute:: up_conv
+
+

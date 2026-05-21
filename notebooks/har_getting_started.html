@@ -1,0 +1,1398 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Minerva Experimental Pipeline" href="experiment_api_example.html"><link rel="prev" title="Getting Started with Minerva for Seismic Facies Segmentation" href="seismic_facies_getting_started.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>Getting Started with Minerva for Human Activity Recognition - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Minerva Design</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../autoapi/minerva/index.html">minerva</a><input aria-label="Toggle navigation of minerva" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/data/index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/data/data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/data/data_modules/index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/data_modules/base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/data_modules/datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/data_modules/har/index.html">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/data_modules/har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/data_modules/har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/data/datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/data/readers/index.html">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/data/readers/zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/minerva/models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/minerva/models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/pipelines/index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/pipelines/base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/pipelines/experiment/index.html">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/pipelines/lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/minerva/utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/minerva/utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/notebooks/har_getting_started.ipynb.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="Getting-Started-with-Minerva-for-Human-Activity-Recognition">
+<h1>Getting Started with Minerva for Human Activity Recognition<a class="headerlink" href="#Getting-Started-with-Minerva-for-Human-Activity-Recognition" title="Link to this heading">¶</a></h1>
+<p>Human Activity Recognition (HAR) is a challenging task that involves identifying actions performed by individuals based on sensor data—typically time-series signals from accelerometers and gyroscopes.</p>
+<p>In this notebook, we will use Minerva to train and evaluate an <a class="reference external" href="https://ieeexplore.ieee.org/document/9771436">1D ResNet-SE</a> model from scratch for classifying human activities using <a class="reference external" href="https://www.nature.com/articles/s41597-024-03951-4">DAGHAR Dataset</a>.</p>
+<p>Thus, this notebook is a step-by-step guide to get you started with Minerva for HAR. It comprehends the following steps:</p>
+<ol class="arabic simple">
+<li><p>Data Preparation</p></li>
+<li><p>Model Creation</p></li>
+<li><p>Model Training</p></li>
+<li><p>Model Evaluation</p></li>
+</ol>
+<section id="Imports">
+<h2>Imports<a class="headerlink" href="#Imports" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">L</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchmetrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Accuracy</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.readers.csv_reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSVReader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.datasets.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleDataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.data_modules.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinervaDataModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.models.nets.time_series.resnet</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResNetSE1D_5</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">Reshape</span><span class="p">,</span> <span class="n">CastTo</span><span class="p">,</span> <span class="n">TransformPipeline</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.10/dist-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div></div>
+</div>
+</section>
+<section id="1.-Data-Preparation">
+<h2>1. Data Preparation<a class="headerlink" href="#1.-Data-Preparation" title="Link to this heading">¶</a></h2>
+<p>We begin by preparing the data required for training and evaluation.</p>
+<p>For this tutorial, we will use the <a class="reference external" href="https://zenodo.org/records/13987073">standardized view of the DAGHAR Dataset</a>, as introduced in the following paper:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>Napoli, O., Duarte, D., Alves, P., Soto, D.H.P., de Oliveira, H.E., Rocha, A., Boccato, L. and Borin, E., 2024.
+A benchmark for domain adaptation and generalization in smartphone-based human activity recognition.
+Scientific Data, 11(1), p.1192.
+</pre></div>
+</div>
+<p>This dataset includes time-series data from two tri-axial sensors—an accelerometer and a gyroscope—collected via smartphones. It is organized into six different datasets:</p>
+<ul class="simple">
+<li><p>KuHar</p></li>
+<li><p>MotionSense</p></li>
+<li><p>RealWorld-waist</p></li>
+<li><p>RealWorld-thigh</p></li>
+<li><p>UCI</p></li>
+<li><p>WISDM</p></li>
+</ul>
+<p>In this notebook, we will work with the <strong>standardized view of the MotionSense</strong> dataset.</p>
+<p>You can download and extract the dataset using the commands below (<code class="docutils literal notranslate"><span class="pre">wget</span></code> and <code class="docutils literal notranslate"><span class="pre">unzip</span></code>):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget<span class="w"> </span>https://zenodo.org/records/13987073/files/standardized_view.zip?download<span class="o">=</span><span class="m">1</span><span class="w"> </span>-O<span class="w"> </span>daghar_standardized_view.zip
+<span class="o">!</span>mkdir<span class="w"> </span>-p<span class="w"> </span>datasets/DAGHAR
+<span class="o">!</span>unzip<span class="w"> </span>-o<span class="w"> </span>daghar_standardized_view.zip<span class="w"> </span>-d<span class="w"> </span>datasets/DAGHAR/
+<span class="o">!</span>rm<span class="w"> </span>daghar_standardized_view.zip
+</pre></div>
+</div>
+</div>
+<p>Once extracted, the folder structure will look like this:</p>
+<div class="highlight-tree notranslate"><div class="highlight"><pre><span></span>daghar_standardized_view/standardized_view
+├── KuHar
+│   ├── train.csv
+│   ├── test.csv
+│   └── val.csv
+├── MotionSense
+│   ├── train.csv
+│   ├── test.csv
+│   └── val.csv
+├── RealWorld_waist
+│   ├── train.csv
+│   ├── test.csv
+│   └── val.csv
+├── RealWorld_thigh
+│   ├── train.csv
+│   ├── test.csv
+│   └── val.csv
+├── UCI
+│   ├── train.csv
+│   ├── test.csv
+│   └── val.csv
+└── WISDM
+    ├── train.csv
+    ├── test.csv
+    └── val.csv
+</pre></div>
+</div>
+<p>Each dataset is split into <code class="docutils literal notranslate"><span class="pre">train.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">val.csv</span></code>, and <code class="docutils literal notranslate"><span class="pre">test.csv</span></code> files. Each file contains time-series data with the following structure:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Range</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Pattern to match</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">accel-x-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-x-59</span></code></p></td>
+<td><p>60 time steps of accelerometer x-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">accel-x-*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">accel-y-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-y-59</span></code></p></td>
+<td><p>60 time steps of accelerometer y-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">accel-y-*</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">accel-z-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-z-59</span></code></p></td>
+<td><p>60 time steps of accelerometer z-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">accel-z-*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gyro-x-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-x-59</span></code></p></td>
+<td><p>60 time steps of gyroscope x-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gyro-x-*</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gyro-y-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-y-59</span></code></p></td>
+<td><p>60 time steps of gyroscope y-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gyro-y-*</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gyro-z-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-z-59</span></code></p></td>
+<td><p>60 time steps of gyroscope z-axis</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gyro-z-*</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">standard</span> <span class="pre">activity</span> <span class="pre">code</span></code></p></td>
+<td><p>Encoded activity label</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">standard</span> <span class="pre">activity</span> <span class="pre">code</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each row represents one sample, composed of 6 channels (3 from each sensor) and 60 time steps per channel, representing 3 seconds of data at a sampling rate of 20 Hz. The “Pattern to match” column indicates the regex pattern used to identify the columns in the dataset.</p>
+<p>All datasets in DAGHAR share the same structure and label set. The activity codes are mapped as follows:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Standard Activity Code</p></th>
+<th class="head"><p>Activity</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Sit</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Stand</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Walk</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Stair-up</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Stair-down</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Run</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="1.1.-Creating-Data-Readers-and-Datasets">
+<h3>1.1. Creating Data Readers and Datasets<a class="headerlink" href="#1.1.-Creating-Data-Readers-and-Datasets" title="Link to this heading">¶</a></h3>
+<p>In Minerva, we can create readers, which are responsible for loading a single unit of data in a ordered way. It is like an ordered iterator that loads data from a source. A dataset is a collection of readers and transforms associated to each reader. We will create two readers for each split of the dataset (train, validation, and test): the data reader and label reader. For this purpose, we will use <code class="docutils literal notranslate"><span class="pre">CSVReader</span></code> that loads data from CSV files, select the columns that match the regex patterns,
+and reshape it to a format suitable for training.</p>
+<p>The data reader requires the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: Path to the CSV file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">columns_to_select</span></code>: A list of regular expressions to select the columns from the CSV file, in order. In our case, we will use patterns indicated in the table above. Thus, we will select the columns that match the regex patterns <code class="docutils literal notranslate"><span class="pre">accel-x-*</span></code>, <code class="docutils literal notranslate"><span class="pre">accel-y-*</span></code>, <code class="docutils literal notranslate"><span class="pre">accel-z-*</span></code>, <code class="docutils literal notranslate"><span class="pre">gyro-x-*</span></code>, <code class="docutils literal notranslate"><span class="pre">gyro-y-*</span></code>, and <code class="docutils literal notranslate"><span class="pre">gyro-z-*</span></code>. This will give us a total of 360 columns (60 time steps * 6 channels), in order of pattern matched:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">accel-x-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">accel-x-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-x-59</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accel-y-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">accel-y-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-y-59</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accel-z-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">accel-z-0</span></code> to <code class="docutils literal notranslate"><span class="pre">accel-z-59</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gyro-x-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">gyro-x-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-x-59</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gyro-y-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">gyro-y-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-y-59</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gyro-z-*</span></code>: 60 columns (<code class="docutils literal notranslate"><span class="pre">gyro-z-0</span></code> to <code class="docutils literal notranslate"><span class="pre">gyro-z-59</span></code>)</p></li>
+</ul>
+</li>
+</ul>
+<p>The label reader requires the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: Path to the CSV file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">columns_to_select</span></code>: A single string indicating the column name to select. In our case, we will use <code class="docutils literal notranslate"><span class="pre">standard</span> <span class="pre">activity</span> <span class="pre">code</span></code>, which is the name of the column that contains the activity labels.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cast_to</span></code>: The data type of the labels. In our case, we will use <code class="docutils literal notranslate"><span class="pre">np.int64</span></code>, which is a 64-bit integer.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># train_reader</span>
+<span class="n">root_data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;datasets/DAGHAR/standardized_view/MotionSense/&quot;</span><span class="p">)</span>
+
+<span class="c1"># Train data and label readers</span>
+<span class="n">train_data_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;train.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;accel-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-z-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-z-*&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="n">train_label_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;train.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="s2">&quot;standard activity code&quot;</span><span class="p">,</span>
+    <span class="n">cast_to</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Validation data and label readers</span>
+<span class="n">validation_data_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;validation.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;accel-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-z-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-z-*&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="n">validation_label_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;validation.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="s2">&quot;standard activity code&quot;</span><span class="p">,</span>
+    <span class="n">cast_to</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Test data and label readers</span>
+<span class="n">test_data_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;test.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;accel-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;accel-z-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-x-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-y-*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gyro-z-*&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="n">test_label_reader</span> <span class="o">=</span> <span class="n">CSVReader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;test.csv&quot;</span><span class="p">,</span>
+    <span class="n">columns_to_select</span><span class="o">=</span><span class="s2">&quot;standard activity code&quot;</span><span class="p">,</span>
+    <span class="n">cast_to</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Train data reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_data_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">; Label reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_label_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Validation data reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">validation_data_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">; Label reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">validation_label_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Test data reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">; Label reader length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_label_reader</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train data reader length: 3558; Label reader length: 3558
+Validation data reader length: 420; Label reader length: 420
+Test data reader length: 1062; Label reader length: 1062
+</pre></div></div>
+</div>
+<p>Once the readers are set up, we can create a dataset using them. For this purpose, we’ll use the <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class, which takes two main inputs:</p>
+<ul class="simple">
+<li><p>A list of <strong>readers</strong> (data sources)</p></li>
+<li><p>A list of <strong>transforms</strong> (optional preprocessing steps)</p></li>
+</ul>
+<p>When an item at index <code class="docutils literal notranslate"><span class="pre">i</span></code> is requested from the dataset (e.g., <code class="docutils literal notranslate"><span class="pre">dataset[i]</span></code>), the following steps occur:</p>
+<ol class="arabic simple">
+<li><p>The dataset retrieves the item at index <code class="docutils literal notranslate"><span class="pre">i</span></code> from <code class="docutils literal notranslate"><span class="pre">reader[0]</span></code> and applies the corresponding transform <code class="docutils literal notranslate"><span class="pre">transform[0]</span></code> (if any).</p></li>
+<li><p>It then retrieves the item at index <code class="docutils literal notranslate"><span class="pre">i</span></code> from <code class="docutils literal notranslate"><span class="pre">reader[1]</span></code> and applies <code class="docutils literal notranslate"><span class="pre">transform[1]</span></code> (if any).</p></li>
+<li><p>Finally, it returns a 2-element tuple containing the transformed outputs:</p>
+<ul class="simple">
+<li><p>The first element is data: <code class="docutils literal notranslate"><span class="pre">transform[0](reader[0][i])</span></code></p></li>
+<li><p>The second element is label: <code class="docutils literal notranslate"><span class="pre">transform[1](reader[1][i])</span></code></p></li>
+</ul>
+</li>
+</ol>
+<p>This design enables flexible and consistent pairing of multiple data sources with their corresponding preprocessing logic-ideal for training, validation, or testing workflows.</p>
+<p>As transformation, we will use <code class="docutils literal notranslate"><span class="pre">Reshape</span></code> to reshape the data to the format required by the model, in our case <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">60)</span></code>, which means 6 channels (3 from each sensor) and 60 time steps per channel. We also use a <code class="docutils literal notranslate"><span class="pre">CastTo</span></code> transform to cast the data to <code class="docutils literal notranslate"><span class="pre">np.float32</span></code>, which is the data type required by the model and labels to <code class="docutils literal notranslate"><span class="pre">np.int64</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">SimpleDataset</span><span class="p">(</span>
+    <span class="n">readers</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">train_data_reader</span><span class="p">,</span>  <span class="c1"># Reader for the data</span>
+        <span class="n">train_label_reader</span><span class="p">,</span>  <span class="c1"># Reader for the labels</span>
+    <span class="p">],</span>
+    <span class="n">transforms</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">TransformPipeline</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">)),</span> <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)]</span>
+        <span class="p">),</span>  <span class="c1"># Transforms to apply to the data</span>
+        <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">),</span>  <span class="c1"># Cast the labels to int64</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">SimpleDataset</span><span class="p">(</span>
+    <span class="n">readers</span><span class="o">=</span><span class="p">[</span><span class="n">validation_data_reader</span><span class="p">,</span> <span class="n">validation_label_reader</span><span class="p">],</span>
+    <span class="n">transforms</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">TransformPipeline</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">)),</span> <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)]</span>
+        <span class="p">),</span>  <span class="c1"># Transforms to apply to the data</span>
+        <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">),</span>  <span class="c1"># Cast the labels to int64</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">SimpleDataset</span><span class="p">(</span>
+    <span class="n">readers</span><span class="o">=</span><span class="p">[</span><span class="n">test_data_reader</span><span class="p">,</span> <span class="n">test_label_reader</span><span class="p">],</span>
+    <span class="n">transforms</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">TransformPipeline</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">)),</span> <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)]</span>
+        <span class="p">),</span>  <span class="c1"># Transforms to apply to the data</span>
+        <span class="n">CastTo</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">),</span>  <span class="c1"># Cast the labels to int64</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Train dataset</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">train_dataset</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Validation dataset</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">val_dataset</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test dataset</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">test_dataset</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Train dataset
+ ==================================================
+           📂 SimpleDataset Information
+==================================================
+📌 Dataset Type: SimpleDataset
+   └── Reader 0: TabularReader(df=(3558, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+   │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+   └── Reader 1: TabularReader(df=(3558, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+   │     └── Transform: CastTo(dtype=int64)
+   │
+   └── Total Readers: 2
+==================================================
+
+Validation dataset
+ ==================================================
+           📂 SimpleDataset Information
+==================================================
+📌 Dataset Type: SimpleDataset
+   └── Reader 0: TabularReader(df=(420, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+   │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+   └── Reader 1: TabularReader(df=(420, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+   │     └── Transform: CastTo(dtype=int64)
+   │
+   └── Total Readers: 2
+==================================================
+
+Test dataset
+ ==================================================
+           📂 SimpleDataset Information
+==================================================
+📌 Dataset Type: SimpleDataset
+   └── Reader 0: TabularReader(df=(1062, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+   │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+   └── Reader 1: TabularReader(df=(1062, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+   │     └── Transform: CastTo(dtype=int64)
+   │
+   └── Total Readers: 2
+==================================================
+
+</pre></div></div>
+</div>
+<p>Let’s take a look at the first sample of the training dataset. As each sample has 6 channels and 60 time steps, the shape of the sample will be <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">60)</span></code>. The label will be a single integer representing the activity code. We can visualize the data using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to get an idea of what the data looks like.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_X</span><span class="p">,</span> <span class="n">sample_y</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="p">[</span><span class="mi">800</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shape of the input is </span><span class="si">{</span><span class="n">sample_X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and the label is </span><span class="si">{</span><span class="n">sample_y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">activity_labels</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Sit&quot;</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Stand&quot;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;Walk&quot;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Stair-up&quot;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;Stair-down&quot;</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Run&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">activity</span> <span class="o">=</span> <span class="n">activity_labels</span><span class="p">[</span><span class="n">sample_y</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Activity: </span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="c1"># Accelerometer subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># plt.subptitle(f&quot;Activity: {activity}&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accelerometer&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sensor value (m/s^2)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Gyroscope subplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sample_X</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">:],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gyroscope&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sensor value (rad/s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The shape of the input is (6, 60) and the label is 5
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_har_getting_started_12_1.png" src="../_images/notebooks_har_getting_started_12_1.png" />
+</div>
+</div>
+</section>
+<section id="1.2.-Creating-the-MinervaDataModule">
+<h3>1.2. Creating the <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code><a class="headerlink" href="#1.2.-Creating-the-MinervaDataModule" title="Link to this heading">¶</a></h3>
+<p>Minerva models are implemented using Pytorch Lightning. Thus, to train a model we should create a <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code> object that will handle the data loading and preprocessing. Minerva provides a <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> class that extends Pytorch Lightning’s <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code> class and standardizes the data loading process.</p>
+<p>We may create a <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> object by passing the training, validation, and testing datasets, as well as the batch size and the number of workers for data loading</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_module</span> <span class="o">=</span> <span class="n">MinervaDataModule</span><span class="p">(</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+    <span class="n">val_dataset</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">,</span>
+    <span class="n">test_dataset</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;MotionSense Dataset&quot;</span><span class="p">,</span>
+    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data_module</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+==================================================
+               🆔 MotionSense Dataset
+==================================================
+└── Predict Split: test
+📂 Datasets:
+   ├── Train Dataset:
+   │      ==================================================
+   │                 📂 SimpleDataset Information
+   │      ==================================================
+   │      📌 Dataset Type: SimpleDataset
+   │         └── Reader 0: TabularReader(df=(3558, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+   │         │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+   │         └── Reader 1: TabularReader(df=(3558, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+   │         │     └── Transform: CastTo(dtype=int64)
+   │         │
+   │         └── Total Readers: 2
+   │      ==================================================
+   ├── Val Dataset:
+   │      ==================================================
+   │                 📂 SimpleDataset Information
+   │      ==================================================
+   │      📌 Dataset Type: SimpleDataset
+   │         └── Reader 0: TabularReader(df=(420, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+   │         │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+   │         └── Reader 1: TabularReader(df=(420, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+   │         │     └── Transform: CastTo(dtype=int64)
+   │         │
+   │         └── Total Readers: 2
+   │      ==================================================
+   └── Test Dataset:
+          ==================================================
+                     📂 SimpleDataset Information
+          ==================================================
+          📌 Dataset Type: SimpleDataset
+             └── Reader 0: TabularReader(df=(1062, 728), columns_to_select=[&#39;accel-x-*&#39;, &#39;accel-y-*&#39;, &#39;accel-z-*&#39;, &#39;gyro-x-*&#39;, &#39;gyro-y-*&#39;, &#39;gyro-z-*&#39;], cast_to=None, data_shape=None)
+             │     └── Transform: TransformPipeline(transforms=[Reshape(shape=(6, 60)), CastTo(dtype=float32)])
+             └── Reader 1: TabularReader(df=(1062, 728), columns_to_select=[&#39;standard activity code&#39;], cast_to=int64, data_shape=None)
+             │     └── Transform: CastTo(dtype=int64)
+             │
+             └── Total Readers: 2
+          ==================================================
+
+🛠 **Dataloader Configurations:**
+   ├── Dataloader class: &lt;class &#39;torch.utils.data.dataloader.DataLoader&#39;&gt;
+   ├── Train Dataloader Kwargs:
+         ├── batch_size: 64
+         ├── num_workers: 4
+         ├── shuffle: true
+         ├── drop_last: false
+   ├── Val Dataloader Kwargs:
+         ├── batch_size: 64
+         ├── num_workers: 4
+         ├── shuffle: false
+         ├── drop_last: false
+   └── Test Dataloader Kwargs:
+         ├── batch_size: 64
+         ├── num_workers: 4
+         ├── shuffle: false
+         ├── drop_last: false
+==================================================
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="2.-Creating-the-Model">
+<h2>2. Creating the Model<a class="headerlink" href="#2.-Creating-the-Model" title="Link to this heading">¶</a></h2>
+<p>Minerva provides several models to be used in Human Activity Recognition. In this notebook we will use the <code class="docutils literal notranslate"><span class="pre">`ResNetSE1D_5</span></code> model &lt;<a class="reference external" href="https://ieeexplore.ieee.org/document/9771436">https://ieeexplore.ieee.org/document/9771436</a>&gt;`__ which is a 1D ResNet model with Squeeze-and-Excitation blocks and 5 residual blocks.</p>
+<p>To create the model, we just need to call the <code class="docutils literal notranslate"><span class="pre">ResNetSE1D_5</span></code> class from Minerva and pass the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input_shape</span></code>: Shape of each input samples, in the format <code class="docutils literal notranslate"><span class="pre">(channels,</span> <span class="pre">time_steps)</span></code>. In this case, it will be <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">60)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_classes</span></code>: Number of classes in the dataset. In this case, it will be 6.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">ResNetSE1D_5</span><span class="p">(</span>
+    <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+    <span class="n">num_classes</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+[W519 00:56:43.921873382 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.924887388 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.926286206 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.927542423 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.928236215 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.929310238 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.929749328 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.930615444 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.931039904 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.931915372 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+[W519 00:56:43.932344124 NNPACK.cpp:57] Could not initialize NNPACK! Reason: Unsupported hardware.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ResNetSE1D_5(
+  (backbone): _ResNet1D(
+    (conv_block): ConvolutionalBlock(
+      (block): Sequential(
+        (0): Conv1d(6, 64, kernel_size=(5,), stride=(1,))
+        (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU()
+        (3): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      )
+    )
+    (residual_blocks): Sequential(
+      (0): ResNetSEBlock(
+        (block): Sequential(
+          (0): Conv1d(64, 32, kernel_size=(5,), stride=(1,), padding=same)
+          (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv1d(32, 64, kernel_size=(5,), stride=(1,), padding=same)
+          (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): SqueezeAndExcitation1D(
+            (block): Sequential(
+              (0): Linear(in_features=64, out_features=32, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=32, out_features=64, bias=True)
+              (3): Sigmoid()
+            )
+          )
+        )
+      )
+      (1): ResNetSEBlock(
+        (block): Sequential(
+          (0): Conv1d(64, 32, kernel_size=(5,), stride=(1,), padding=same)
+          (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv1d(32, 64, kernel_size=(5,), stride=(1,), padding=same)
+          (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): SqueezeAndExcitation1D(
+            (block): Sequential(
+              (0): Linear(in_features=64, out_features=32, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=32, out_features=64, bias=True)
+              (3): Sigmoid()
+            )
+          )
+        )
+      )
+      (2): ResNetSEBlock(
+        (block): Sequential(
+          (0): Conv1d(64, 32, kernel_size=(5,), stride=(1,), padding=same)
+          (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv1d(32, 64, kernel_size=(5,), stride=(1,), padding=same)
+          (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): SqueezeAndExcitation1D(
+            (block): Sequential(
+              (0): Linear(in_features=64, out_features=32, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=32, out_features=64, bias=True)
+              (3): Sigmoid()
+            )
+          )
+        )
+      )
+      (3): ResNetSEBlock(
+        (block): Sequential(
+          (0): Conv1d(64, 32, kernel_size=(5,), stride=(1,), padding=same)
+          (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv1d(32, 64, kernel_size=(5,), stride=(1,), padding=same)
+          (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): SqueezeAndExcitation1D(
+            (block): Sequential(
+              (0): Linear(in_features=64, out_features=32, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=32, out_features=64, bias=True)
+              (3): Sigmoid()
+            )
+          )
+        )
+      )
+      (4): ResNetSEBlock(
+        (block): Sequential(
+          (0): Conv1d(64, 32, kernel_size=(5,), stride=(1,), padding=same)
+          (1): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU()
+          (3): Conv1d(32, 64, kernel_size=(5,), stride=(1,), padding=same)
+          (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): SqueezeAndExcitation1D(
+            (block): Sequential(
+              (0): Linear(in_features=64, out_features=32, bias=True)
+              (1): ReLU()
+              (2): Linear(in_features=32, out_features=64, bias=True)
+              (3): Sigmoid()
+            )
+          )
+        )
+      )
+    )
+    (global_avg_pool): AdaptiveAvgPool1d(output_size=1)
+  )
+  (fc): Linear(in_features=64, out_features=6, bias=True)
+  (loss_fn): CrossEntropyLoss()
+)
+</pre></div></div>
+</div>
+</section>
+<section id="3.-Defining-the-trainer">
+<h2>3. Defining the trainer<a class="headerlink" href="#3.-Defining-the-trainer" title="Link to this heading">¶</a></h2>
+<p>As we are using Pytorch Lightning, we need to define a <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> object to train the model. We can define the trainer by passing the following parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">max_epochs</span></code>: Maximum number of epochs to train the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">acceleartor</span></code>: Device to use for training. It can be <code class="docutils literal notranslate"><span class="pre">cpu</span></code> or <code class="docutils literal notranslate"><span class="pre">gpu</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">devices</span></code>: the list or the number of accelerator to use for training.</p></li>
+</ul>
+<p>For this example we will disable logging and checkpointing, by setting <code class="docutils literal notranslate"><span class="pre">logger=False</span></code> and <code class="docutils literal notranslate"><span class="pre">checkpoint_callback=False</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">devices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;gpu&quot;</span><span class="p">,</span>
+    <span class="n">logger</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">enable_checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+</pre></div></div>
+</div>
+</section>
+<section id="3.1.-Training-the-model">
+<h2>3.1. Training the model<a class="headerlink" href="#3.1.-Training-the-model" title="Link to this heading">¶</a></h2>
+<p>To train the model we need to have three objects: the model, the data module, and the trainer. We can train the model by calling the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method from the trainer and passing the model and the data module.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fit</span></code> method will train the model for the number of epochs defined in the trainer object. Also, training dataloader will be used for training, and validation dataloader will be used for validation.</p>
+<blockquote>
+<div><p><strong>NOTE</strong>: We are not saving the model checkpoints in this example and not using early stopping based on validation loss. Thus, the model from last checkpoint will be used for evaluation. This may cause overfitting if the model is trained for too many epochs.</p>
+</div></blockquote>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_module</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name     | Type             | Params | Mode
+------------------------------------------------------
+0 | backbone | _ResNet1D        | 126 K  | train
+1 | fc       | Linear           | 390    | train
+2 | loss_fn  | CrossEntropyLoss | 0      | train
+------------------------------------------------------
+127 K     Trainable params
+0         Non-trainable params
+127 K     Total params
+0.509     Total estimated model params size (MB)
+76        Modules in train mode
+0         Modules in eval mode
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/vscode/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py:512: You called `self.log(&#39;val_loss&#39;, ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 0:   2%|▏         | 1/56 [00:00&lt;00:50,  1.09it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/vscode/.local/lib/python3.10/site-packages/lightning/pytorch/core/module.py:512: You called `self.log(&#39;train_loss&#39;, ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 99: 100%|██████████| 56/56 [00:08&lt;00:00,  6.53it/s, val_loss=3.410, train_loss=0.0357]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+`Trainer.fit` stopped: `max_epochs=100` reached.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Epoch 99: 100%|██████████| 56/56 [00:08&lt;00:00,  6.52it/s, val_loss=3.410, train_loss=0.0357]
+</pre></div></div>
+</div>
+</section>
+<section id="4.-Evaluating-Model">
+<h2>4. Evaluating Model<a class="headerlink" href="#4.-Evaluating-Model" title="Link to this heading">¶</a></h2>
+<p>Once model is trained, we can evaluate the performance of the model on the test dataset. The performance is evaluated using the accuracy metric. To evaluate the model, we perform the following steps:</p>
+<ol class="arabic simple">
+<li><p>Perform inference on the test dataset using the trained model. This is done using the <code class="docutils literal notranslate"><span class="pre">trainer.predict</span></code> method. The method returns the predicted logits for each sample in the test dataset.</p></li>
+<li><p>Calculate the predicted labels by taking the argmax of the logits.</p></li>
+<li><p>Obtain the labels from the test dataset.</p></li>
+<li><p>Create the accuracy metric object and pass the predicted labels and the true labels.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Obtain predictions for the test set</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_module</span><span class="p">)</span>
+<span class="c1"># As predictions is a list of batches, we concatenate them along the first dimension</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Predicting DataLoader 0: 100%|██████████| 17/17 [00:01&lt;00:00, 11.43it/s]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 2. We an use the torch.argmax function to obtain the class with the highest probability</span>
+<span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+<span class="c1"># Let&#39;s print the predicted classes</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;The shape of the predicted labels is </span><span class="si">{</span><span class="n">predicted_classes</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and dtype </span><span class="si">{</span><span class="n">predicted_classes</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The shape of the predicted labels is torch.Size([1062]) and dtype torch.int64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3. Let&#39;s obtain the true labels</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># We can use the test_dataset to obtain all the true labels</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_module</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">)):</span>  <span class="c1"># type: ignore</span>
+    <span class="n">sample_x</span><span class="p">,</span> <span class="n">sample_y</span> <span class="o">=</span> <span class="n">data_module</span><span class="o">.</span><span class="n">test_dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample_y</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="c1"># Let&#39;s print the true labels</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shape of the true labels is </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and dtype </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The shape of the true labels is torch.Size([1062]) and dtype torch.int64
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 4. Let&#39;s create the accuracy metric object and compute the accuracy</span>
+<span class="n">acc_metric</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">acc_metric</span><span class="p">(</span><span class="n">predicted_classes</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The accuracy of the model is </span><span class="si">{</span><span class="n">score</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The accuracy of the model is 78.44%
+</pre></div></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="experiment_api_example.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Minerva Experimental Pipeline</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="seismic_facies_getting_started.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Getting Started with Minerva for Seismic Facies Segmentation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Getting Started with Minerva for Human Activity Recognition</a><ul>
+<li><a class="reference internal" href="#Imports">Imports</a></li>
+<li><a class="reference internal" href="#1.-Data-Preparation">1. Data Preparation</a><ul>
+<li><a class="reference internal" href="#1.1.-Creating-Data-Readers-and-Datasets">1.1. Creating Data Readers and Datasets</a></li>
+<li><a class="reference internal" href="#1.2.-Creating-the-MinervaDataModule">1.2. Creating the <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#2.-Creating-the-Model">2. Creating the Model</a></li>
+<li><a class="reference internal" href="#3.-Defining-the-trainer">3. Defining the trainer</a></li>
+<li><a class="reference internal" href="#3.1.-Training-the-model">3.1. Training the model</a></li>
+<li><a class="reference internal" href="#4.-Evaluating-Model">4. Evaluating Model</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

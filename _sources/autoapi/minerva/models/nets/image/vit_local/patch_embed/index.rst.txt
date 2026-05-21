@@ -1,0 +1,138 @@
+minerva.models.nets.image.vit_local.patch_embed
+===============================================
+
+.. py:module:: minerva.models.nets.image.vit_local.patch_embed
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.vit_local.patch_embed.PatchEmbed
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.vit_local.patch_embed.resample_patch_embed
+
+
+Module Contents
+---------------
+
+.. py:class:: PatchEmbed(img_size = 224, patch_size = 16, in_chans = 3, embed_dim = 768, norm_layer = None, flatten = True, output_fmt = None, bias = True, strict_img_size = True, dynamic_img_pad = False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   2D Image to Patch Embedding
+
+   Initialize the PatchEmbed module.
+
+   Parameters
+   ----------
+   img_size : int or Tuple[int, int], default=224
+       Input image size. If None, image size will be inferred dynamically.
+   patch_size : int or Tuple[int, int], default=16
+       Size of each image patch.
+   in_chans : int, default=3
+       Number of input channels (e.g., 3 for RGB images).
+   embed_dim : int, default=768
+       Dimension of the output patch embeddings.
+   norm_layer : Callable, optional
+       Normalization layer applied to the output embeddings.
+   flatten : bool, default=True
+       If True, flattens patches into a sequence (N, L, C).
+   output_fmt : str, optional
+       Output tensor format. If specified, overrides `flatten`.
+   bias : bool, default=True
+       Whether to include a bias term in the projection layer.
+   strict_img_size : bool, default=True
+       If True, enforces input images to match the specified size exactly.
+   dynamic_img_pad : bool, default=False
+       If True, applies dynamic padding for images not divisible by patch size.
+
+
+   .. py:method:: _init_img_size(img_size)
+
+
+   .. py:method:: dynamic_feat_size(img_size)
+
+      Get grid (feature) size for given image size taking account of dynamic padding.
+      NOTE: must be torchscript compatible so using fixed tuple indexing
+
+
+
+   .. py:attribute:: dynamic_img_pad
+      :type:  torch.jit.Final[bool]
+
+
+   .. py:method:: feat_ratio(as_scalar=True)
+
+
+   .. py:method:: forward(x)
+
+      Forward pass that converts an input image into patch embeddings.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          Input tensor of shape (B, C, H, W), where
+          B is batch size, C is number of channels, and H, W are spatial dimensions.
+
+      Returns
+      -------
+      torch.Tensor
+          Patch embeddings tensor. Shape depends on output format:
+          - If `flatten=True`: (B, num_patches, embed_dim)
+          - If `flatten=False` and `output_fmt='NCHW'`: (B, embed_dim, H_p, W_p)
+          - If using another output format: tensor is converted accordingly.
+
+
+
+   .. py:attribute:: norm
+
+
+   .. py:attribute:: output_fmt
+      :type:  timm.layers.format.Format
+
+
+   .. py:attribute:: patch_size
+
+
+   .. py:attribute:: proj
+
+
+   .. py:method:: set_input_size(img_size = None, patch_size = None)
+
+
+   .. py:attribute:: strict_img_size
+      :value: True
+
+
+
+.. py:function:: resample_patch_embed(patch_embed, new_size, interpolation = 'bicubic', antialias = True)
+
+   Resample the weights of the patch embedding kernel to target resolution.
+   We resample the patch embedding kernel by approximately inverting the effect
+   of patch resizing.
+
+   Code based on:
+     https://github.com/google-research/big_vision/blob/b00544b81f8694488d5f36295aeb7972f3755ffe/big_vision/models/proj/flexi/vit.py
+
+   With this resizing, we can for example load a B/8 filter into a B/16 model
+   and, on 2x larger input image, the result will match.
+
+   Args:
+       patch_embed: original parameter to be resized.
+       new_size (tuple(int, int): target shape (height, width)-only.
+       interpolation (str): interpolation for resize
+       antialias (bool): use anti-aliasing filter in resize
+       verbose (bool): log operation
+   Returns:
+       Resized patch embedding kernel.
+
+

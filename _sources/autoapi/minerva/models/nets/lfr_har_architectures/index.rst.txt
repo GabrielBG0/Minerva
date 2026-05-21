@@ -1,0 +1,154 @@
+minerva.models.nets.lfr_har_architectures
+=========================================
+
+.. py:module:: minerva.models.nets.lfr_har_architectures
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.lfr_har_architectures.HARSCnnEncoder
+   minerva.models.nets.lfr_har_architectures.LFR_HAR_Predictor
+   minerva.models.nets.lfr_har_architectures.LFR_HAR_Predictor_List
+   minerva.models.nets.lfr_har_architectures.LFR_HAR_Projector
+   minerva.models.nets.lfr_har_architectures.LFR_HAR_Projector_List
+
+
+Module Contents
+---------------
+
+.. py:class:: HARSCnnEncoder(dim = 128, input_channel = 9, inner_conv_output_dim = 128 * 18, permute = False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A convolutional encoder used with the LFR technique, adapted from
+   https://github.com/layer6ai-labs/lfr/blob/main/ssl_models/models/encoders.py
+   to work with our HAR dataset.
+
+   Parameters
+   ----------
+   dim : int
+       The dimension of the latent space, by default 128.
+   input_channel : int
+       The number of input channels, by default 9. In the LFR paper, the shape of
+       the input data was (batch, 9, 128), which required an input_channel value
+       of 9. However, for data in the shape (batch, 6, 60), a value of 6 is required.
+   inner_conv_output_dim : int
+       The output dimension of the inner convolutional layers, by default 128*18.
+       In the LFR paper, the shape of the input data was (batch, 9, 128), which
+       required an inner_conv_output_dim value of 128*18. However, for data in the
+       shape (batch, 6, 60), a value of 128*10 is required.
+
+
+   .. py:attribute:: conv
+
+
+   .. py:method:: forward(xb)
+
+
+   .. py:attribute:: permute
+      :value: False
+
+
+
+.. py:class:: LFR_HAR_Predictor(encoding_size, middle_dim, num_layers)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A predictor module for LFR in HAR tasks that maps latent embeddings to a randomly
+   projected data representation.
+
+   Initializes a predictor module.
+
+   Parameters
+   ----------
+   encoding_size: int
+       The input and output dimensionality of the predictor module.
+   middle_dim: int
+       Dimensionality of the hidden layers in the predictor.
+   num_layers: int
+       Number of layers in the predictor. If set to 1, the predictor becomes a single
+       linear layer and 'middle_dim' is ignored.
+
+
+   .. py:method:: forward(z)
+
+
+.. py:class:: LFR_HAR_Predictor_List(size, encoding_size, middle_dim, num_layers)
+
+   Bases: :py:obj:`minerva.models.ssl.lfr.RepeatedModuleList`
+
+
+   A repeated list of predictor modules for LFR in HAR tasks. Each predictor maps latent
+   embeddings to a randomly projected data representation.
+
+   Initializes a list of predictor modules.
+
+   Parameters
+   ----------
+   size: int
+       Number of predictor modules to instantiate in the list.
+   encoding_size: int
+       The input and output dimensionality of each predictor module.
+   middle_dim: int
+       Dimensionality of the hidden layers in each predictor.
+   num_layers: int
+       Number of layers in each predictor. If set to 1, the predictors become single
+       linear layers and 'middle_dim' is ignored.
+
+
+.. py:class:: LFR_HAR_Projector(encoding_size = 512, input_channel = 9, middle_dim = 1088)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   A projector module for LFR in HAR tasks that projects the input data into a random
+   latent space.
+
+   Initializes a projector module.
+
+   Parameters
+   ----------
+   encoding_size: int
+       The output dimensionality of the projector module.
+   input_channel: int
+       The number of channels in the input data.
+   middle_dim: int
+       The expected dimensionality after the convolution module, by default 1088. The
+       original paper, where the input has 9 channels and 128 timestamps, requires 1088.
+       For data with 6 channels and 60 timestamps, 544 should be used.
+
+
+   .. py:attribute:: conv
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:attribute:: mlp
+
+
+.. py:class:: LFR_HAR_Projector_List(size, encoding_size, input_channel, middle_dim)
+
+   Bases: :py:obj:`minerva.models.ssl.lfr.RepeatedModuleList`
+
+
+   A repeated list of projector modules for LFR in HAR tasks. Each one projects the
+   input data into a random latent space.
+
+   Initializes a list of projector modules.
+
+   Parameters
+   ----------
+   size: int
+       Number of projector modules to instantiate in the list.
+   encoding_size: int
+       The output dimensionality of each projector module.
+   input_channel: int
+       The number of channels in the input data.
+
+

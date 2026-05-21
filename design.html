@@ -1,0 +1,717 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Examples and Tutorials" href="tutorials.html"><link rel="prev" title="Getting Started" href="getting_started.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>Minerva Design - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Minerva Design</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/har_getting_started.html">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/minerva/index.html">minerva</a><input aria-label="Toggle navigation of minerva" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/data/index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/data/data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/data/data_modules/index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/data_modules/base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/data_modules/datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/data_modules/har/index.html">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/data_modules/har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/data_modules/har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/data/datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/data/readers/index.html">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/data/readers/zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="autoapi/minerva/models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/minerva/models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/pipelines/index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/pipelines/base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/pipelines/experiment/index.html">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/pipelines/lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/minerva/utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/minerva/utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/design.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="minerva-design">
+<h1>Minerva Design<a class="headerlink" href="#minerva-design" title="Link to this heading">¶</a></h1>
+<p>Minerva is a flexible framework built on PyTorch and PyTorch Lightning to support machine learning tasks involving time-series, seismic data, and self-supervised learning.
+It offers tools for data management, training, evaluation, and reproducibility in ML pipelines.</p>
+<section id="data-handling">
+<h2>Data Handling<a class="headerlink" href="#data-handling" title="Link to this heading">¶</a></h2>
+<p>Minerva simplifies data management using a custom wrapper around PyTorch Lightning’s <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code>.
+This class, called <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code>, provides structured access to both datasets and dataloaders.</p>
+<p>In fact, this class:</p>
+<ul class="simple">
+<li><p>Integrates seamlessly with PyTorch Lightning’s <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.</p></li>
+<li><p>Supports any map-style PyTorch dataset.</p></li>
+<li><p>Allows full access to both datasets and dataloaders, useful for analysis purposes.</p></li>
+<li><p>Configurations using YAML or other external config files as well as using Python code.</p></li>
+</ul>
+<section id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> organizes training, validation, and testing datasets, and provides corresponding dataloaders.
+Thus, user must instantiate a <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> by passing the datasets and other configurations (e.g., batch size, shuffling, etc.).</p>
+<p>For instance, to create a <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> with a torch-like map-style dataset, using train, validation, and test datasets, the user can do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.data_modules.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinervaDataModule</span>
+
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">MyTrainDataset</span><span class="p">()</span>
+<span class="n">val_ds</span> <span class="o">=</span> <span class="n">MyValDataset</span><span class="p">()</span>
+<span class="n">test_ds</span> <span class="o">=</span> <span class="n">MyTestDataset</span><span class="p">()</span>
+
+<span class="n">data_module</span> <span class="o">=</span> <span class="n">MinervaDataModule</span><span class="p">(</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_ds</span><span class="p">,</span>
+    <span class="n">val_dataset</span><span class="o">=</span><span class="n">val_ds</span><span class="p">,</span>
+    <span class="n">test_dataset</span><span class="o">=</span><span class="n">test_ds</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">drop_last</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>User can acess the datasets and dataloaders using the following methods and properties:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method/Property</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">train_dataset</span></code></p></td>
+<td><p>Dataset used for training</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">val_dataset</span></code></p></td>
+<td><p>Dataset used for validation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">test_dataset</span></code></p></td>
+<td><p>Dataset used for testing</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">train_dataloader()</span></code></p></td>
+<td><p>Returns training dataloader</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">val_dataloader()</span></code></p></td>
+<td><p>Returns validation dataloader</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test_dataloader()</span></code></p></td>
+<td><p>Returns testing dataloader</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The dataloaders are create using configurations passed to the <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> constructor.
+You may check the <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> class for more details on the available configurations.</p>
+</section>
+<section id="why-not-just-use-lightningdatamodule">
+<h3>Why Not Just Use <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code>?<a class="headerlink" href="#why-not-just-use-lightningdatamodule" title="Link to this heading">¶</a></h3>
+<p>While <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code> provides access only to dataloaders, <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> also exposes the underlying datasets. This makes it easier to:</p>
+<ul class="simple">
+<li><p>Apply dataset-level transformations or analysis</p></li>
+<li><p>Visualize raw samples</p></li>
+<li><p>Customize data preparation logic</p></li>
+</ul>
+</section>
+<section id="minerva-datasets-and-readers">
+<h3>Minerva Datasets and Readers<a class="headerlink" href="#minerva-datasets-and-readers" title="Link to this heading">¶</a></h3>
+<p>Minerva’s design philosophy emphasizes modularity and reusability. This is particularly important when dealing with datasets that may have different storage formats or structures.
+Minerva uses <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> to allow training and evaluating models, create pipelines, and conduct experiments.
+As shown above, this class is instantiated passing the datasets and other configurations.
+The dataset can be any map-style PyTorch dataset, which is a common format for datasets in PyTorch.</p>
+<p>Although Minerva supports any map-style dataset, it also provides a custom dataset class called <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> that is designed to be minimal and modular.
+This class is a wrapper around the <code class="docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code> class and allows users to create datasets easily by specifying a list of readers and transformations, as illustrate in the example below.</p>
+<p><img alt="Dataset and Readers" src="_images/dataset_readers_2.png" /></p>
+<p>A Reader can be viewed as a component that loads a single data unit (e.g., an image, label, or time series) from a source (e.g., disk, memory, network, table, table column, numpy array, folder, etc.) in a pre-defined order. In the example above, the <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class uses two readers: one for loading images (<code class="docutils literal notranslate"><span class="pre">PNGReader</span></code>) and another for the labels (<code class="docutils literal notranslate"><span class="pre">TiffReader</span></code>). Also, each reader can be associated with a transformation (e.g., <code class="docutils literal notranslate"><span class="pre">ToTensor</span></code>, <code class="docutils literal notranslate"><span class="pre">Normalize</span></code>) that is applied to the data unit after it is loaded.
+Once a <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> method is called, the <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class will load the data units from the readers in the order specified and apply the transformations to each data unit. Finally, it returns a tuple of the transformed data units.
+Thus, we can instantiate a <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class by passing a list of readers and transformations, as shown in the example below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.readers.patched_array_reader</span><span class="w"> </span><span class="kn">import</span> <span class="n">NumpyArrayReader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.transforms.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Repeat</span><span class="p">,</span> <span class="n">Squeeze</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.data.datasets.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleDataset</span>
+
+<span class="n">root_data_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;f3/data/&quot;</span><span class="p">)</span>
+
+<span class="n">train_data_reader</span> <span class="o">=</span> <span class="n">NumpyArrayReader</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span> <span class="o">/</span> <span class="s2">&quot;train_seismic.npy&quot;</span><span class="p">,</span>
+    <span class="n">data_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">701</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">train_labels_reader</span> <span class="o">=</span> <span class="n">NumpyArrayReader</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">root_data_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span> <span class="o">/</span> <span class="s2">&quot;train_labels.npy&quot;</span><span class="p">,</span>
+    <span class="n">data_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">701</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">SimpleDataset</span><span class="p">(</span>
+    <span class="n">readers</span><span class="o">=</span><span class="p">[</span><span class="n">train_data_reader</span><span class="p">,</span> <span class="n">train_labels_reader</span><span class="p">],</span>
+    <span class="n">transforms</span><span class="o">=</span><span class="p">[</span><span class="n">Repeat</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_repetitions</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="kc">None</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will get the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>==================================================
+           📂 SimpleDataset Information            
+==================================================
+📌 Dataset Type: SimpleDataset
+   └── Reader 0: NumpyArrayReader(samples=401, shape=(1, 701, 255), dtype=float64)
+   │     └── Transform: Repeat(axis=0, n_repetitions=3)
+   └── Reader 1: NumpyArrayReader(samples=401, shape=(1, 701, 255), dtype=uint8)
+   │     └── Transform: None
+   │
+   └── Total Readers: 2
+==================================================
+</pre></div>
+</div>
+<p>Thus, in the example above, where we have two readers, the <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class will load the data units from the first reader (the seismic data) and apply the <code class="docutils literal notranslate"><span class="pre">Repeat</span></code> transformation to it. Then, it will load the data units from the second reader (the labels) without applying any transformation. The resulting dataset will contain tuples of the form <code class="docutils literal notranslate"><span class="pre">(seismic_data,</span> <span class="pre">labels)</span></code>. The pseudocode below illustrates how the <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class works:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Load</span> <span class="n">the</span> <span class="n">i</span><span class="o">-</span><span class="n">th</span> <span class="n">data</span> <span class="n">unit</span> <span class="kn">from</span><span class="w"> </span><span class="nn">first</span> <span class="n">reader</span>
+<span class="mf">2.</span> <span class="n">Apply</span> <span class="n">the</span> <span class="n">first</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">transformation</span> <span class="n">to</span> <span class="n">the</span> <span class="n">data</span> <span class="n">unit</span>
+<span class="mf">3.</span> <span class="n">Load</span> <span class="n">the</span> <span class="n">i</span><span class="o">-</span><span class="n">th</span> <span class="n">data</span> <span class="n">unit</span> <span class="kn">from</span><span class="w"> </span><span class="nn">second</span> <span class="n">reader</span>
+<span class="mf">4.</span> <span class="n">Apply</span> <span class="n">the</span> <span class="n">second</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">transformation</span> <span class="n">to</span> <span class="n">the</span> <span class="n">data</span> <span class="n">unit</span>
+<span class="mf">5.</span> <span class="n">Return</span> <span class="n">the</span> <span class="nb">tuple</span> <span class="n">of</span> <span class="n">the</span> <span class="n">two</span> <span class="n">data</span> <span class="n">units</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>NOTE</strong>: The <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class is not mandatory, but it is a good practice to use it for maintainability and flexibility. It allows you to create datasets easily by specifying a list of readers and transformations, making your data pipeline clean and consistent.</p>
+</div></blockquote>
+<p>The example above shows how to create a <code class="docutils literal notranslate"><span class="pre">SimpleDataset</span></code> class using two readers, which could be two images, that may be used for training a model for image segmentation, for instance.
+However, this is easilly extensible to any other type of data. Minerva provides a set of readers for loading data from different sources, such as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NumpyArrayReader</span></code>: Loads data from a numpy array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TabularReader</span></code>: Loads data from a tabular format with predefined columns, in row-order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CSVReader</span></code>: Loads data from a CSV file, with predefined columns, in row-order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TiffReader</span></code>: Loads data from a TIFF file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PNGReader</span></code>: Loads data from a PNG file.</p></li>
+<li><p>Among others.</p></li>
+</ul>
+</section>
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading">¶</a></h2>
+<p>Minerva offers a collection of pre-defined models and architectures for supervised learning. Each model typically consists of two primary components (but is not mandatory):</p>
+<ul class="simple">
+<li><p><strong>Backbone</strong>: Responsible for feature extraction.</p></li>
+<li><p><strong>Head</strong>: Performs the task-specific prediction (e.g., classification, regression).</p></li>
+</ul>
+<p>These components are usually implemented as separate classes to encourage flexibility and reusability, though this separation is not strictly required. All components can be built using either PyTorch or PyTorch Lightning modules and are fully compatible with standard PyTorch workflows.</p>
+<p>The final model (used for training and evaluation) is generally a combination of a backbone and a head. This composite model is always implemented as a <code class="docutils literal notranslate"><span class="pre">LightningModule</span></code>, and it expects a <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> instance as its data source. Thus, the Lightning <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> can be used to train and evaluate the model, passing the <code class="docutils literal notranslate"><span class="pre">LightningModule</span></code> and <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> instances to it.</p>
+<section id="the-simplesupervisedmodel-class">
+<h3>The <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> Class<a class="headerlink" href="#the-simplesupervisedmodel-class" title="Link to this heading">¶</a></h3>
+<p>To simplify the creation of supervised learning models, Minerva provides the <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> class, a high-level composition utility that allows users to define a model by simply passing in the backbone and head.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">LightningModule</span></code> and internally follows this structure:</p>
+<p><img alt="SimpleSupervisedModel Structure" src="_images/simple_supervised_model.png" /></p>
+<p>The key components and parameters of <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> are:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">backbone</span></code></strong>: A PyTorch or PyTorch Lightning module that extracts features from the input. It can be randomly initialized or pre-trained.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">head</span> <span class="pre">(fc)</span></code></strong>: A task-specific fully connected (FC) head module. It can also be initialized from scratch or pre-trained.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">loss</span></code></strong>: A PyTorch-compatible loss function (e.g., <code class="docutils literal notranslate"><span class="pre">CrossEntropyLoss</span></code>, <code class="docutils literal notranslate"><span class="pre">MSELoss</span></code>). Used to compute the training loss.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">adapter</span></code></strong> <em>(optional)</em>: A callable that transforms the output of the backbone to a suitable format for the head. This is useful when there’s a mismatch between backbone output and head input. The adapter can be a lambda, function, or module that receives the backbone output tensor and returns a tensor and returns the transformed tensor.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">flatten</span></code></strong> <em>(optional, boolean)</em>: If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), flattens the backbone (or adapter, if any) output before feeding it into the head. This is commonly needed when the output is multi-dimensional.</p></li>
+</ul>
+<p>In addition to these, you can optionally pass optimizers, learning rate schedulers, and evaluation metrics to customize training behavior.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> supports a wide range of use cases, including transfer learning, and its modular structure makes it easy to extend or integrate with other components.</p>
+</section>
+<section id="model-organization">
+<h3>Model Organization<a class="headerlink" href="#model-organization" title="Link to this heading">¶</a></h3>
+<p>Models in Minerva reside in the <code class="docutils literal notranslate"><span class="pre">minerva.models.nets</span></code> module and are further organized into domain-specific submodules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">minerva.models.nets.time_series</span></code>: Models for time-series data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minerva.models.nets.image</span></code>: Models for image data.</p></li>
+</ul>
+<p>Many of these models implement the <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> interface. While the backbone and head are often defined as separate classes in same file, this is not a strict requirement.</p>
+</section>
+</section>
+<section id="self-supervised-learning-ssl">
+<h2>Self-Supervised Learning (SSL)<a class="headerlink" href="#self-supervised-learning-ssl" title="Link to this heading">¶</a></h2>
+<p>Minerva also includes a suite of self-supervised learning (SSL) techniques, available in the <code class="docutils literal notranslate"><span class="pre">minerva.models.ssl</span></code> module.</p>
+<p>In order to interoperate with Lightning Trainer and other components, all SSL methods are implemented as subclasses of <code class="docutils literal notranslate"><span class="pre">LightningModule</span></code>. Thus, they are all considered models and are compatible with the <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> class, which is used to load the data for training and evaluation.
+Wherever possible, SSL models follow a compositional design, allowing users to pass backbone modules during initialization for greater flexibility and reusability, although this is not a strict requirement.</p>
+</section>
+<section id="constructor-based-initialization">
+<h2>Constructor-Based Initialization<a class="headerlink" href="#constructor-based-initialization" title="Link to this heading">¶</a></h2>
+<p>Minerva uses a constructor-based approach to initialize its core components, such as models, datasets, and data modules. Wherever possible, components are configured via constructors that accept parameters, enabling flexible customization and consistent behavior.</p>
+<p>This design makes it easy to instantiate components programmatically or from configuration files (e.g., YAML). As a result, Minerva components often expose a large number of parameters. To maintain usability, we prioritize clear documentation of all parameters and their default values.</p>
+</section>
+<section id="training-loop">
+<h2>Training Loop<a class="headerlink" href="#training-loop" title="Link to this heading">¶</a></h2>
+<p>Minerva uses PyTorch Lightning’s <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> class to handle the training loop. Thus, any customizations or configurations for the training loop can be done using the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> class. From supervised learning to self-supervised learning, Minerva’s models are designed to be compatible with the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> class, using <code class="docutils literal notranslate"><span class="pre">MinervaDataModule</span></code> for data loading.</p>
+<p>This design allows using PyTorch Lightning’s built-in features, such as:</p>
+<ul class="simple">
+<li><p>Lightning callbacks</p></li>
+<li><p>Logging</p></li>
+<li><p>Gradient accumulation and clipping</p></li>
+<li><p>Mixed precision training</p></li>
+<li><p>Distributed training</p></li>
+<li><p>Automatic accelerator and device placement</p></li>
+</ul>
+</section>
+<section id="loading-models-partially">
+<h2>Loading Models Partially<a class="headerlink" href="#loading-models-partially" title="Link to this heading">¶</a></h2>
+<p>In PyTorch, checkpoints store a model’s <code class="docutils literal notranslate"><span class="pre">state_dict</span></code>, an <strong>ordered dictionary</strong> containing all of the model’s parameters (typically derived from class attributes). This structure allows for selective loading of specific components, making it particularly useful for tasks such as transfer learning or fine-tuning.</p>
+<p>For instance, when training a SimCLR SSL model with a DeepLabV3 backbone, the checkpoint usually includes the full model, both the backbone and the projection heads. However, when reusing the backbone for a different task, it’s often desirable to load only the backbone parameters and exclude the rest (e.g., the projection heads). This selective loading is crucial for transfer learning, where you want to leverage pre-trained weights without carrying over task-specific parameters.</p>
+<p>Minerva provides a utility class called <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> to facilitate this selective loading process. This class allows loading a model from a checkpoint while filtering out unwanted parameters (e.g., those belonging to projection heads). It uses regular expressions to filter and rename <code class="docutils literal notranslate"><span class="pre">state_dict</span></code> keys, enabling fine-grained control over what gets loaded.</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> is a class, it uses a constructor-based approach for model initialization. You simply provide the model instance and the checkpoint path, no additional wrapper functions or external logic are required. This encapsulated design promotes reusability, readability, and maintainability. It also integrates seamlessly with other Minerva components such as the <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> class and YAML-based configuration files.</p>
+<p>Below is a simple example using the <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> class, where we load a <code class="docutils literal notranslate"><span class="pre">DeepLabV3</span></code> model and selectively initialize only its <code class="docutils literal notranslate"><span class="pre">backbone</span></code> from a checkpoint file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">minerva.models.nets.image.deeplabv3</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeepLabV3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minerva.models.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">FromPretrained</span>
+
+<span class="n">checkpoint_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/checkpoint.pth&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">DeepLabV3</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">FromPretrained</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">ckpt_path</span><span class="o">=</span><span class="n">checkpoint_path</span><span class="p">,</span>
+    <span class="n">filter_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;^backbone.*&quot;</span><span class="p">],</span>
+    <span class="n">keys_to_rename</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> loads only the parameters from the checkpoint  whose keys match the regular expression <code class="docutils literal notranslate"><span class="pre">^backbone.*</span></code>, that is, parameters that starts with <code class="docutils literal notranslate"><span class="pre">backone.</span></code> in its name. This effectively excludes any parameters associated with the <code class="docutils literal notranslate"><span class="pre">fc</span></code> (fully connected) head. The optional <code class="docutils literal notranslate"><span class="pre">keys_to_rename</span></code> argument accepts a dictionary to rename or re-map or append keys during loading, useful when adapting checkpoints across slightly different model architectures, such as when the naming conventions differ or when you want to append a prefix or suffix to the keys. You may want to check the <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> class for more details on how to use and the available parameters.</p>
+<blockquote>
+<div><p><strong>Note:</strong> The use of <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> is optional but strongly recommended for improved flexibility and maintainability. It integrates well with Minerva’s <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> class.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>Note:</strong> The return value of <code class="docutils literal notranslate"><span class="pre">FromPretrained</span></code> is an instance of the same type as the input model. So, if the input is a <code class="docutils literal notranslate"><span class="pre">DeepLabV3</span></code> instance, the returned object will also be a <code class="docutils literal notranslate"><span class="pre">DeepLabV3</span></code> instance.</p>
+</div></blockquote>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<p>To see how to use Minerva for different tasks, you can check the <a class="reference internal" href="tutorials.html"><span class="std std-doc">tutorials page</span></a> for complete examples of how to use Minerva and its components to train and evaluate models.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="tutorials.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Examples and Tutorials</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="getting_started.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Getting Started</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Minerva Design</a><ul>
+<li><a class="reference internal" href="#data-handling">Data Handling</a><ul>
+<li><a class="reference internal" href="#structure">Structure</a></li>
+<li><a class="reference internal" href="#why-not-just-use-lightningdatamodule">Why Not Just Use <code class="docutils literal notranslate"><span class="pre">LightningDataModule</span></code>?</a></li>
+<li><a class="reference internal" href="#minerva-datasets-and-readers">Minerva Datasets and Readers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models">Models</a><ul>
+<li><a class="reference internal" href="#the-simplesupervisedmodel-class">The <code class="docutils literal notranslate"><span class="pre">SimpleSupervisedModel</span></code> Class</a></li>
+<li><a class="reference internal" href="#model-organization">Model Organization</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#self-supervised-learning-ssl">Self-Supervised Learning (SSL)</a></li>
+<li><a class="reference internal" href="#constructor-based-initialization">Constructor-Based Initialization</a></li>
+<li><a class="reference internal" href="#training-loop">Training Loop</a></li>
+<li><a class="reference internal" href="#loading-models-partially">Loading Models Partially</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

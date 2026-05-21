@@ -1,0 +1,2071 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../../genindex.html"><link rel="search" title="Search" href="../../../../search.html"><link rel="next" title="minerva.pipelines.lightning_pipeline" href="../lightning_pipeline/index.html"><link rel="prev" title="minerva.pipelines.base" href="../base/index.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>minerva.pipelines.experiment - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design.html">Minerva Design</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/har_getting_started.html">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../index.html">minerva</a><input aria-label="Toggle navigation of minerva" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../data/index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../data/data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../data/data_modules/index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../data/data_modules/base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/data_modules/datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/data_modules/har/index.html">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/data_modules/har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/data_modules/har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../data/datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../data/readers/index.html">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../data/readers/zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="../index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" checked="" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../../_sources/autoapi/minerva/pipelines/experiment/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-minerva.pipelines.experiment">
+<span id="minerva-pipelines-experiment"></span><h1>minerva.pipelines.experiment<a class="headerlink" href="#module-minerva.pipelines.experiment" title="Link to this heading">¶</a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.Experiment" title="minerva.pipelines.experiment.Experiment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment</span></code></a></p></td>
+<td><p>Pipelines provide a versatile API for automating tasks efficiently.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel" title="minerva.pipelines.experiment.InstantiatedModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstantiatedModel</span></code></a></p></td>
+<td><p>Encapsulates a PyTorch Lightning model into a ModelInstantiator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig" title="minerva.pipelines.experiment.ModelConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelConfig</span></code></a></p></td>
+<td><p>Encapsulates the full configuration of a model for use in a training or</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation" title="minerva.pipelines.experiment.ModelInformation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelInformation</span></code></a></p></td>
+<td><p>Container for metadata related to a machine learning model configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator" title="minerva.pipelines.experiment.ModelInstantiator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelInstantiator</span></code></a></p></td>
+<td><p>Abstract base class for lazy instantiation of PyTorch Lightning models.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.get_run_id" title="minerva.pipelines.experiment.get_run_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_run_id</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.get_trainer" title="minerva.pipelines.experiment.get_trainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_trainer</span></code></a>(log_dir[, max_epochs, ...])</p></td>
+<td><p>Creates and configures a PyTorch Lightning Trainer instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.load_predictions" title="minerva.pipelines.experiment.load_predictions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_predictions</span></code></a>(path)</p></td>
+<td><p>Load a prediction from a given path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.load_results" title="minerva.pipelines.experiment.load_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_results</span></code></a>(path)</p></td>
+<td><p>Load results from a given path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.perform_evaluation" title="minerva.pipelines.experiment.perform_evaluation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perform_evaluation</span></code></a>(evaluation_metrics, data_module, ...)</p></td>
+<td><p>Evaluates predictions using provided evaluation metrics and a data module</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.perform_predict" title="minerva.pipelines.experiment.perform_predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perform_predict</span></code></a>(data_module, model, trainer[, squeeze])</p></td>
+<td><p>Perform predictions using the provided data module and trainer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.perform_train" title="minerva.pipelines.experiment.perform_train"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perform_train</span></code></a>(data_module, model, trainer[, ...])</p></td>
+<td><p>Train the model using the provided data module and trainer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.save_predictions" title="minerva.pipelines.experiment.save_predictions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_predictions</span></code></a>(predictions, path)</p></td>
+<td><p>Save predictions to a given path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.save_results" title="minerva.pipelines.experiment.save_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_results</span></code></a>(results, path[, index])</p></td>
+<td><p>Save results to a given path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.timestamp_now" title="minerva.pipelines.experiment.timestamp_now"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timestamp_now</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.pipelines.experiment.using_redirected_outputs" title="minerva.pipelines.experiment.using_redirected_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">using_redirected_outputs</span></code></a>(output_path, error_path[, ...])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">Experiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pretrained_backbone_ckpt_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./logs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gpu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_train_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_val_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_test_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_predict_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_sample_evaluation_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar_refresh_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profiler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_predictions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_last_checkpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_outputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_run_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../base/index.html#minerva.pipelines.base.Pipeline" title="minerva.pipelines.base.Pipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.pipelines.base.Pipeline</span></code></a></p>
+<p>Pipelines provide a versatile API for automating tasks efficiently.
+They are runnable objects that keeps track of their parameters, results, and
+status, allowing the reproductibility and traceability of the experiments.</p>
+<p>This is the base class for all pipelines. It provides the basic structure
+for running a pipeline and saving the results and status of the runs.
+Users should inherit from this class and implement the <cite>_run</cite> method.</p>
+<p>Pipelines are clonal objects, meaning that they can be cloned to create
+new pipelines with the same configuration. Cloned pipelines do receive a
+new pipeline_id and run_count.</p>
+<p>Pipelines expose their public API though properties (which are read-only)
+and though the <cite>run</cite> method. Users should not access or modify the internal
+attributes directly. The run method may set desired attributed (hence
+properties), used to be accessed after or during the run. The run method
+may return a result, which can be cached and accessed through the <cite>result</cite>
+property (if the <cite>cache_result</cite> is set to True).</p>
+<p>An experiment is a pipeline that contains all the parameters needed
+to train and evaluate a model, as well as to manage the logging,
+checkpointing, prediction, and results processes in a coherent way.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>experiment_name<span class="classifier">str</span></dt><dd><p>The name of the experiment. This name will be used to create a
+directory for the experiment in the log directory.</p>
+</dd>
+<dt>model_config<span class="classifier">ModelConfig</span></dt><dd><p>The model configuration. This object contains the model instantiator
+and the model information.</p>
+</dd>
+<dt>data_module<span class="classifier">MinervaDataModule</span></dt><dd><p>The data module. This object contains the training, validation, and
+test datasets, as well as the data loaders. For now, datasets must
+return a 2 element tuple (input, label) for each sample.</p>
+</dd>
+<dt>pretrained_backbone_ckpt_path<span class="classifier">Optional[PathLike], optional</span></dt><dd><p>The path to the pretrained backbone checkpoint. This is used to
+finetune the model. If None, the model will be trained from
+scratch. This parameter handles the lazy instantiation of the model
+and calls <cite>create_model_and_load_backbone</cite> method of the model
+instantiator if <cite>pretrained_backbone_ckpt_path</cite> is not None or
+<cite>create_model_randomly_initialized</cite> method if it is None. By
+default None</p>
+</dd>
+<dt>root_log_dir<span class="classifier">PathLike, optional</span></dt><dd><p>Root directory for logging and checkpoints. This directory will be
+used to create a subdirectory for the experiment. By default ./logs</p>
+</dd>
+<dt>execution_id<span class="classifier">Union[str, int], optional</span></dt><dd><p>The execution ID for the experiment. This ID will be used to create
+a subdirectory for the experiment in the log directory. This is
+useful when running the experiment multiple times with the same
+parameters. By default 0</p>
+</dd>
+<dt>checkpoint_metrics<span class="classifier">Optional[List[Dict[str, str]]], optional</span></dt><dd><p>The checkpoint metrics. This is a list of dictionaries that contain
+the checkpoint metrics. Each dictionary must contain the keys
+“monitor”, “mode”, and “filename”. The “monitor” key is the name of
+the metric to monitor, the “mode” key is the mode of the metric
+(“min” or “max”), and the “filename” key is the name of the
+checkpoint file. The “monitor” key can be None if the checkpoint is
+the last one. By default None</p>
+</dd>
+<dt>max_epochs<span class="classifier">int, optional</span></dt><dd><p>Number of epochs to train the model. This parameter is passed to the
+<cite>get_trainer</cite> function. By default 100.</p>
+</dd>
+<dt>accelerator<span class="classifier">str, optional</span></dt><dd><p>The accelerator to use for training. This parameter is passed to the
+<cite>get_trainer</cite> function. By default “gpu”. Possible values are
+“cpu”, “gpu”, “tpu”, “ipu”, “hpu”, “mps”, “auto”. If “auto” is
+selected, the accelerator will be automatically selected based on
+the available hardware. By default “gpu”</p>
+</dd>
+<dt>devices<span class="classifier">Optional[Union[int, list[int], str]], optional</span></dt><dd><p>Number of accelerators to use for training. This parameter is
+passed to the <cite>get_trainer</cite> function. By default 1.</p>
+</dd>
+<dt>strategy<span class="classifier">str, optional</span></dt><dd><p>Strategy to use for distributed training. This parameter is passed
+to the <cite>get_trainer</cite> function. By default “auto”.</p>
+</dd>
+<dt>num_nodes<span class="classifier">int, optional</span></dt><dd><p>Number of nodes to use for distributed training. This parameter is
+passed to the <cite>get_trainer</cite> function. By default 1.</p>
+</dd>
+<dt>limit_train_batches<span class="classifier">Optional[Union[int, float]], optional</span></dt><dd><p>Limit the number of training batches to use. This parameter is
+passed to the <cite>get_trainer</cite> function. By default None. If None, all
+batches will be used. If an integer is provided, it will be the
+absolute number of batches. If a float is provided, it will be the
+fraction of the total number of batches. For example, 0.1 means 10%
+of the training batches will be used.</p>
+</dd>
+<dt>limit_val_batches<span class="classifier">Optional[Union[int, float]], optional</span></dt><dd><p>Limit the number of validation batches to use. This parameter is
+passed to the <cite>get_trainer</cite> function. By default None. If None, all
+batches will be used. If an integer is provided, it will be the
+absolute number of batches. If a float is provided, it will be the
+fraction of the total number of batches. For example, 0.1 means 10%
+of the validation batches will be used.</p>
+</dd>
+<dt>limit_test_batches<span class="classifier">Optional[Union[int, float]], optional</span></dt><dd><p>Limit the number of test batches to use. This parameter is
+passed to the <cite>get_trainer</cite> function. By default None. If None, all
+batches will be used. If an integer is provided, it will be the
+absolute number of batches. If a float is provided, it will be the
+fraction of the total number of batches. For example, 0.1 means 10%
+of the test batches will be used.</p>
+</dd>
+<dt>limit_predict_batches<span class="classifier">Optional[Union[int, float]], optional</span></dt><dd><p>Limit the number of prediction batches to use. This parameter is
+passed to the <cite>get_trainer</cite> function. By default None. If None, all
+batches will be used. If an integer is provided, it will be the
+absolute number of batches. If a float is provided, it will be the
+fraction of the total number of batches. For example, 0.1 means 10%
+of the prediction batches will be used.</p>
+</dd>
+<dt>evaluation_metrics<span class="classifier">Optional[Dict[str, torchmetrics.Metric]], optional</span></dt><dd><p>A dictionary of evaluation metrics to use for the predictions. The
+keys are the names of the metrics and the values are the
+<cite>torchmetrics.Metric</cite> objects. These metrics are calculated using
+all the predictions. By default None.</p>
+</dd>
+<dt>per_sample_evaluation_metrics<span class="classifier">Optional[ Dict[str, torchmetrics.Metric] ], optional</span></dt><dd><p>A dictionary of evaluation metrics to use for the predictions. The
+keys are the names of the metrics and the values are the
+<cite>torchmetrics.Metric</cite> objects. These metrics are calculated using
+each prediction separately, that is, applyied per sample. By
+default None.</p>
+</dd>
+<dt>seed<span class="classifier">Optional[int], optional</span></dt><dd><p>The seed to use for the experiment, by default None</p>
+</dd>
+<dt>progress_bar_refresh_rate<span class="classifier">int, optional</span></dt><dd><p>The refresh rate of the progress bar (in batches). If 0, the
+progress bar is disabled. If 1, the progress bar is updated every
+batch. By default 1</p>
+</dd>
+<dt>profiler<span class="classifier">Optional[str], optional</span></dt><dd><p>A profiler to use for the experiment. This parameter is passed to
+the <cite>get_trainer</cite> function. By default None.</p>
+</dd>
+<dt>save_predictions<span class="classifier">bool, optional</span></dt><dd><p>If True, the predictions will be saved to the log directory. By
+default False.</p>
+</dd>
+<dt>save_results<span class="classifier">bool, optional</span></dt><dd><p>If True, the results will be saved to the log directory. By
+default True</p>
+</dd>
+<dt>add_last_checkpoint<span class="classifier">bool, optional</span></dt><dd><p>If True, the last checkpoint will be added to the list of checkpoint
+metrics. By default True.</p>
+</dd>
+<dt>log_outputs<span class="classifier">bool, optional</span></dt><dd><p>If True, the standard output and error will be logged to files in the
+log directory. By default True.</p>
+</dd>
+<dt>_run_id<span class="classifier">Optional[str], optional</span></dt><dd><p>An internal run ID for the experiment. This is used to
+differentiate between different runs of the same experiment. If
+None, a timestamp will be used. By default None.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the checkpoint metrics are not valid or do not contain the
+required keys.</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This class assumes that the <cite>MinervaDataModule</cite> class returns a</dt><dd><p>(input, label) tuple for each sample in the dataset. The input is
+the data and the label is the ground truth/target.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.NUM_DEBUG_BATCHES">
+<span class="sig-name descname"><span class="pre">NUM_DEBUG_BATCHES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.NUM_DEBUG_BATCHES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.NUM_DEBUG_EPOCHS">
+<span class="sig-name descname"><span class="pre">NUM_DEBUG_EPOCHS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.NUM_DEBUG_EPOCHS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.__typing_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__typing_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.__typing_string" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._checkpoint_dir">
+<span class="sig-name descname"><span class="pre">_checkpoint_dir</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._checkpoint_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._evaluate_model">
+<span class="sig-name descname"><span class="pre">_evaluate_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ckpts_to_evaluate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cached_execution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._evaluate_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._evaluate_model" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ckpts_to_evaluate</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+<li><p><strong>cached_execution</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._predictions_dir">
+<span class="sig-name descname"><span class="pre">_predictions_dir</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._predictions_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._print_evaluation_summary">
+<span class="sig-name descname"><span class="pre">_print_evaluation_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ckpt_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._print_evaluation_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._print_evaluation_summary" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trainer_params</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+<li><p><strong>ckpt_path</strong> (<em>Optional</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+<li><p><strong>predictions_path</strong> (<em>Optional</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+<li><p><strong>results_path</strong> (<em>Optional</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._print_train_summary">
+<span class="sig-name descname"><span class="pre">_print_train_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainer_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_from_ckpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._print_train_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._print_train_summary" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>lightning.LightningModule</em>)</p></li>
+<li><p><strong>trainer_params</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+<li><p><strong>resume_from_ckpt</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._results_dir">
+<span class="sig-name descname"><span class="pre">_results_dir</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._results_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._run">
+<span class="sig-name descname"><span class="pre">_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_from_ckpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ckpts_to_evaluate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._run" title="Link to this definition">¶</a></dt>
+<dd><p>Default pipeline method to be implemented in derived classes. This
+implements the pipeline logic.</p>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Any</dt><dd><p>The result of the pipeline run.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task</strong> (<em>str</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+<li><p><strong>resume_from_ckpt</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em>)</p></li>
+<li><p><strong>ckpts_to_evaluate</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._run_id">
+<span class="sig-name descname"><span class="pre">_run_id</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._run_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._stderr_path">
+<span class="sig-name descname"><span class="pre">_stderr_path</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._stderr_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._stdout_path">
+<span class="sig-name descname"><span class="pre">_stdout_path</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._stdout_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._train_model">
+<span class="sig-name descname"><span class="pre">_train_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resume_from_ckpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._train_model" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resume_from_ckpt</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+<li><p><strong>print_summary</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._trainer_parameters">
+<span class="sig-name descname"><span class="pre">_trainer_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable_logging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment._trainer_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._trainer_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>Return the parameters for the trainer based on the current on debug
+and logging settings.</p>
+<section id="id1">
+<h4>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>enable_logging<span class="classifier">bool, optional</span></dt><dd><p>If True, logging will be enabled, by default True</p>
+</dd>
+<dt>debug<span class="classifier">bool, optional</span></dt><dd><p>If True,  model will be trained with a few batches and for a few
+epochs only. Logging will always be disabled, by default False</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Dict[str, Any]</dt><dd><p>All the parameters for the <cite>get_trainer</cite> function.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enable_logging</strong> (<em>bool</em>)</p></li>
+<li><p><strong>debug</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment._training_metrics_path">
+<span class="sig-name descname"><span class="pre">_training_metrics_path</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment._training_metrics_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.accelerator">
+<span class="sig-name descname"><span class="pre">accelerator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gpu'</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.accelerator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.callbacks">
+<span class="sig-name descname"><span class="pre">callbacks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.callbacks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.checkpoint_metrics">
+<span class="sig-name descname"><span class="pre">checkpoint_metrics</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.checkpoint_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.checkpoint_paths">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.checkpoint_paths" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of checkpoint paths for the experiment.</p>
+<p>The keys are the checkpoint names, and the values are the corresponding
+paths to the checkpoints.</p>
+<section id="id3">
+<h4>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Dict[str, Path]</dt><dd><p>A dictionary mapping checkpoint names to their respective paths.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, pathlib.Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.cleanup">
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.cleanup" title="Link to this definition">¶</a></dt>
+<dd><p>Clean up the experiment by removing the log directory.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.data_module">
+<span class="sig-name descname"><span class="pre">data_module</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.data_module" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.devices">
+<span class="sig-name descname"><span class="pre">devices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.devices" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.evaluation_metrics">
+<span class="sig-name descname"><span class="pre">evaluation_metrics</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.evaluation_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.execution_id">
+<span class="sig-name descname"><span class="pre">execution_id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.execution_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.experiment_name">
+<span class="sig-name descname"><span class="pre">experiment_name</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.experiment_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.limit_predict_batches">
+<span class="sig-name descname"><span class="pre">limit_predict_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.limit_predict_batches" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.limit_test_batches">
+<span class="sig-name descname"><span class="pre">limit_test_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.limit_test_batches" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.limit_train_batches">
+<span class="sig-name descname"><span class="pre">limit_train_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.limit_train_batches" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.limit_val_batches">
+<span class="sig-name descname"><span class="pre">limit_val_batches</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.limit_val_batches" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.load_predictions_of_ckpt">
+<span class="sig-name descname"><span class="pre">load_predictions_of_ckpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment.load_predictions_of_ckpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.load_predictions_of_ckpt" title="Link to this definition">¶</a></dt>
+<dd><p>Load predictions from a file.</p>
+<section id="id4">
+<h4>Parameters<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>The name of the prediction file (without extension).</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h4>Returns<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The loaded predictions as a numpy array.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.load_results_of_ckpt">
+<span class="sig-name descname"><span class="pre">load_results_of_ckpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#Experiment.load_results_of_ckpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.load_results_of_ckpt" title="Link to this definition">¶</a></dt>
+<dd><p>Load results from a file.</p>
+<section id="id6">
+<h4>Parameters<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>The name of the result file (without extension).</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h4>Returns<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The loaded results as a pandas DataFrame.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.log_outputs">
+<span class="sig-name descname"><span class="pre">log_outputs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.log_outputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.max_epochs">
+<span class="sig-name descname"><span class="pre">max_epochs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.max_epochs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.model_config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.num_nodes">
+<span class="sig-name descname"><span class="pre">num_nodes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.num_nodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.per_sample_evaluation_metrics">
+<span class="sig-name descname"><span class="pre">per_sample_evaluation_metrics</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.per_sample_evaluation_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.prediction_paths">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prediction_paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.prediction_paths" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of prediction paths for the experiment.</p>
+<p>The keys are the prediction names, and the values are the corresponding
+paths to the predictions.</p>
+<section id="id8">
+<h4>Returns<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Dict[str, Path]</dt><dd><p>A dictionary mapping prediction names to their respective paths.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, pathlib.Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.pretrained_backbone_ckpt_path">
+<span class="sig-name descname"><span class="pre">pretrained_backbone_ckpt_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.pretrained_backbone_ckpt_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.profiler">
+<span class="sig-name descname"><span class="pre">profiler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.profiler" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.progress_bar_refresh_rate">
+<span class="sig-name descname"><span class="pre">progress_bar_refresh_rate</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.progress_bar_refresh_rate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.results_paths">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">results_paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.results_paths" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of results paths for the experiment.</p>
+<p>The keys are the result names, and the values are the corresponding
+paths to the results.</p>
+<section id="id9">
+<h4>Returns<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Dict[str, Path]</dt><dd><p>A dictionary mapping result names to their respective paths.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, pathlib.Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.root_log_dir">
+<span class="sig-name descname"><span class="pre">root_log_dir</span></span><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.root_log_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.run_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.run_id" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the run ID of the experiment.</p>
+<section id="id10">
+<h4>Returns<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>str</dt><dd><p>The run ID of the experiment.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.save_predictions">
+<span class="sig-name descname"><span class="pre">save_predictions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.save_predictions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.save_results">
+<span class="sig-name descname"><span class="pre">save_results</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.save_results" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.status" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.strategy">
+<span class="sig-name descname"><span class="pre">strategy</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.strategy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.training_metrics">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training_metrics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.training_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the training metrics as a pandas DataFrame.
+If the metrics file does not exist, returns None.</p>
+<section id="id11">
+<h4>Returns<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Optional[pd.DataFrame]</dt><dd><p>A DataFrame containing the training metrics.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[pandas.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.Experiment.training_metrics_path">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">training_metrics_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.Experiment.training_metrics_path" title="Link to this definition">¶</a></dt>
+<dd><p>The path to the training metrics file.</p>
+<section id="id12">
+<h4>Returns<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>Optional[Path]</dt><dd><p>The path to the metrics file if it exists, otherwise None.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[pathlib.Path]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>model_config</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig" title="minerva.pipelines.experiment.ModelConfig"><em>ModelConfig</em></a><em>, </em><em>lightning.LightningModule</em><em>]</em>)</p></li>
+<li><p><strong>data_module</strong> (<a class="reference internal" href="../../data/data_modules/base/index.html#minerva.data.data_modules.base.MinervaDataModule" title="minerva.data.data_modules.base.MinervaDataModule"><em>minerva.data.data_modules.base.MinervaDataModule</em></a>)</p></li>
+<li><p><strong>pretrained_backbone_ckpt_path</strong> (<em>Optional</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+<li><p><strong>root_log_dir</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>execution_id</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>checkpoint_metrics</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>max_epochs</strong> (<em>int</em>)</p></li>
+<li><p><strong>accelerator</strong> (<em>str</em>)</p></li>
+<li><p><strong>devices</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>)</p></li>
+<li><p><strong>num_nodes</strong> (<em>int</em>)</p></li>
+<li><p><strong>limit_train_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_val_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_test_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_predict_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>callbacks</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>lightning.Callback</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>evaluation_metrics</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>torchmetrics.Metric</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>per_sample_evaluation_metrics</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>torchmetrics.Metric</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>progress_bar_refresh_rate</strong> (<em>int</em>)</p></li>
+<li><p><strong>profiler</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>save_predictions</strong> (<em>bool</em>)</p></li>
+<li><p><strong>save_results</strong> (<em>bool</em>)</p></li>
+<li><p><strong>add_last_checkpoint</strong> (<em>bool</em>)</p></li>
+<li><p><strong>log_outputs</strong> (<em>bool</em>)</p></li>
+<li><p><strong>_run_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.InstantiatedModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">InstantiatedModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#InstantiatedModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.InstantiatedModel" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator" title="minerva.pipelines.experiment.ModelInstantiator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelInstantiator</span></code></a></p>
+<p>Encapsulates a PyTorch Lightning model into a ModelInstantiator.</p>
+<p>This class is used to wrap an existing instance of a PyTorch Lightning
+model (L.LightningModule) into a ModelInstantiator interface. It allows
+to use the model randomly initialized, but does not support
+finetuning with a pretrained backbone.</p>
+<p>Initialize the CachedModelInstantiator with a PyTorch Lightning model.</p>
+<section id="id13">
+<h3>Parameters<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>model<span class="classifier">L.LightningModule</span></dt><dd><p>The PyTorch Lightning model to be wrapped. This model should
+already be defined and instantiated.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.InstantiatedModel.create_model_and_load_backbone">
+<span class="sig-name descname"><span class="pre">create_model_and_load_backbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backbone_checkpoint_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#InstantiatedModel.create_model_and_load_backbone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.InstantiatedModel.create_model_and_load_backbone" title="Link to this definition">¶</a></dt>
+<dd><p>Create a model for finetuning with a pretrained backbone and a
+new head (randomly initialized). This method should load the backbone
+weights from the specified checkpoint and attach a freshly initialized
+head for the downstream task. User must handle the logic to load the
+backbone weights into the model’s state dict.</p>
+<section id="id14">
+<h4>Parameters<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>backbone_checkpoint_path<span class="classifier">PathLike</span></dt><dd><p>Path to the checkpoint containing pretrained backbone weights. The
+checkpoint must be compatible with the model architecture.</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h4>Returns<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>The model ready for finetuning (pretrained backbone, new head).</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>backbone_checkpoint_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.InstantiatedModel.create_model_randomly_initialized">
+<span class="sig-name descname"><span class="pre">create_model_randomly_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#InstantiatedModel.create_model_randomly_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.InstantiatedModel.create_model_randomly_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Create a model with both backbone and head randomly initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.InstantiatedModel.load_model_from_checkpoint">
+<span class="sig-name descname"><span class="pre">load_model_from_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checkpoint_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#InstantiatedModel.load_model_from_checkpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.InstantiatedModel.load_model_from_checkpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Load the full model (backbone and head) from a saved checkpoint.
+Typically used for resuming training, evaluation, or inference when the
+model must be restored in its entirety. In practice, the checkpoint
+should be one created using <cite>create_model_and_load_backbone</cite> or
+<cite>create_model_randomly_initialized</cite>.
+The checkpoint must be compatible with the model architecture.</p>
+<section id="id16">
+<h4>Parameters<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>checkpoint_path<span class="classifier">PathLike</span></dt><dd><p>Path to the checkpoint file containing the full model state.</p>
+</dd>
+</dl>
+</section>
+<section id="id17">
+<h4>Returns<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>A Lightning model fully restored from checkpoint, ready for
+evaluation or inference.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.InstantiatedModel.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#minerva.pipelines.experiment.InstantiatedModel.model" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>lightning.LightningModule</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">ModelConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instantiator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">information</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Encapsulates the full configuration of a model for use in a training or
+inference pipeline.</p>
+<p>A <cite>ModelConfig</cite> brings together two key components:</p>
+<ul>
+<li><p><cite>ModelInstantiator</cite>: Responsible for creating the model in different
+modes (lazily instantiated):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>From scratch (randomly initialized)</p></li>
+<li><p>Finetuning (load pretrained backbone, new head)</p></li>
+<li><p>From checkpoint (fully restored model)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><cite>ModelInformation</cite>: Contains descriptive metadata about the model such
+as input/output shapes, number of classes, backbone used, and task type.</p></li>
+</ul>
+<p>This class serves as the primary interface for managing and accessing
+model configuration throughout the lifecycle of training, evaluation, or
+deployment.</p>
+<p>Initialize a model configuration.</p>
+<section id="id18">
+<h3>Parameters<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>instantiator<span class="classifier">ModelInstantiator</span></dt><dd><p>An instance responsible for constructing the model in various
+training modes (random init, load backbone, load full checkpoint).
+This enables lazy instantiation depending on the training phase.</p>
+</dd>
+<dt>information<span class="classifier">ModelInformation</span></dt><dd><p>Metadata describing the model’s architecture and behavior.
+Includes input/output shapes, task type, number of classes, and
+other relevant info useful for logging, validation, and downstream
+processing.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelConfig.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelConfig.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelConfig.__str__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelConfig.information">
+<span class="sig-name descname"><span class="pre">information</span></span><a class="headerlink" href="#minerva.pipelines.experiment.ModelConfig.information" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelConfig.instantiator">
+<span class="sig-name descname"><span class="pre">instantiator</span></span><a class="headerlink" href="#minerva.pipelines.experiment.ModelConfig.instantiator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instantiator</strong> (<a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator" title="minerva.pipelines.experiment.ModelInstantiator"><em>ModelInstantiator</em></a>)</p></li>
+<li><p><strong>information</strong> (<a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation" title="minerva.pipelines.experiment.ModelInformation"><em>ModelInformation</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">ModelInformation</span></span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelInformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation" title="Link to this definition">¶</a></dt>
+<dd><p>Container for metadata related to a machine learning model configuration.</p>
+<p>This class stores essential information about a model’s identity,
+architecture, data shapes, and output behavior. Such metadata is useful
+for tasks such as logging, reproducibility, automated evaluation, or
+dynamic behavior in pipelines.</p>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>name<span class="classifier">str</span></dt><dd><p>A unique identifier for the model configuration. Commonly used for
+logging, saving checkpoints, or experiment tracking.</p>
+</dd>
+<dt>backbone_name<span class="classifier">Optional[str], optional</span></dt><dd><p>The name of the backbone architecture used in the model (e.g.,
+“resnet50”, “vit-base”). Useful for identifying model variants or
+tracking architectural differences.</p>
+</dd>
+<dt>task_type<span class="classifier">Optional[str], optional</span></dt><dd><p>The task the model is designed for (e.g., “classification”,
+“segmentation”, “detection”). Enables downstream logic to adapt based
+on the task type.</p>
+</dd>
+<dt>input_shape<span class="classifier">Optional[Tuple[int, …]], optional</span></dt><dd><p>Expected shape of input tensors (excluding batch size), typically in
+the format (C, H, W) for image data. For example: (3, 224, 224) for an
+RGB image of size 224x224.</p>
+</dd>
+<dt>output_shape<span class="classifier">Optional[Tuple[int, …]], optional</span></dt><dd><p>Expected shape of model outputs (excluding batch size). Examples
+include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>(6, 224, 224) for semantic segmentation logits with 6 classes</p></li>
+<li><p>(224, 224) for semantic segmentation predictions (argmax indices)</p></li>
+<li><p>(6,) for classification logits (6 classes)</p></li>
+<li><p>(1,) for classification predictions as class indices</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>num_classes<span class="classifier">Optional[int], optional</span></dt><dd><p>Total number of classes the model is predicting. Primarily relevant for
+classification or segmentation tasks.</p>
+</dd>
+<dt>return_logits<span class="classifier">Optional[bool], optional</span></dt><dd><p>If True, the model returns raw logits. If False, it returns
+post-processed class predictions (e.g., argmax indices or
+probabilities).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.backbone_name">
+<span class="sig-name descname"><span class="pre">backbone_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.backbone_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.input_shape">
+<span class="sig-name descname"><span class="pre">input_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.input_shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.num_classes">
+<span class="sig-name descname"><span class="pre">num_classes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.num_classes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.output_shape">
+<span class="sig-name descname"><span class="pre">output_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.output_shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.return_logits">
+<span class="sig-name descname"><span class="pre">return_logits</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.return_logits" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInformation.task_type">
+<span class="sig-name descname"><span class="pre">task_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.pipelines.experiment.ModelInformation.task_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInstantiator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">ModelInstantiator</span></span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelInstantiator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelInstantiator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base class for lazy instantiation of PyTorch Lightning models.</p>
+<p>This interface defines a standardized way to construct models in three
+common training scenarios:</p>
+<ol class="arabic simple">
+<li><p>Training from scratch: the entire model (backbone + head) is randomly
+initialized.</p></li>
+<li><p>Finetuning: a pretrained backbone is loaded from a checkpoint, while the
+head is randomly initialized.</p></li>
+<li><p>Inference/Evaluation: the full model is restored from a previously
+saved checkpoint. Usually, this checkpoint is generated using one of the
+two scenarios above.</p></li>
+</ol>
+<p>This abstraction allows for flexible and decoupled model construction across
+various stages of the machine learning lifecycle. Thus, is expected that
+model’s architecture follows the same pattern as the one below:</p>
+<blockquote>
+<div></div></blockquote>
+<section id="definitions">
+<h3>Definitions<a class="headerlink" href="#definitions" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Backbone: Core feature extractor (e.g., ResNet, Transformer encoder).</p></li>
+<li><p>Head: Task-specific layers (e.g., classification head, regression head).</p></li>
+</ul>
+<p>Implementations of this class should handle the appropriate model loading
+logic for each use case described above.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInstantiator.create_model_and_load_backbone">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_model_and_load_backbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backbone_checkpoint_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelInstantiator.create_model_and_load_backbone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelInstantiator.create_model_and_load_backbone" title="Link to this definition">¶</a></dt>
+<dd><p>Create a model for finetuning with a pretrained backbone and a
+new head (randomly initialized). This method should load the backbone
+weights from the specified checkpoint and attach a freshly initialized
+head for the downstream task. User must handle the logic to load the
+backbone weights into the model’s state dict.</p>
+<section id="id19">
+<h4>Parameters<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>backbone_checkpoint_path<span class="classifier">PathLike</span></dt><dd><p>Path to the checkpoint containing pretrained backbone weights. The
+checkpoint must be compatible with the model architecture.</p>
+</dd>
+</dl>
+</section>
+<section id="id20">
+<h4>Returns<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>The model ready for finetuning (pretrained backbone, new head).</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>backbone_checkpoint_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInstantiator.create_model_randomly_initialized">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_model_randomly_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelInstantiator.create_model_randomly_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelInstantiator.create_model_randomly_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Create a model with both backbone and head randomly initialized.
+Typically used when training a model from scratch.</p>
+<section id="id21">
+<h4>Returns<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>A Lightning model fully initialized with random weights, ready for
+training.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.ModelInstantiator.load_model_from_checkpoint">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_model_from_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checkpoint_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#ModelInstantiator.load_model_from_checkpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.ModelInstantiator.load_model_from_checkpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Load the full model (backbone and head) from a saved checkpoint.
+Typically used for resuming training, evaluation, or inference when the
+model must be restored in its entirety. In practice, the checkpoint
+should be one created using <cite>create_model_and_load_backbone</cite> or
+<cite>create_model_randomly_initialized</cite>.
+The checkpoint must be compatible with the model architecture.</p>
+<section id="id22">
+<h4>Parameters<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>checkpoint_path<span class="classifier">PathLike</span></dt><dd><p>Path to the checkpoint file containing the full model state.</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h4>Returns<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>A Lightning model fully restored from checkpoint, ready for
+evaluation or inference.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>checkpoint_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.get_run_id">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">get_run_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#get_run_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.get_run_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.get_trainer">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">get_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_train_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_val_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_test_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_predict_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar_refresh_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_logging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'32-true'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulate_grad_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profiler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overfit_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync_batchnorm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#get_trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.get_trainer" title="Link to this definition">¶</a></dt>
+<dd><p>Creates and configures a PyTorch Lightning Trainer instance.</p>
+<p>This function encapsulates all necessary options for flexible training,
+evaluation, or inference, including logging, checkpointing, device setup,
+precision, and more.</p>
+<section id="id24">
+<h3>Parameters<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>log_dir<span class="classifier">Path</span></dt><dd><p>Directory path where logs and checkpoints will be saved.</p>
+</dd>
+<dt>max_epochs<span class="classifier">int, default=100</span></dt><dd><p>Maximum number of epochs for training.</p>
+</dd>
+<dt>limit_train_batches<span class="classifier">int or float, optional</span></dt><dd><p>Limit on the number of training batches per epoch. Can be an integer
+(absolute number) or a float (fraction of total batches).</p>
+</dd>
+<dt>limit_val_batches<span class="classifier">int or float, optional</span></dt><dd><p>Limit on the number of validation batches per epoch.</p>
+</dd>
+<dt>limit_test_batches<span class="classifier">int or float, optional</span></dt><dd><p>Limit on the number of test batches per epoch.</p>
+</dd>
+<dt>limit_predict_batches<span class="classifier">int or float, optional</span></dt><dd><p>Limit on the number of prediction batches.</p>
+</dd>
+<dt>accelerator<span class="classifier">str, default=”auto”</span></dt><dd><p>Hardware accelerator to use (e.g., “gpu”, “cpu”, “tpu”, “auto”).</p>
+</dd>
+<dt>strategy<span class="classifier">str, default=”auto”</span></dt><dd><p>Distributed training strategy (e.g., “ddp”, “deepspeed”, etc.).</p>
+</dd>
+<dt>devices<span class="classifier">int, list of int, or str, optional, default=”auto”</span></dt><dd><p>Devices to use for training (e.g., 1, [0,1], “auto”).</p>
+</dd>
+<dt>num_nodes<span class="classifier">int, default=1</span></dt><dd><p>Number of nodes to use for distributed training.</p>
+</dd>
+<dt>progress_bar_refresh_rate<span class="classifier">int, default=1</span></dt><dd><p>Frequency (in steps) at which the progress bar is updated.
+Set to 0 to disable.</p>
+</dd>
+<dt>enable_logging<span class="classifier">bool, default=True</span></dt><dd><p>Whether to enable CSV logging.</p>
+</dd>
+<dt>checkpoint_metrics<span class="classifier">list of dict, optional</span></dt><dd><p>List of dictionaries containing checkpoint configurations. Each
+dictionary should specify “monitor”, “mode”, and “filename”.</p>
+</dd>
+<dt>precision<span class="classifier">str, default=”32-true”</span></dt><dd><p>Numerical precision to use during training (e.g., 32-true, 16-mixed).</p>
+</dd>
+<dt>accumulate_grad_batches<span class="classifier">int, default=1</span></dt><dd><p>Number of batches for which gradients should be accumulated before
+performing an optimizer step.</p>
+</dd>
+<dt>deterministic<span class="classifier">bool, default=False</span></dt><dd><p>If True, sets deterministic behavior for reproducibility.</p>
+</dd>
+<dt>benchmark<span class="classifier">bool, default=True</span></dt><dd><p>Enables the cudnn.benchmark flag for optimized performance on fixed
+input sizes.</p>
+</dd>
+<dt>profiler<span class="classifier">str, optional</span></dt><dd><p>Enables performance profiling (e.g., “simple”, “advanced”).</p>
+</dd>
+<dt>overfit_batches<span class="classifier">int or float, default=0.0</span></dt><dd><p>Uses a fraction or number of batches for both training and validation
+to quickly debug overfitting behavior.</p>
+</dd>
+<dt>sync_batchnorm<span class="classifier">bool, default=False</span></dt><dd><p>Synchronizes batch norm layers across devices during distributed
+training.</p>
+</dd>
+<dt>callbacks<span class="classifier">list of L.Callback, optional</span></dt><dd><p>List of PyTorch Lightning callbacks to be used during training. Checkpointing
+is enabled by default if <cite>checkpoint_metrics</cite> is provided.</p>
+</dd>
+</dl>
+</section>
+<section id="id25">
+<h3>Returns<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>L.Trainer</dt><dd><p>A configured PyTorch Lightning Trainer instance.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_dir</strong> (<em>pathlib.Path</em>)</p></li>
+<li><p><strong>max_epochs</strong> (<em>int</em>)</p></li>
+<li><p><strong>limit_train_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_val_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_test_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>limit_predict_batches</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>accelerator</strong> (<em>str</em>)</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>)</p></li>
+<li><p><strong>devices</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>num_nodes</strong> (<em>int</em>)</p></li>
+<li><p><strong>progress_bar_refresh_rate</strong> (<em>int</em>)</p></li>
+<li><p><strong>enable_logging</strong> (<em>bool</em>)</p></li>
+<li><p><strong>checkpoint_metrics</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>precision</strong> (<em>str</em>)</p></li>
+<li><p><strong>accumulate_grad_batches</strong> (<em>int</em>)</p></li>
+<li><p><strong>deterministic</strong> (<em>bool</em>)</p></li>
+<li><p><strong>benchmark</strong> (<em>bool</em>)</p></li>
+<li><p><strong>profiler</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>overfit_batches</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>)</p></li>
+<li><p><strong>sync_batchnorm</strong> (<em>bool</em>)</p></li>
+<li><p><strong>callbacks</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>lightning.Callback</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lightning.Trainer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.load_predictions">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">load_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#load_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.load_predictions" title="Link to this definition">¶</a></dt>
+<dd><p>Load a prediction from a given path.</p>
+<section id="id26">
+<h3>Parameters<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>The path to the prediction file.</p>
+</dd>
+</dl>
+</section>
+<section id="id27">
+<h3>Returns<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The loaded prediction data.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.load_results">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">load_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#load_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.load_results" title="Link to this definition">¶</a></dt>
+<dd><p>Load results from a given path.</p>
+<section id="id28">
+<h3>Parameters<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>The path to the results file.</p>
+</dd>
+</dl>
+</section>
+<section id="id29">
+<h3>Returns<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The loaded results data.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.perform_evaluation">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">perform_evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation_metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argmax_axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#perform_evaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.perform_evaluation" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluates predictions using provided evaluation metrics and a data module</p>
+<p>This function compares predicted values against ground truth labels from
+a prediction dataset. It supports both aggregate evaluation over the entire
+dataset and per-sample evaluation. Metrics should be compatible with
+<cite>torchmetrics</cite>.</p>
+<section id="id30">
+<h3>Parameters<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>evaluation_metrics<span class="classifier">dict of str to torchmetrics.Metric</span></dt><dd><p>A dictionary mapping metric names to <cite>torchmetrics.Metric</cite> instances.</p>
+</dd>
+<dt>data_module<span class="classifier">MinervaDataModule</span></dt><dd><p>A data module that contains the <cite>predict_dataset</cite> used for evaluation.</p>
+</dd>
+<dt>predictions<span class="classifier">np.ndarray</span></dt><dd><p>An array of predictions generated by the model.</p>
+</dd>
+<dt>argmax_axis<span class="classifier">int, optional</span></dt><dd><p>If provided, applies <cite>torch.argmax</cite> along this axis to the predictions
+before metric evaluation.</p>
+</dd>
+<dt>per_sample<span class="classifier">bool, default=False</span></dt><dd><p>If True, computes metrics individually for each sample. Otherwise,
+evaluates metrics over the entire dataset in batches.</p>
+</dd>
+<dt>batch_size<span class="classifier">int, default=1</span></dt><dd><p>Batch size used for evaluation when <cite>per_sample</cite> is False.</p>
+</dd>
+<dt>device<span class="classifier">str, default=”cpu”</span></dt><dd><p>The device (e.g., “cpu”, “cuda”) on which metric computations will run.</p>
+</dd>
+</dl>
+</section>
+<section id="id31">
+<h3>Returns<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A DataFrame containing computed metric values. If <cite>per_sample</cite> is True,
+each row corresponds to one sample. Otherwise, a single-row summary is
+returned.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evaluation_metrics</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>torchmetrics.Metric</em><em>]</em>)</p></li>
+<li><p><strong>data_module</strong> (<a class="reference internal" href="../../data/data_modules/base/index.html#minerva.data.data_modules.base.MinervaDataModule" title="minerva.data.data_modules.base.MinervaDataModule"><em>minerva.data.data_modules.base.MinervaDataModule</em></a>)</p></li>
+<li><p><strong>predictions</strong> (<em>numpy.ndarray</em>)</p></li>
+<li><p><strong>argmax_axis</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>per_sample</strong> (<em>bool</em>)</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>device</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.perform_predict">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">perform_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squeeze</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#perform_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.perform_predict" title="Link to this definition">¶</a></dt>
+<dd><p>Perform predictions using the provided data module and trainer.</p>
+<section id="id32">
+<h3>Parameters<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data_module<span class="classifier">MinervaDataModule</span></dt><dd><p>The data module containing the dataset for predictions.</p>
+</dd>
+<dt>model<span class="classifier">L.LightningModule</span></dt><dd><p>The model to be used for predictions.</p>
+</dd>
+<dt>trainer<span class="classifier">L.Trainer</span></dt><dd><p>The trainer instance to use for predictions.</p>
+</dd>
+<dt>squeeze<span class="classifier">bool, optional</span></dt><dd><p>If True, squeeze the predictions to remove single-dimensional entries
+from the shape of the predictions (except from first dimension). By
+default False</p>
+</dd>
+</dl>
+</section>
+<section id="id33">
+<h3>Returns<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The predictions as a numpy array.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_module</strong> (<a class="reference internal" href="../../data/data_modules/base/index.html#minerva.data.data_modules.base.MinervaDataModule" title="minerva.data.data_modules.base.MinervaDataModule"><em>minerva.data.data_modules.base.MinervaDataModule</em></a>)</p></li>
+<li><p><strong>model</strong> (<em>lightning.LightningModule</em>)</p></li>
+<li><p><strong>trainer</strong> (<em>lightning.Trainer</em>)</p></li>
+<li><p><strong>squeeze</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.perform_train">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">perform_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_from_ckpt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#perform_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.perform_train" title="Link to this definition">¶</a></dt>
+<dd><p>Train the model using the provided data module and trainer.</p>
+<section id="id34">
+<h3>Parameters<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data_module<span class="classifier">MinervaDataModule</span></dt><dd><p>The data module containing the training and validation datasets.</p>
+</dd>
+<dt>model<span class="classifier">L.LightningModule</span></dt><dd><p>The model to be trained.</p>
+</dd>
+<dt>trainer<span class="classifier">L.Trainer</span></dt><dd><p>The trainer instance to use for training.</p>
+</dd>
+<dt>resume_from_ckpt<span class="classifier">Optional[PathLike], optional</span></dt><dd><p>A path to a checkpoint in which to resume training. If None, training
+starts from scratch. By default None</p>
+</dd>
+</dl>
+</section>
+<section id="id35">
+<h3>Returns<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>L.LightningModule</dt><dd><p>The trained model.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_module</strong> (<a class="reference internal" href="../../data/data_modules/base/index.html#minerva.data.data_modules.base.MinervaDataModule" title="minerva.data.data_modules.base.MinervaDataModule"><em>minerva.data.data_modules.base.MinervaDataModule</em></a>)</p></li>
+<li><p><strong>model</strong> (<em>lightning.LightningModule</em>)</p></li>
+<li><p><strong>trainer</strong> (<em>lightning.Trainer</em>)</p></li>
+<li><p><strong>resume_from_ckpt</strong> (<em>Optional</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>lightning.LightningModule</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.save_predictions">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">save_predictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#save_predictions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.save_predictions" title="Link to this definition">¶</a></dt>
+<dd><p>Save predictions to a given path.</p>
+<section id="id36">
+<h3>Parameters<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>predictions<span class="classifier">Union[np.ndarray, torch.Tensor]</span></dt><dd><p>The prediction data to save.</p>
+</dd>
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>The path where the predictions will be saved.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictions</strong> (<em>Union</em><em>[</em><em>numpy.ndarray</em><em>, </em><em>torch.Tensor</em><em>]</em>)</p></li>
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.save_results">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">save_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#save_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.save_results" title="Link to this definition">¶</a></dt>
+<dd><p>Save results to a given path.</p>
+<section id="id37">
+<h3>Parameters<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>results<span class="classifier">pd.DataFrame</span></dt><dd><p>The results data to save.</p>
+</dd>
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>The path where the results will be saved.</p>
+</dd>
+<dt>index<span class="classifier">bool, optional</span></dt><dd><p>Whether to save the index of the DataFrame, by default False</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>pandas.DataFrame</em>)</p></li>
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>index</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.timestamp_now">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">timestamp_now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#timestamp_now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.timestamp_now" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="minerva.pipelines.experiment.using_redirected_outputs">
+<span class="sig-prename descclassname"><span class="pre">minerva.pipelines.experiment.</span></span><span class="sig-name descname"><span class="pre">using_redirected_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'a'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/pipelines/experiment.html#using_redirected_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.pipelines.experiment.using_redirected_outputs" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>error_path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>mode</strong> (<em>str</em>)</p></li>
+<li><p><strong>ignore</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../lightning_pipeline/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">minerva.pipelines.lightning_pipeline</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../base/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">minerva.pipelines.base</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">minerva.pipelines.experiment</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment"><code class="docutils literal notranslate"><span class="pre">Experiment</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.NUM_DEBUG_BATCHES"><code class="docutils literal notranslate"><span class="pre">Experiment.NUM_DEBUG_BATCHES</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.NUM_DEBUG_EPOCHS"><code class="docutils literal notranslate"><span class="pre">Experiment.NUM_DEBUG_EPOCHS</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.__str__"><code class="docutils literal notranslate"><span class="pre">Experiment.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.__typing_string"><code class="docutils literal notranslate"><span class="pre">Experiment.__typing_string()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._checkpoint_dir"><code class="docutils literal notranslate"><span class="pre">Experiment._checkpoint_dir</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._evaluate_model"><code class="docutils literal notranslate"><span class="pre">Experiment._evaluate_model()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._predictions_dir"><code class="docutils literal notranslate"><span class="pre">Experiment._predictions_dir</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._print_evaluation_summary"><code class="docutils literal notranslate"><span class="pre">Experiment._print_evaluation_summary()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._print_train_summary"><code class="docutils literal notranslate"><span class="pre">Experiment._print_train_summary()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._results_dir"><code class="docutils literal notranslate"><span class="pre">Experiment._results_dir</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._run"><code class="docutils literal notranslate"><span class="pre">Experiment._run()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._run_id"><code class="docutils literal notranslate"><span class="pre">Experiment._run_id</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._stderr_path"><code class="docutils literal notranslate"><span class="pre">Experiment._stderr_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._stdout_path"><code class="docutils literal notranslate"><span class="pre">Experiment._stdout_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._train_model"><code class="docutils literal notranslate"><span class="pre">Experiment._train_model()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._trainer_parameters"><code class="docutils literal notranslate"><span class="pre">Experiment._trainer_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment._training_metrics_path"><code class="docutils literal notranslate"><span class="pre">Experiment._training_metrics_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.accelerator"><code class="docutils literal notranslate"><span class="pre">Experiment.accelerator</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.callbacks"><code class="docutils literal notranslate"><span class="pre">Experiment.callbacks</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.checkpoint_metrics"><code class="docutils literal notranslate"><span class="pre">Experiment.checkpoint_metrics</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.checkpoint_paths"><code class="docutils literal notranslate"><span class="pre">Experiment.checkpoint_paths</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.cleanup"><code class="docutils literal notranslate"><span class="pre">Experiment.cleanup()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.data_module"><code class="docutils literal notranslate"><span class="pre">Experiment.data_module</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.devices"><code class="docutils literal notranslate"><span class="pre">Experiment.devices</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.evaluation_metrics"><code class="docutils literal notranslate"><span class="pre">Experiment.evaluation_metrics</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.execution_id"><code class="docutils literal notranslate"><span class="pre">Experiment.execution_id</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.experiment_name"><code class="docutils literal notranslate"><span class="pre">Experiment.experiment_name</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.limit_predict_batches"><code class="docutils literal notranslate"><span class="pre">Experiment.limit_predict_batches</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.limit_test_batches"><code class="docutils literal notranslate"><span class="pre">Experiment.limit_test_batches</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.limit_train_batches"><code class="docutils literal notranslate"><span class="pre">Experiment.limit_train_batches</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.limit_val_batches"><code class="docutils literal notranslate"><span class="pre">Experiment.limit_val_batches</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.load_predictions_of_ckpt"><code class="docutils literal notranslate"><span class="pre">Experiment.load_predictions_of_ckpt()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.load_results_of_ckpt"><code class="docutils literal notranslate"><span class="pre">Experiment.load_results_of_ckpt()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.log_outputs"><code class="docutils literal notranslate"><span class="pre">Experiment.log_outputs</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.max_epochs"><code class="docutils literal notranslate"><span class="pre">Experiment.max_epochs</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.model_config"><code class="docutils literal notranslate"><span class="pre">Experiment.model_config</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.num_nodes"><code class="docutils literal notranslate"><span class="pre">Experiment.num_nodes</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.per_sample_evaluation_metrics"><code class="docutils literal notranslate"><span class="pre">Experiment.per_sample_evaluation_metrics</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.prediction_paths"><code class="docutils literal notranslate"><span class="pre">Experiment.prediction_paths</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.pretrained_backbone_ckpt_path"><code class="docutils literal notranslate"><span class="pre">Experiment.pretrained_backbone_ckpt_path</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.profiler"><code class="docutils literal notranslate"><span class="pre">Experiment.profiler</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.progress_bar_refresh_rate"><code class="docutils literal notranslate"><span class="pre">Experiment.progress_bar_refresh_rate</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.results_paths"><code class="docutils literal notranslate"><span class="pre">Experiment.results_paths</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.root_log_dir"><code class="docutils literal notranslate"><span class="pre">Experiment.root_log_dir</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.run_id"><code class="docutils literal notranslate"><span class="pre">Experiment.run_id</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.save_predictions"><code class="docutils literal notranslate"><span class="pre">Experiment.save_predictions</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.save_results"><code class="docutils literal notranslate"><span class="pre">Experiment.save_results</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.seed"><code class="docutils literal notranslate"><span class="pre">Experiment.seed</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.status"><code class="docutils literal notranslate"><span class="pre">Experiment.status</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.strategy"><code class="docutils literal notranslate"><span class="pre">Experiment.strategy</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.training_metrics"><code class="docutils literal notranslate"><span class="pre">Experiment.training_metrics</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.Experiment.training_metrics_path"><code class="docutils literal notranslate"><span class="pre">Experiment.training_metrics_path</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel"><code class="docutils literal notranslate"><span class="pre">InstantiatedModel</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel.create_model_and_load_backbone"><code class="docutils literal notranslate"><span class="pre">InstantiatedModel.create_model_and_load_backbone()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel.create_model_randomly_initialized"><code class="docutils literal notranslate"><span class="pre">InstantiatedModel.create_model_randomly_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel.load_model_from_checkpoint"><code class="docutils literal notranslate"><span class="pre">InstantiatedModel.load_model_from_checkpoint()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.InstantiatedModel.model"><code class="docutils literal notranslate"><span class="pre">InstantiatedModel.model</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig"><code class="docutils literal notranslate"><span class="pre">ModelConfig</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig.__str__"><code class="docutils literal notranslate"><span class="pre">ModelConfig.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig.information"><code class="docutils literal notranslate"><span class="pre">ModelConfig.information</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelConfig.instantiator"><code class="docutils literal notranslate"><span class="pre">ModelConfig.instantiator</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation"><code class="docutils literal notranslate"><span class="pre">ModelInformation</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.backbone_name"><code class="docutils literal notranslate"><span class="pre">ModelInformation.backbone_name</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.input_shape"><code class="docutils literal notranslate"><span class="pre">ModelInformation.input_shape</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.name"><code class="docutils literal notranslate"><span class="pre">ModelInformation.name</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.num_classes"><code class="docutils literal notranslate"><span class="pre">ModelInformation.num_classes</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.output_shape"><code class="docutils literal notranslate"><span class="pre">ModelInformation.output_shape</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.return_logits"><code class="docutils literal notranslate"><span class="pre">ModelInformation.return_logits</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInformation.task_type"><code class="docutils literal notranslate"><span class="pre">ModelInformation.task_type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator"><code class="docutils literal notranslate"><span class="pre">ModelInstantiator</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator.create_model_and_load_backbone"><code class="docutils literal notranslate"><span class="pre">ModelInstantiator.create_model_and_load_backbone()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator.create_model_randomly_initialized"><code class="docutils literal notranslate"><span class="pre">ModelInstantiator.create_model_randomly_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.ModelInstantiator.load_model_from_checkpoint"><code class="docutils literal notranslate"><span class="pre">ModelInstantiator.load_model_from_checkpoint()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.get_run_id"><code class="docutils literal notranslate"><span class="pre">get_run_id()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.get_trainer"><code class="docutils literal notranslate"><span class="pre">get_trainer()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.load_predictions"><code class="docutils literal notranslate"><span class="pre">load_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.load_results"><code class="docutils literal notranslate"><span class="pre">load_results()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.perform_evaluation"><code class="docutils literal notranslate"><span class="pre">perform_evaluation()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.perform_predict"><code class="docutils literal notranslate"><span class="pre">perform_predict()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.perform_train"><code class="docutils literal notranslate"><span class="pre">perform_train()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.save_predictions"><code class="docutils literal notranslate"><span class="pre">save_predictions()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.save_results"><code class="docutils literal notranslate"><span class="pre">save_results()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.timestamp_now"><code class="docutils literal notranslate"><span class="pre">timestamp_now()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.pipelines.experiment.using_redirected_outputs"><code class="docutils literal notranslate"><span class="pre">using_redirected_outputs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

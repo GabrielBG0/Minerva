@@ -1,0 +1,448 @@
+minerva.models.ssl.fastsiam
+===========================
+
+.. py:module:: minerva.models.ssl.fastsiam
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.ssl.fastsiam.FastSiam
+   minerva.models.ssl.fastsiam.SimSiamMLPHead
+
+
+Module Contents
+---------------
+
+.. py:class:: FastSiam(backbone, in_dim = 2048, hid_dim = 2048, out_dim = 2048, K = 3, momentum = 0.996, lr = 0.001, test_metric = None, num_classes = None)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+
+   A LightningModule implementation for FastSiam, a self-supervised learning framework.
+
+   Tris approach for self-supervised learning was proposed by Pototzky et al., (2022) [1] in
+   "FastSiam: Resource-Efficient Self-supervised Learning on a Single GPU".
+
+   [1] Pototzky, D., Sultan, A., Schmidt-Thieme, L. (2022). FastSiam: Resource-Efficient
+   Self-supervised Learning on a Single GPU. In: Andres, B., Bernard, F., Cremers, D.,
+   Frintrop, S., Goldlücke, B., Ihrke, I. (eds) Pattern Recognition. DAGM GCPR 2022.
+   Lecture Notes in Computer Science, vol 13485. Springer, Cham.
+   https://doi.org/10.1007/978-3-031-16788-1_4
+
+
+   Parameters
+   ----------
+   backbone : nn.Module
+       The backbone neural network for feature extraction (e.g., ResNet).
+   in_dim : int, optional
+       Input dimension for the projector network, by default 2048.
+   hid_dim : int, optional
+       Hidden dimension for the projector and predictor networks, by default 512.
+   out_dim : int, optional
+       Output dimension for the projector and predictor networks, by default 128.
+   K : int, optional
+       Number of target_branch views to generate, by default 3.
+   momentum : float, optional
+       Momentum factor for updating the target_branch, by default 0.996.
+   lr : float, optional
+       Learning rate for the optimizer, by default 1e-3.
+   test_metric : Optional[Callable], optional
+       A callable to compute the test metric, by default None.
+   num_classes : Optional[int], optional
+       Number of classes for classification tasks, by default None.
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:attribute:: K
+      :value: 3
+
+
+
+   .. py:method:: _single_step(batch, K, log_prefix)
+
+      Perform a single training, validation, or test step.
+
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:method:: configure_optimizers()
+
+      Configure the optimizer for training.
+
+
+
+   .. py:method:: ensure_tensor(image)
+
+      Ensure the input image is a PyTorch tensor with the correct format.
+
+
+
+   .. py:method:: fastsiam_loss(prediction_branch_pred, target_branch_target)
+      :staticmethod:
+
+
+      Compute the FastSiam loss (cosine similarity loss).
+
+
+
+   .. py:method:: forward(views)
+
+      Forward pass through the prediction branch and target branches.
+
+
+
+   .. py:attribute:: global_avg_pool
+
+
+   .. py:attribute:: lr
+      :value: 0.001
+
+
+
+   .. py:attribute:: momentum
+      :value: 0.996
+
+
+
+   .. py:attribute:: num_classes
+      :value: None
+
+
+
+   .. py:attribute:: prediction_branch_predictor
+
+
+   .. py:attribute:: prediction_branch_projector
+
+
+   .. py:attribute:: target_branch_backbone
+
+
+   .. py:attribute:: target_branch_projector
+
+
+   .. py:attribute:: test_metric
+      :value: None
+
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Operates on a single batch of data from the test set. In this step you'd normally generate examples or
+      calculate anything of interest such as accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one test dataloader:
+          def test_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple test dataloaders:
+          def test_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single test dataset
+          def test_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              test_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'test_loss': loss, 'test_acc': test_acc})
+
+      If you pass in multiple test dataloaders, :meth:`test_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple test dataloaders
+          def test_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"test_loss_{dataloader_idx}": loss, f"test_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to test you don't need to implement this method.
+
+      Note:
+          When the :meth:`test_step` is called, the model has been put in eval mode and
+          PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+          to training mode and gradients are enabled.
+
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Here you compute and return the training loss and some additional metrics for e.g. the progress bar or
+      logger.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary which can include any keys, but must include the key ``'loss'`` in the case of
+            automatic optimization.
+          - ``None`` - In automatic optimization, this will skip to the next batch (but is not supported for
+            multi-GPU, TPU, or DeepSpeed). For manual optimization, this has no special meaning, as returning
+            the loss is not required.
+
+      In this step you'd normally do the forward pass and calculate the loss for a batch.
+      You can also do fancier things like multiple forward passes or something model specific.
+
+      Example::
+
+          def training_step(self, batch, batch_idx):
+              x, y, z = batch
+              out = self.encoder(x)
+              loss = self.loss(out, x)
+              return loss
+
+      To use multiple optimizers, you can switch to 'manual optimization' and control their stepping:
+
+      .. code-block:: python
+
+          def __init__(self):
+              super().__init__()
+              self.automatic_optimization = False
+
+
+          # Multiple optimizers (e.g.: GANs)
+          def training_step(self, batch, batch_idx):
+              opt1, opt2 = self.optimizers()
+
+              # do training_step with encoder
+              ...
+              opt1.step()
+              # do training_step with decoder
+              ...
+              opt2.step()
+
+      Note:
+          When ``accumulate_grad_batches`` > 1, the loss returned here will be automatically
+          normalized by ``accumulate_grad_batches`` internally.
+
+
+
+
+   .. py:method:: update_target_branch()
+
+      Momentum update for the target branch.
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Operates on a single batch of data from the validation set. In this step you'd might generate examples or
+      calculate anything of interest like accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one val dataloader:
+          def validation_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple val dataloaders:
+          def validation_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single validation dataset
+          def validation_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              val_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'val_loss': loss, 'val_acc': val_acc})
+
+      If you pass in multiple val dataloaders, :meth:`validation_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple validation dataloaders
+          def validation_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"val_loss_{dataloader_idx}": loss, f"val_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to validate you don't need to implement this method.
+
+      Note:
+          When the :meth:`validation_step` is called, the model has been put in eval mode
+          and PyTorch gradients have been disabled. At the end of validation,
+          the model goes back to training mode and gradients are enabled.
+
+
+
+
+.. py:class:: SimSiamMLPHead(layer_sizes, activation_cls = nn.ReLU, batch_norm = False, final_bn = False, final_relu = False, *args, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   A sequential container.
+
+   Modules will be added to it in the order they are passed in the
+   constructor. Alternatively, an ``OrderedDict`` of modules can be
+   passed in. The ``forward()`` method of ``Sequential`` accepts any
+   input and forwards it to the first module it contains. It then
+   "chains" outputs to inputs sequentially for each subsequent module,
+   finally returning the output of the last module.
+
+   The value a ``Sequential`` provides over manually calling a sequence
+   of modules is that it allows treating the whole container as a
+   single module, such that performing a transformation on the
+   ``Sequential`` applies to each of the modules it stores (which are
+   each a registered submodule of the ``Sequential``).
+
+   What's the difference between a ``Sequential`` and a
+   :class:`torch.nn.ModuleList`? A ``ModuleList`` is exactly what it
+   sounds like--a list for storing ``Module`` s! On the other hand,
+   the layers in a ``Sequential`` are connected in a cascading way.
+
+   Example::
+
+       # Using Sequential to create a small model. When `model` is run,
+       # input will first be passed to `Conv2d(1,20,5)`. The output of
+       # `Conv2d(1,20,5)` will be used as the input to the first
+       # `ReLU`; the output of the first `ReLU` will become the input
+       # for `Conv2d(20,64,5)`. Finally, the output of
+       # `Conv2d(20,64,5)` will be used as input to the second `ReLU`
+       model = nn.Sequential(
+           nn.Conv2d(1, 20, 5), nn.ReLU(), nn.Conv2d(20, 64, 5), nn.ReLU()
+       )
+
+       # Using Sequential with OrderedDict. This is functionally the
+       # same as the above code
+       model = nn.Sequential(
+           OrderedDict(
+               [
+                   ("conv1", nn.Conv2d(1, 20, 5)),
+                   ("relu1", nn.ReLU()),
+                   ("conv2", nn.Conv2d(20, 64, 5)),
+                   ("relu2", nn.ReLU()),
+               ]
+           )
+       )
+
+   A modular implementation of a multi-layer perceptron (MLP) head, designed for SimSiam-style architectures.
+
+   Parameters
+   ----------
+   layer_sizes : Sequence[int]
+       Sequence of integers representing the sizes of each layer in the MLP.
+       Must have at least two elements (input and output sizes).
+   activation_cls : type, optional
+       The class of the activation function to use, by default `torch.nn.ReLU`.
+       Must be a subclass of `torch.nn.Module`.
+   batch_norm : bool, optional
+       Whether to include batch normalization after each hidden layer, by default `False`.
+   final_bn : bool, optional
+       Whether to include a batch normalization layer after the final layer, by default `False`.
+   final_relu : bool, optional
+       Whether to include a ReLU activation after the final layer, by default `False`.
+   *args, **kwargs :
+       Additional arguments passed to the activation function.
+
+   Raises
+   ------
+   AssertionError
+       If `layer_sizes` has fewer than two elements or contains non-positive integers.
+   AssertionError
+       If `activation_cls` is not a subclass of `torch.nn.Module`.
+
+   Examples
+   --------
+   >>> head = SimSiamMLPHead([2048, 512, 128], batch_norm=True)
+   >>> x = torch.randn(32, 2048)  # Batch of 32 samples with input dim 2048
+   >>> output = head(x)
+
+

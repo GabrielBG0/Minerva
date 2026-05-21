@@ -1,0 +1,172 @@
+minerva.data.datasets.har_rodrigues_24
+======================================
+
+.. py:module:: minerva.data.datasets.har_rodrigues_24
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.data.datasets.har_rodrigues_24.HARDatasetCPC
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.data.datasets.har_rodrigues_24.norm_shape
+   minerva.data.datasets.har_rodrigues_24.opp_sliding_window
+   minerva.data.datasets.har_rodrigues_24.sliding_window
+
+
+Module Contents
+---------------
+
+.. py:class:: HARDatasetCPC(data_path, input_size, window, overlap, phase = 'train', use_train_as_val = False, use_val_with_train = True, columns = None, label = 'standard activity code', transpose_data = True)
+
+   Bases: :py:obj:`torch.utils.data.Dataset`
+
+
+   An abstract class representing a :class:`Dataset`.
+
+   All datasets that represent a map from keys to data samples should subclass
+   it. All subclasses should overwrite :meth:`__getitem__`, supporting fetching a
+   data sample for a given key. Subclasses could also optionally overwrite
+   :meth:`__len__`, which is expected to return the size of the dataset by many
+   :class:`~torch.utils.data.Sampler` implementations and the default options
+   of :class:`~torch.utils.data.DataLoader`. Subclasses could also
+   optionally implement :meth:`__getitems__`, for speedup batched samples
+   loading. This method accepts list of indices of samples of batch and returns
+   list of samples.
+
+   .. note::
+     :class:`~torch.utils.data.DataLoader` by default constructs an index
+     sampler that yields integral indices.  To make it work with a map-style
+     dataset with non-integral indices/keys, a custom sampler must be provided.
+
+   Initializes the dataset by loading the dataset from CSV files,
+   segmenting the data into windows, and preparing it for training
+   or evaluation.
+
+   Parameters
+   ----------
+   data_path : Union[PathLike, List[PathLike]]
+       The path to the directory containing the dataset files. If a list of
+       paths is provided, the datasets will be concatenated, in the order
+       provided, into a single dataset.
+   input_size : int
+       The expected size of input features.
+   window : int
+       The size of the sliding window used to segment the data.
+   overlap : int
+       The overlap between consecutive windows.
+   phase : str
+       The phase of the dataset ('train', 'val', or 'test').
+   use_train_as_val : bool
+       Whether to use the training set as the validation set.
+   use_val_with_train : bool
+       Whether to use the validation set as the training set.
+   columns : Optional[List[str]]
+       The columns to be used as input features. If None, the default
+       columns ['accel-x', 'accel-y', 'accel-z', 'gyro-x', 'gyro-y',
+       'gyro-z'] will be used.
+   label : Optional[str]
+       The column to be used as the label. If None, no labels will be
+       used. If 'return_index_as_label', the index of the data will be
+       used as the label.
+   transpose_data : bool
+       If True, the data will be returned as a vector of shape (C, T),
+       else the data will be returned as a vector of shape  (T, C).
+
+
+   .. py:method:: __getitem__(index)
+
+
+   .. py:method:: __len__()
+
+
+   .. py:attribute:: columns
+
+
+   .. py:attribute:: data_raw
+
+
+   .. py:attribute:: input_size
+
+
+   .. py:attribute:: label
+      :value: 'standard activity code'
+
+
+
+   .. py:method:: load_dataset()
+
+      Loads the dataset from CSV files, concatenates them into numpy arrays,
+      and converts them to the appropriate data types.
+
+      Returns
+      -------
+      dict
+          A dictionary containing 'data' and 'labels' for 'train', 'val', and 'test'
+          phases, where 'data' is a numpy array of concatenated data and 'labels'
+          is a numpy array of concatenated labels.
+
+
+
+   .. py:attribute:: paths
+
+
+   .. py:attribute:: transpose_data
+      :value: True
+
+
+
+   .. py:attribute:: use_train_as_val
+      :value: False
+
+
+
+   .. py:attribute:: use_val_with_train
+      :value: True
+
+
+
+.. py:function:: norm_shape(shape)
+
+   Normalize numpy array shapes so they're always expressed as a tuple,
+   even for one-dimensional shapes.
+
+   Parameters
+   ----------
+   shape : int, tuple, or numpy.ndarray
+       The shape to be normalized.
+
+   Returns
+   -------
+   Tuple[int, ...]
+       The normalized shape.
+
+
+.. py:function:: opp_sliding_window(data_x, data_y, ws, ss)
+
+.. py:function:: sliding_window(a, ws, ss=None, flatten=True)
+
+   Return a sliding window over a in any number of dimensions
+
+   Parameters:
+       a  - an n-dimensional numpy array
+       ws - an int (a is 1D) or tuple (a is 2D or greater) representing the size
+            of each dimension of the window
+       ss - an int (a is 1D) or tuple (a is 2D or greater) representing the
+            amount to slide the window in each dimension. If not specified, it
+            defaults to ws.
+       flatten - if True, all slices are flattened, otherwise, there is an
+                 extra dimension for each dimension of the input.
+
+   Returns
+       an array containing each n-dimensional window from a
+
+

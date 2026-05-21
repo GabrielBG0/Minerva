@@ -1,0 +1,92 @@
+minerva.utils.deprecated
+========================
+
+.. py:module:: minerva.utils.deprecated
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.utils.deprecated.deprecated
+   minerva.utils.deprecated.deprecated_class
+   minerva.utils.deprecated.warn_if_used
+
+
+Module Contents
+---------------
+
+.. py:function:: deprecated(msg, version=None)
+
+   Decorator to mark a function as deprecated. It will print a warning
+   message when the function is called, indicating that it is deprecated and
+   will be removed in a future version.
+
+   Parameters
+   ----------
+   msg : str
+       A message to display when the function is called.
+   version : str, optional
+       The version in which the function will be removed. If provided, it will
+       be included in the warning message.
+
+   Example
+   -------
+   >>> @deprecated(msg="Use new_function() instead.", version="2.0")
+   ... def old_function():
+   ...     return "This is the old function."
+   >>> old_function()
+
+
+.. py:function:: deprecated_class(msg, version=None)
+
+   Decorator to mark a class as deprecated. It will print a warning
+   message when an instance of the class is created, indicating that it is
+   deprecated and will be removed in a future version.
+
+   Parameters
+   ----------
+   msg : str
+       A message to display when the class is instantiated.
+   version : str, optional
+       The version in which the class will be removed. If provided, it will
+       be included in the warning message.
+
+   Example
+   -------
+   >>> @deprecated_class(msg="Use NewClass() instead.", version="3.0")
+   ... class OldClass:
+   ...     def __init__(self):
+   ...         self.value = 10
+   >>> obj = OldClass()
+
+
+.. py:function:: warn_if_used(param, param_name, msg, version=None)
+
+   Warn if a parameter is used, indicating that it is deprecated and will
+   be removed in a future version.
+
+   Parameters
+   ----------
+   param : any
+       The parameter to check. If it is not None, a warning will be issued.
+   param_name : str
+       The name of the parameter to include in the warning message.
+   msg : str
+       A message to display when the parameter is used.
+   version : str, optional
+       The version in which the parameter will be removed. If provided, it will
+       be included in the warning message.
+
+   Example
+   -------
+   >>> class MyClass:
+   ...     def __init__(self, new_param, old_param=None):
+   ...         warn_if_used(old_param, "old_param", msg="It will be removed in the next version.", version="1.0")
+   ...         self.new_param = new_param
+   ...         self.old_param = old_param
+   >>> obj = MyClass(new_param="new", old_param="old")
+
+
+

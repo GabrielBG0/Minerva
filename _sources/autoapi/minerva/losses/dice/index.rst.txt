@@ -1,0 +1,234 @@
+minerva.losses.dice
+===================
+
+.. py:module:: minerva.losses.dice
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   minerva.losses.dice.BINARY_MODE
+   minerva.losses.dice.MULTICLASS_MODE
+   minerva.losses.dice.MULTILABEL_MODE
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.losses.dice.DiceLoss
+   minerva.losses.dice.MultiClassDiceCELoss
+
+
+Module Contents
+---------------
+
+.. py:data:: BINARY_MODE
+   :value: 'binary'
+
+
+.. py:class:: DiceLoss(mode, classes = None, log_loss = False, from_logits = True, smooth = 0.0, ignore_index = None, eps = 1e-07)
+
+   Bases: :py:obj:`torch.nn.modules.loss._Loss`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Initialize the DiceLoss class.
+
+   Parameters
+   ----------
+   mode : str
+       Loss mode. Valid options are 'binary', 'multiclass', or 'multilabel'.
+   classes : Optional[List[int]], optional
+       List of classes that contribute in loss computation. By default, all channels are included. By default None
+   log_loss : bool, optional
+       If True, loss is computed as `- log(dice_coeff)`. If False, loss is computed as `1 - dice_coeff`, by default False
+   from_logits : bool, optional
+       If True, assumes input is raw logits. If False, assumes input is probabilities., by default True
+   smooth : float, optional
+       Smoothness constant for dice coefficient (a), by default 0.0
+   ignore_index : Optional[int], optional
+       Label that indicates ignored pixels (does not contribute to loss), by default None
+   eps : float, optional
+       A small epsilon for numerical stability to avoid zero division error (denominator will be always greater or equal to eps), by default 1e-7
+
+   Raises
+   ------
+   AssertionError
+       If the mode is not one of 'binary', 'multiclass', or 'multilabel' and classes are being masked with mode='binary'.
+
+
+   .. py:method:: aggregate_loss(loss)
+
+
+   .. py:attribute:: classes
+      :value: None
+
+
+
+   .. py:method:: compute_score(output, target, smooth=0.0, eps=1e-07, dims=None)
+
+
+   .. py:attribute:: eps
+      :value: 1e-07
+
+
+
+   .. py:method:: forward(y_pred, y_true)
+
+
+   .. py:attribute:: from_logits
+      :value: True
+
+
+
+   .. py:attribute:: ignore_index
+      :value: None
+
+
+
+   .. py:attribute:: log_loss
+      :value: False
+
+
+
+   .. py:attribute:: mode
+
+
+   .. py:attribute:: smooth
+      :value: 0.0
+
+
+
+.. py:data:: MULTICLASS_MODE
+   :value: 'multiclass'
+
+
+.. py:data:: MULTILABEL_MODE
+   :value: 'multilabel'
+
+
+.. py:class:: MultiClassDiceCELoss(weight_ce = 1.0, weight_dice = 1.0)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Combined Dice and Cross-Entropy loss for multi-class segmentation.
+
+   Combines Dice loss for handling class imbalance and Cross-Entropy loss for
+   pixel-wise classification stability, improving segmentation performance.
+
+   Parameters
+   ----------
+   weight_ce : float, optional
+       Weight for Cross-Entropy loss component (default is 1.0).
+   weight_dice : float, optional
+       Weight for Dice loss component (default is 1.0).
+
+
+   .. py:method:: _dice_loss(probs, targets)
+
+      Calculate Dice loss for all classes.
+
+      Computes Dice loss as 1 - (2 * intersection) / (pred + target) averaged
+      over all classes.
+
+      Parameters
+      ----------
+      probs : torch.Tensor
+          Softmax probabilities of shape (batch_size, num_classes, H, W).
+      targets : torch.Tensor
+          Ground truth labels of shape (batch_size, H, W).
+
+
+
+   .. py:method:: forward(inputs, targets)
+
+      Calculate combined Dice and Cross-Entropy loss.
+
+      Parameters
+      ----------
+      inputs : torch.Tensor or list of torch.Tensor
+          Model predictions. If a list, assumes deep supervision with multiple outputs.
+      targets : torch.Tensor
+          Ground truth segmentation masks of shape (batch_size, H, W) or
+          (batch_size, 1, H, W).
+
+
+
+   .. py:attribute:: weight_ce
+      :value: 1.0
+
+
+
+   .. py:attribute:: weight_dice
+      :value: 1.0
+
+
+

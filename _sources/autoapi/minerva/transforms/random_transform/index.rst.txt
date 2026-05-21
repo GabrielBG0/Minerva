@@ -1,0 +1,337 @@
+minerva.transforms.random_transform
+===================================
+
+.. py:module:: minerva.transforms.random_transform
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.transforms.random_transform.RandomCrop
+   minerva.transforms.random_transform.RandomFlip
+   minerva.transforms.random_transform.RandomGrayScale
+   minerva.transforms.random_transform.RandomResize
+   minerva.transforms.random_transform.RandomRotation
+   minerva.transforms.random_transform.RandomSolarize
+   minerva.transforms.random_transform._RandomSyncedTransform
+
+
+Module Contents
+---------------
+
+.. py:class:: RandomCrop(crop_size, num_samples = 1, seed = None, pad_mode = 'reflect')
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A random cropping transform that applies the same random crop to multiple data items.
+
+   This transform randomly selects crop coordinates and applies the same crop operation
+   to multiple data items that need to be processed together, ensuring consistency across
+   related data (e.g., image-mask pairs, multiple images with shared labels, etc.).
+   If the crop extends beyond image boundaries, padding is applied using the specified mode.
+   The random crop coordinates are generated once and reused across all data items in the group.
+
+   Parameters
+   ----------
+   crop_size : Tuple[int, int]
+       The desired output size for the crop as (height, width) in pixels.
+   num_samples : int, default=1
+       The number of times the same random crop transformation will be applied when called.
+       Set to 2 for data-label pairs, 3 or more for datasets with multiple related items,
+       or 1 for single data items or contrastive learning scenarios.
+   seed : Optional[int], default=None
+       Random seed for reproducible crop selection. If None, uses system randomness.
+   pad_mode : str, default="reflect"
+       Padding mode to use when crop extends beyond image boundaries. Common modes
+       include "reflect", "constant", "edge", "wrap".
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: crop_size
+
+
+   .. py:attribute:: pad_mode
+      :value: 'reflect'
+
+
+
+   .. py:method:: select_transform()
+
+
+.. py:class:: RandomFlip(num_samples = 1, possible_axis = 1, prob = 0.5, seed = None)
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A transform that flips the input data along a random axis.
+
+   Parameters
+   ----------
+   num_samples : int
+       The number of samples that will be transformed.
+   possible_axis : Union[int, List[int]], optional
+       Possible axis to be transformed, will be chosen at random, by default 0
+   prob : float, optional
+       Probability of applying the transform, by default 0.5
+   seed : Optional[int], optional
+       A seed to ensure deterministic run, by default None
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: possible_axis
+      :value: 1
+
+
+
+   .. py:attribute:: prob
+      :value: 0.5
+
+
+
+   .. py:method:: select_transform()
+
+      selects the transform to be applied to the data.
+
+
+
+.. py:class:: RandomGrayScale(num_samples = 1, seed = None, prob = 0.1, method = 'luminosity')
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A random grayscale conversion transform that applies the same grayscale operation to multiple data items.
+
+   This transform randomly decides whether to convert images to grayscale based on a specified probability.
+   When activated, it applies the same grayscale conversion to all related data items, ensuring consistency.
+   The transform uses different methods for grayscale conversion and can be controlled by probability to
+   create data augmentation effects.
+
+   Parameters
+   ----------
+   num_samples : int, default=1
+       The number of times the same random grayscale transformation will be applied when called.
+       Set to 2 for data-label pairs, 3 or more for datasets with multiple related items,
+       or 1 for single data items or contrastive learning scenarios.
+   seed : Optional[int], default=None
+       Random seed for reproducible grayscale selection. If None, uses system randomness.
+   prob : float, default=0.1
+       Probability of applying the grayscale transformation. Must be between 0.0 and 1.0.
+       Higher values make grayscale conversion more likely.
+   method : Literal["average", "luminosity"], default="luminosity"
+       Method for grayscale conversion. "average" computes simple mean of RGB channels,
+       "luminosity" uses weighted average based on human perception of brightness.
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: method
+      :value: 'luminosity'
+
+
+
+   .. py:attribute:: prob
+      :value: 0.1
+
+
+
+   .. py:method:: select_transform()
+
+
+.. py:class:: RandomResize(target_scale, ratio_range, num_samples, seed = None)
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A random resize transform that applies the same scale-based resize to multiple data items.
+
+   This transform randomly samples a scaling factor within a specified range and applies
+   it to a base target scale to determine the final resize dimensions. The same scaling
+   factor and resulting dimensions are applied to all related data items, ensuring
+   consistency across image-mask pairs or other related data. This is useful for
+   multi-scale training and data augmentation.
+
+   Parameters
+   ----------
+   target_scale : Tuple[int, int]
+       Base target dimensions as (height, width) in pixels that will be scaled
+       by the random factor.
+   ratio_range : Tuple[float, float]
+       Range of scaling factors as (min_ratio, max_ratio). The scaling factor
+       is sampled uniformly from this range and applied to both dimensions.
+   num_samples : int
+       The number of times the same random resize transformation will be applied when called.
+       Set to 2 for data-label pairs, 3 or more for datasets with multiple related items,
+       or 1 for single data items or contrastive learning scenarios.
+   seed : Optional[int], default=None
+       Random seed for reproducible scaling factor selection. If None, uses system randomness.
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: ratio_range
+
+
+   .. py:attribute:: resize
+      :type:  Optional[minerva.transforms.transform._Transform]
+      :value: None
+
+
+
+   .. py:method:: select_transform()
+
+
+   .. py:attribute:: target_scale
+
+
+.. py:class:: RandomRotation(degrees, prob, num_samples = 1, seed = None)
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A random rotation transform that applies the same rotation to multiple data items.
+
+   This transform randomly decides whether to apply rotation based on a specified probability.
+   When activated, it samples a rotation angle uniformly from the specified range and applies
+   the same rotation to all related data items, ensuring consistency across image-mask pairs
+   or other related data.
+
+   Parameters
+   ----------
+   degrees : float
+       Maximum absolute value of the rotation angle in degrees. The angle is sampled
+       uniformly from [-degrees, +degrees].
+   prob : float
+       Probability of applying the rotation transformation. Must be between 0.0 and 1.0.
+       Higher values make rotation more likely.
+   num_samples : int, default=1
+       The number of times the same random rotation transformation will be applied when called.
+       Set to 2 for data-label pairs, 3 or more for datasets with multiple related items,
+       or 1 for single data items or contrastive learning scenarios.
+   seed : Optional[int], default=None
+       Random seed for reproducible rotation selection and angle generation. If None, uses system randomness.
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: degrees
+
+
+   .. py:attribute:: prob
+
+
+   .. py:method:: select_transform()
+
+
+.. py:class:: RandomSolarize(num_samples = 1, seed = None, threshold = 128, prob = 1.0)
+
+   Bases: :py:obj:`_RandomSyncedTransform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   A random solarization transform that applies the same solarize operation to multiple data items.
+
+   This transform randomly decides whether to apply solarization based on a specified probability.
+   Solarization inverts pixel values above a given threshold, creating a photographic negative effect
+   for bright regions while keeping darker regions unchanged. When activated, it applies the same
+   solarization parameters to all related data items, ensuring consistency.
+
+   Parameters
+   ----------
+   num_samples : int, default=1
+       The number of times the same random solarize transformation will be applied when called.
+       Set to 2 for data-label pairs, 3 or more for datasets with multiple related items,
+       or 1 for single data items or contrastive learning scenarios.
+   seed : Optional[int], default=None
+       Random seed for reproducible solarization selection. If None, uses system randomness.
+   threshold : int, default=128
+       Pixel intensity threshold for solarization. Pixels with values above this threshold
+       will be inverted. Valid range is typically 0-255 for 8-bit images.
+   prob : float, default=1.0
+       Probability of applying the solarization transformation. Must be between 0.0 and 1.0.
+       Higher values make solarization more likely.
+
+
+   .. py:method:: __str__()
+
+
+   .. py:attribute:: prob
+      :value: 1.0
+
+
+
+   .. py:method:: select_transform()
+
+
+   .. py:attribute:: threshold
+      :value: 128
+
+
+
+.. py:class:: _RandomSyncedTransform(num_samples = 1, seed = None)
+
+   Bases: :py:obj:`minerva.transforms.transform._Transform`
+
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   Orchestrate the application of a type of random transform to a list of data, ensuring that the same random state is used for all of them.
+
+   Parameters
+   ----------
+   transform : _Transform
+       A transform that will be applied to the input data.
+   num_samples : int
+       The number of samples that will be transformed.
+   seed : Optional[int], optional
+       The seed that will be used to generate the random state, by default None.
+
+
+   .. py:method:: __call__(data)
+
+      Implement the transformation logic in this method. Usually, the
+      transformation is applied on a single sample of data.
+
+
+
+   .. py:attribute:: num_samples
+      :value: 1
+
+
+
+   .. py:attribute:: rng
+
+
+   .. py:method:: select_transform()
+      :abstractmethod:
+
+
+
+   .. py:attribute:: transform
+
+
+   .. py:attribute:: transformations_executed
+      :value: 0
+
+
+

@@ -1,0 +1,2012 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../../../genindex.html"><link rel="search" title="Search" href="../../../../search.html"><link rel="next" title="minerva.data.readers.base_file_iterator" href="base_file_iterator/index.html"><link rel="prev" title="minerva.data.datasets.series_dataset" href="../datasets/series_dataset/index.html">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>minerva.data.readers - minerva documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">minerva  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <span class="sidebar-brand-text">minerva  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design.html">Minerva Design</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../tutorials.html">Examples and Tutorials</a><input aria-label="Toggle navigation of Examples and Tutorials" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/seismic_facies_getting_started.html">Getting Started with Minerva for Seismic Facies Segmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/har_getting_started.html">Getting Started with Minerva for Human Activity Recognition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/experiment_api_example.html">Minerva Experimental Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to Minerva</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../api.html">Programming Reference</a><input aria-label="Toggle navigation of Programming Reference" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../../index.html">minerva</a><input aria-label="Toggle navigation of minerva" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../analysis/index.html">minerva.analysis</a><input aria-label="Toggle navigation of minerva.analysis" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/clustering_analysis/index.html">minerva.analysis.clustering_analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/complexity_performance_analysis/index.html">minerva.analysis.complexity_performance_analysis</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../analysis/metrics/index.html">minerva.analysis.metrics</a><input aria-label="Toggle navigation of minerva.analysis.metrics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../analysis/metrics/balanced_accuracy/index.html">minerva.analysis.metrics.balanced_accuracy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../analysis/metrics/pixel_accuracy/index.html">minerva.analysis.metrics.pixel_accuracy</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../analysis/model_analysis/index.html">minerva.analysis.model_analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../cli/index.html">minerva.cli</a><input aria-label="Toggle navigation of minerva.cli" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/experiment/index.html">minerva.cli.experiment</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="../index.html">minerva.data</a><input aria-label="Toggle navigation of minerva.data" checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../data_module_tools/index.html">minerva.data.data_module_tools</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../data_modules/index.html">minerva.data.data_modules</a><input aria-label="Toggle navigation of minerva.data.data_modules" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../data_modules/base/index.html">minerva.data.data_modules.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../data_modules/datamodule_descriptor/index.html">minerva.data.data_modules.datamodule_descriptor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../data_modules/har/index.html">minerva.data.data_modules.har</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../data_modules/har_rodrigues_24/index.html">minerva.data.data_modules.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../data_modules/har_xu_23/index.html">minerva.data.data_modules.har_xu_23</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../datasets/index.html">minerva.data.datasets</a><input aria-label="Toggle navigation of minerva.data.datasets" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/base/index.html">minerva.data.datasets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/binary_tree_subset/index.html">minerva.data.datasets.binary_tree_subset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/context_dataset/index.html">minerva.data.datasets.context_dataset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/har_rodrigues_24/index.html">minerva.data.datasets.har_rodrigues_24</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/har_xu_23/index.html">minerva.data.datasets.har_xu_23</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../datasets/series_dataset/index.html">minerva.data.datasets.series_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current has-children current-page"><a class="current reference internal" href="#">minerva.data.readers</a><input aria-label="Toggle navigation of minerva.data.readers" checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l5"><a class="reference internal" href="csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l5"><a class="reference internal" href="zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../losses/index.html">minerva.losses</a><input aria-label="Toggle navigation of minerva.losses" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/_functional/index.html">minerva.losses._functional</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/batchwise_barlowtwins_loss/index.html">minerva.losses.batchwise_barlowtwins_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/dice/index.html">minerva.losses.dice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/negative_cossine_similatiry/index.html">minerva.losses.negative_cossine_similatiry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/ntxent_loss_poly/index.html">minerva.losses.ntxent_loss_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/topological_loss/index.html">minerva.losses.topological_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/weighted_dice_loss/index.html">minerva.losses.weighted_dice_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../losses/xtent_loss/index.html">minerva.losses.xtent_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../models/index.html">minerva.models</a><input aria-label="Toggle navigation of minerva.models" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../models/adapters/index.html">minerva.models.adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/finetune_adapters/index.html">minerva.models.finetune_adapters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models/loaders/index.html">minerva.models.loaders</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../models/nets/index.html">minerva.models.nets</a><input aria-label="Toggle navigation of minerva.models.nets" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/base/index.html">minerva.models.nets.base</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/classic_ml_pipeline/index.html">minerva.models.nets.classic_ml_pipeline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/conv_autoencoders_encoders/index.html">minerva.models.nets.conv_autoencoders_encoders</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/cpc_networks/index.html">minerva.models.nets.cpc_networks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/dcnn/index.html">minerva.models.nets.dcnn</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/diet_linear/index.html">minerva.models.nets.diet_linear</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/lfr_har_architectures/index.html">minerva.models.nets.lfr_har_architectures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/mlp/index.html">minerva.models.nets.mlp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/siamese_network_wrapper/index.html">minerva.models.nets.siamese_network_wrapper</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/tfc/index.html">minerva.models.nets.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/nets/tnc/index.html">minerva.models.nets.tnc</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../../models/ssl/index.html">minerva.models.ssl</a><input aria-label="Toggle navigation of minerva.models.ssl" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/autoencoder/index.html">minerva.models.ssl.autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/barlowtwins/index.html">minerva.models.ssl.barlowtwins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/byol/index.html">minerva.models.ssl.byol</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/cpc/index.html">minerva.models.ssl.cpc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/diet/index.html">minerva.models.ssl.diet</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/fastsiam/index.html">minerva.models.ssl.fastsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/lfr/index.html">minerva.models.ssl.lfr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/simclr/index.html">minerva.models.ssl.simclr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/simsiam/index.html">minerva.models.ssl.simsiam</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/tfc/index.html">minerva.models.ssl.tfc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/tnc/index.html">minerva.models.ssl.tnc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/topological_autoencoder/index.html">minerva.models.ssl.topological_autoencoder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../models/ssl/vitmae/index.html">minerva.models.ssl.vitmae</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../optimizers/index.html">minerva.optimizers</a><input aria-label="Toggle navigation of minerva.optimizers" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../optimizers/lars/index.html">minerva.optimizers.lars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../optimizers/lr_schedulers/index.html">minerva.optimizers.lr_schedulers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../pipelines/index.html">minerva.pipelines</a><input aria-label="Toggle navigation of minerva.pipelines" class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../pipelines/base/index.html">minerva.pipelines.base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipelines/experiment/index.html">minerva.pipelines.experiment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../pipelines/lightning_pipeline/index.html">minerva.pipelines.lightning_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../samplers/index.html">minerva.samplers</a><input aria-label="Toggle navigation of minerva.samplers" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../samplers/domain_sampler/index.html">minerva.samplers.domain_sampler</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../transforms/index.html">minerva.transforms</a><input aria-label="Toggle navigation of minerva.transforms" class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/activity_image/index.html">minerva.transforms.activity_image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/context_transform/index.html">minerva.transforms.context_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/moco_augmentations/index.html">minerva.transforms.moco_augmentations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/random_transform/index.html">minerva.transforms.random_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/split_transform/index.html">minerva.transforms.split_transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/tfc/index.html">minerva.transforms.tfc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../transforms/transform/index.html">minerva.transforms.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../utils/index.html">minerva.utils</a><input aria-label="Toggle navigation of minerva.utils" class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/deprecated/index.html">minerva.utils.deprecated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/instantiators/index.html">minerva.utils.instantiators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/output/index.html">minerva.utils.output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/position_embedding/index.html">minerva.utils.position_embedding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/string_ops/index.html">minerva.utils.string_ops</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/tensor/index.html">minerva.utils.tensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/typing/index.html">minerva.utils.typing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/upsample/index.html">minerva.utils.upsample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../../_sources/autoapi/minerva/data/readers/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-minerva.data.readers">
+<span id="minerva-data-readers"></span><h1>minerva.data.readers<a class="headerlink" href="#module-minerva.data.readers" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="base_file_iterator/index.html">minerva.data.readers.base_file_iterator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csv_reader/index.html">minerva.data.readers.csv_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index_reader/index.html">minerva.data.readers.index_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdio_reader/index.html">minerva.data.readers.mdio_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_reader/index.html">minerva.data.readers.multi_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy_reader/index.html">minerva.data.readers.numpy_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patched_array_reader/index.html">minerva.data.readers.patched_array_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="png_reader/index.html">minerva.data.readers.png_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader/index.html">minerva.data.readers.reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tabular_reader/index.html">minerva.data.readers.tabular_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text_reader/index.html">minerva.data.readers.text_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tiff_reader/index.html">minerva.data.readers.tiff_reader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zarr_reader/index.html">minerva.data.readers.zarr_reader</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.CSVReader" title="minerva.data.readers.CSVReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CSVReader</span></code></a></p></td>
+<td><p>Base class for readers. Readers define an ordered collection of data and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.IndexReader" title="minerva.data.readers.IndexReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IndexReader</span></code></a></p></td>
+<td><p>A class that returns the asked index as the item. Useful for some ssl methods and techniques.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedArrayReader" title="minerva.data.readers.LazyPaddedPatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LazyPaddedPatchedArrayReader</span></code></a></p></td>
+<td><p>Reads patches from a NumPy array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedMDIOReader" title="minerva.data.readers.LazyPaddedPatchedMDIOReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LazyPaddedPatchedMDIOReader</span></code></a></p></td>
+<td><p>Reads patches from a MDIO array. This class is a subclass of</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedZarrReader" title="minerva.data.readers.LazyPaddedPatchedZarrReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LazyPaddedPatchedZarrReader</span></code></a></p></td>
+<td><p>Reads patches from a Zarr array. This class is a subclass of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.NumpyArrayReader" title="minerva.data.readers.NumpyArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NumpyArrayReader</span></code></a></p></td>
+<td><p>This class is used to read data from a NumPy-like array. It is designed</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader" title="minerva.data.readers.NumpyFolderReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NumpyFolderReader</span></code></a></p></td>
+<td><p>A base class for iterating over files in a directory in a custom sorted</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.PNGReader" title="minerva.data.readers.PNGReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PNGReader</span></code></a></p></td>
+<td><p>A base class for iterating over files in a directory in a custom sorted</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader" title="minerva.data.readers.PatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchedArrayReader</span></code></a></p></td>
+<td><p>This class is used to read data from a NumPy-like array. It is designed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.PatchedMDIOReader" title="minerva.data.readers.PatchedMDIOReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchedMDIOReader</span></code></a></p></td>
+<td><p>Reads patches from a MDIO array. This class is a subclass of</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.PatchedZarrReader" title="minerva.data.readers.PatchedZarrReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchedZarrReader</span></code></a></p></td>
+<td><p>Reads patches from a Zarr array. This class is a subclass of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.TabularReader" title="minerva.data.readers.TabularReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TabularReader</span></code></a></p></td>
+<td><p>Base class for readers. Readers define an ordered collection of data and</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers.TextReader" title="minerva.data.readers.TextReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextReader</span></code></a></p></td>
+<td><p>A base class for iterating over files in a directory in a custom sorted</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#minerva.data.readers.TiffReader" title="minerva.data.readers.TiffReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TiffReader</span></code></a></p></td>
+<td><p>A base class for iterating over files in a directory in a custom sorted</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#minerva.data.readers._Reader" title="minerva.data.readers._Reader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_Reader</span></code></a></p></td>
+<td><p>Base class for readers. Readers define an ordered collection of data and</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.CSVReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">CSVReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns_to_select</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reader_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/csv_reader.html#CSVReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.CSVReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tabular_reader/index.html#minerva.data.readers.tabular_reader.TabularReader" title="minerva.data.readers.tabular_reader.TabularReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.tabular_reader.TabularReader</span></code></a></p>
+<p>Base class for readers. Readers define an ordered collection of data and
+provide methods to access it. This class primarily handles:</p>
+<ol class="arabic simple">
+<li><p>Definition of data structure and storage.</p></li>
+<li><p>Reading data from the source.</p></li>
+</ol>
+<p>The access is handled by the __getitem__ and __len__ methods, which should be
+implemented by a subclass. Readers usually returns a single item at a time,
+that can be a single image, a single label, etc.</p>
+<p>Reader to select columns from a DataFrame and return them as a NumPy
+array. The DataFrame is indexed by the row number. Each row of the
+DataFrame is considered as a sample. Thus, the __getitem__ method will
+return the columns of the DataFrame at the specified index as a NumPy
+array.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The DataFrame to select the columns from. The DataFrame should have
+the columns that are specified in the <cite>columns_to_select</cite> parameter.</p>
+</dd>
+<dt>columns_to_select<span class="classifier">Union[str, list[str]]</span></dt><dd><p>A string or a list of strings used to select the columns from the
+DataFrame. The string can be a regular expression pattern or a
+column name. The columns that match the pattern will be selected.
+Note that if columns_to_select is a list, the result is always a
+numpy array with the columns in the same order as the list.
+If the columns_to_select is a string, the result is a numpy array
+if the selected columns are more than one, otherwise it is a single
+value (which is not a numpy array).</p>
+</dd>
+<dt>cast_to<span class="classifier">str, optional</span></dt><dd><p>Cast the selected columns to the specified data type. If None, the
+data type of the columns will not be changed. (default is None)</p>
+</dd>
+<dt>data_shape<span class="classifier">tuple[int, …], optional</span></dt><dd><p>The shape of the data to be returned. If None, the data will be
+returned as a 1D array. If provided, the data will be reshaped to
+the specified shape. (default is None)</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>Union</em><em>[</em><em>minerva.utils.typing.PathLike</em><em>, </em><em>pandas.DataFrame</em><em>]</em>)</p></li>
+<li><p><strong>columns_to_select</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>cast_to</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>data_shape</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>reader_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.IndexReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">IndexReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/index_reader.html#IndexReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.IndexReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="reader/index.html#minerva.data.readers.reader._Reader" title="minerva.data.readers.reader._Reader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.reader._Reader</span></code></a></p>
+<p>A class that returns the asked index as the item. Useful for some ssl methods and techniques.
+If you previously have the length of your dataset you can set it on the initialization, otherwise when calling len it will return None.
+This class does not support slicing, negative indexes or out of range indexes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>len</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.IndexReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/index_reader.html#IndexReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.IndexReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve an item from the reader at the specified index.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>index<span class="classifier">int</span></dt><dd><p>Index of the item to retrieve.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Any</dt><dd><p>An item from the reader.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.IndexReader.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/index_reader.html#IndexReader.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.IndexReader.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Get the length of the reader.</p>
+<section id="id2">
+<h3>Returns<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>int</dt><dd><p>The length of the reader.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.IndexReader.len">
+<span class="sig-name descname"><span class="pre">len</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.readers.IndexReader.len" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedArrayReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">LazyPaddedPatchedArrayReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#LazyPaddedPatchedArrayReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedArrayReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#minerva.data.readers.PatchedArrayReader" title="minerva.data.readers.PatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatchedArrayReader</span></code></a></p>
+<p>Reads patches from a NumPy array.
+This class is a subclass of <cite>PatchedArrayReader</cite> and is designed to perform padding only when the patch
+consumed by <cite>__get_item__</cite> is in a region that uses the padding (boundary regions).
+If no padding is necessary, use PatchedArrayReader.</p>
+<p>Reads data from a NumPy array and generates patches from it.</p>
+<section id="id3">
+<h3>Parameters<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data<span class="classifier">ArrayLike</span></dt><dd><p>The input array from which patches are generated.</p>
+</dd>
+<dt>data_shape<span class="classifier">Tuple[int, …]</span></dt><dd><p>The shape of the patches to be extracted. This will be the shape of
+the subarray that is returned when a patch is accessed using
+__getitem__.</p>
+</dd>
+<dt>stride<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The stride between consecutive patches. If <cite>None</cite>, the stide will
+be the same as <cite>data_shape</cite>. By default None</p>
+</dd>
+<dt>pad_width<span class="classifier">Tuple[Tuple[int, int], …], optional</span></dt><dd><p>The width of padding to be applied to the data array. By default
+<cite>None</cite>, that is, no padding is applied. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_mode<span class="classifier">str, optional</span></dt><dd><p>The padding mode, by default “constant”. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_kwargs<span class="classifier">dict, optional</span></dt><dd><p>Additional keyword arguments for padding, by default None</p>
+</dd>
+<dt>index_bounds<span class="classifier">Tuple[Tuple[int, …], Tuple[int, …]], optional</span></dt><dd><p>A tuple of two tuples specifying the start and end indices for each dimension
+to create a sub-region of the Zarr array. If None, the entire array is used.</p>
+</dd>
+</dl>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
+<p><a href="#id4"><span class="problematic" id="id5">``</span></a><a href="#id6"><span class="problematic" id="id7">`</span></a>python
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; # Generate a 10x10 array
+&gt;&gt;&gt; data = np.arange(100).reshape(10, 10)
+&gt;&gt;&gt; # Create a reader that generates 5x5 patches with a stride of 2 in the
+&gt;&gt;&gt; # first dimension and 5 in the second dimension.
+&gt;&gt;&gt; reader = PatchedArrayReader(
+&gt;&gt;&gt;    data,
+&gt;&gt;&gt;    data_shape=(5, 5),
+&gt;&gt;&gt;    stride=(2, 5),
+&gt;&gt;&gt; )
+&gt;&gt;&gt; # Printing the number of patches that can be extracted from the data
+&gt;&gt;&gt; print(len(reader))
+6
+&gt;&gt;&gt; # Printing the indices of the patches
+&gt;&gt;&gt; print(reader.indices)
+[(0, 0), (0, 5), (2, 0), (2, 5), (4, 0), (4, 5)]
+&gt;&gt;&gt; # Fetch the first patch and print its shape
+&gt;&gt;&gt; print(reader[0].shape)
+(5, 5)
+&gt;&gt;&gt; # Fetch the third patch and print its content
+&gt;&gt;&gt; print(reader[2])
+[[20 21 22 23 24]</p>
+<blockquote>
+<div><p>[30 31 32 33 34]
+[40 41 42 43 44]
+[50 51 52 53 54]
+[60 61 62 63 64]]</p>
+</div></blockquote>
+<p><a href="#id8"><span class="problematic" id="id9">``</span></a><a href="#id10"><span class="problematic" id="id11">`</span></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedArrayReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#LazyPaddedPatchedArrayReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedArrayReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch a patch from the data array.</p>
+<section id="id12">
+<h4>Parameters<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>idx<span class="classifier">int</span></dt><dd><p>The index of the patch to be fetched.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h4>Returns<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The patch that was fetched from the data array with shape
+<cite>data_shape</cite></p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedArrayReader._get_patches">
+<span class="sig-name descname"><span class="pre">_get_patches</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#LazyPaddedPatchedArrayReader._get_patches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedArrayReader._get_patches" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the left upper corner indices of the patches that will be
+extracted from the data array. The patches are extracted with a stride
+between them. A list of indices is returned, where each index is a tuple
+of integers representing the coordinates of the left upper corner of the
+patches.</p>
+<section id="id14">
+<h4>Returns<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>List[Tuple[int, …]]</dt><dd><p>A list of indices (coordinates) representing the left upper corner
+of the patches.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[str, Tuple[int, Ellipsis]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedArrayReader._pad_data">
+<span class="sig-name descname"><span class="pre">_pad_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pad_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#LazyPaddedPatchedArrayReader._pad_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedArrayReader._pad_data" title="Link to this definition">¶</a></dt>
+<dd><p>Apply padding to the data array.</p>
+<section id="id15">
+<h4>Parameters<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>pad_width<span class="classifier">Tuple[Tuple[int, int], …]</span></dt><dd><p>The width of padding to be applied to the data array</p>
+</dd>
+<dt>mode<span class="classifier">str, optional</span></dt><dd><p>The padding mode, by default “constant”</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pad_width</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Ellipsis</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.typing.ArrayLike</em>)</p></li>
+<li><p><strong>data_shape</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em>)</p></li>
+<li><p><strong>stride</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_width</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_mode</strong> (<em>str</em>)</p></li>
+<li><p><strong>pad_kwargs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>)</p></li>
+<li><p><strong>index_bounds</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedMDIOReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">LazyPaddedPatchedMDIOReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdio_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data/chunked_012'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/mdio_reader.html#LazyPaddedPatchedMDIOReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedMDIOReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zarr_reader/index.html#minerva.data.readers.zarr_reader.LazyPaddedPatchedZarrReader" title="minerva.data.readers.zarr_reader.LazyPaddedPatchedZarrReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.zarr_reader.LazyPaddedPatchedZarrReader</span></code></a></p>
+<p>Reads patches from a MDIO array. This class is a subclass of
+<cite>LazyPaddedPatchedZarrReader</cite> and is designed to read patches from the the
+data Zarr array inside thre MDIO array subdirectory,
+performing padding in a lazy manner (padding is done in <cite>__getitem__</cite> call).
+If no padding is necessary, use PatchedMDIOReader.</p>
+<p>Reads patches from a MDIO array. This class is a subclass of
+<cite>LazyPaddedPatchedZarrReader</cite>. All other parameters are the same as parent class.
+Please refer to the documentation of <cite>LazyPaddedPatchedZarrReader</cite> for more
+information.</p>
+<section id="id16">
+<h3>Parameters<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>Path to the MDIO array.</p>
+</dd>
+<dt>mdio_data: str</dt><dd><p>Name of data array inside MDIO subdirectory. Defaults to ‘data/chunked_012’</p>
+</dd>
+</dl>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The MDIO array is expected to be stored on disk. If the array is not
+stored on disk, it is recommended to use the <cite>LazyPaddedPatchedArrayReader</cite>
+class instead.</p></li>
+<li><p>Padding is computed when necessary during <cite>__getitem__</cite> calls.</p></li>
+</ol>
+</section>
+<section id="id17">
+<h3>Examples<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<p><a href="#id18"><span class="problematic" id="id19">``</span></a><a href="#id20"><span class="problematic" id="id21">`</span></a>python
+&gt;&gt;&gt; from pathlib import Path
+&gt;&gt;&gt; data_path = Path(“data.mdio”)
+&gt;&gt;&gt; reader = LazyPaddedPatchedMDIOReader(
+…     path=data_path,
+…     data_shape=(5, 5),
+…     stride=(2, 5),
+…     pad_width=((1,1), (0,2)),
+… )
+&gt;&gt;&gt; print(len(reader))
+&gt;&gt;&gt; print(reader[0])</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedMDIOReader.mdio_path">
+<span class="sig-name descname"><span class="pre">mdio_path</span></span><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedMDIOReader.mdio_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>mdio_data</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedZarrReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">LazyPaddedPatchedZarrReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/zarr_reader.html#LazyPaddedPatchedZarrReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedZarrReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="patched_array_reader/index.html#minerva.data.readers.patched_array_reader.LazyPaddedPatchedArrayReader" title="minerva.data.readers.patched_array_reader.LazyPaddedPatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.patched_array_reader.LazyPaddedPatchedArrayReader</span></code></a></p>
+<p>Reads patches from a Zarr array. This class is a subclass of
+<cite>LazyPaddedPatchedArrayReader</cite> and is designed to read patches from a Zarr array,
+performing padding in a lazy manner (padding is done in <cite>__getitem__</cite> call).
+If no padding is necessary, use PatchedZarrReader.</p>
+<p>Reads patches from a Zarr array. This class is a subclass of
+<cite>LazyPaddedPatchedArrayReader</cite>. All other parameters are the same as parent class.
+Please refer to the documentation of <cite>LazyPaddedPatchedArrayReader</cite> for more
+information. This class can be used when padding is necessary and the whole dataset doesn’t fit into memory.</p>
+<section id="id22">
+<h3>Parameters<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>Path to the Zarr array.</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h3>Notes<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The Zarr array is expected to be stored on disk. If the array is not
+stored on disk, it is recommended to use the <cite>LazyPaddedPatchedArrayReader</cite>
+class instead.</p></li>
+<li><p>Padding is computed when necessary during <cite>__getitem__</cite> calls.</p></li>
+</ol>
+</section>
+<section id="id24">
+<h3>Examples<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a>python
+&gt;&gt;&gt; from pathlib import Path
+&gt;&gt;&gt; data_path = Path(“data.zarr”)
+&gt;&gt;&gt; reader = LazyPaddedPatchedZarrReader(
+…     path=data_path,
+…     data_shape=(5, 5),
+…     stride=(2, 5),
+…     pad_width=((1,1), (0,2)),
+… )
+&gt;&gt;&gt; print(len(reader))
+&gt;&gt;&gt; print(reader[0])</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.LazyPaddedPatchedZarrReader.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#minerva.data.readers.LazyPaddedPatchedZarrReader.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyArrayReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">NumpyArrayReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_pickle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npz_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/numpy_reader.html#NumpyArrayReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.NumpyArrayReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="patched_array_reader/index.html#minerva.data.readers.patched_array_reader.PatchedArrayReader" title="minerva.data.readers.patched_array_reader.PatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.patched_array_reader.PatchedArrayReader</span></code></a></p>
+<p>This class is used to read data from a NumPy-like array. It is designed
+to generate patches from the data and provides sequential access to them.
+This  class can serve as a base class for other readers.</p>
+<p>Assumptions:
+- The input data is expected to be a NumPy-like array, that is, it should</p>
+<blockquote>
+<div><p>support NumPy-like indexing.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Patches are fixed-size subarrays of the data.</p></li>
+<li><p>Patches can have overlap between them.</p></li>
+</ul>
+<p>Reads data from a NumPy array and generates patches from it.</p>
+<section id="id29">
+<h3>Parameters<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data<span class="classifier">ArrayLike</span></dt><dd><p>The input array from which patches are generated.</p>
+</dd>
+<dt>data_shape<span class="classifier">Tuple[int, …]</span></dt><dd><p>The shape of the patches to be extracted. This will be the shape of
+the subarray that is returned when a patch is accessed using
+__getitem__.</p>
+</dd>
+<dt>stride<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The stride between consecutive patches. If <cite>None</cite>, the stide will
+be the same as <cite>data_shape</cite>. By default None</p>
+</dd>
+<dt>pad_width<span class="classifier">Tuple[Tuple[int, int], …], optional</span></dt><dd><p>The width of padding to be applied to the data array. By default
+<cite>None</cite>, that is, no padding is applied. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_mode<span class="classifier">str, optional</span></dt><dd><p>The padding mode, by default “constant”. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_kwargs<span class="classifier">dict, optional</span></dt><dd><p>Additional keyword arguments for padding, by default None</p>
+</dd>
+<dt>index_bounds<span class="classifier">Tuple[Tuple[int, …], Tuple[int, …]], optional</span></dt><dd><p>A tuple of two tuples specifying the start and end indices for each dimension
+to create a sub-region of the Zarr array. If None, the entire array is used.</p>
+</dd>
+</dl>
+</section>
+<section id="id30">
+<h3>Examples<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<p><a href="#id31"><span class="problematic" id="id32">``</span></a><a href="#id33"><span class="problematic" id="id34">`</span></a>python
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; # Generate a 10x10 array
+&gt;&gt;&gt; data = np.arange(100).reshape(10, 10)
+&gt;&gt;&gt; # Create a reader that generates 5x5 patches with a stride of 2 in the
+&gt;&gt;&gt; # first dimension and 5 in the second dimension.
+&gt;&gt;&gt; reader = PatchedArrayReader(
+&gt;&gt;&gt;    data,
+&gt;&gt;&gt;    data_shape=(5, 5),
+&gt;&gt;&gt;    stride=(2, 5),
+&gt;&gt;&gt; )
+&gt;&gt;&gt; # Printing the number of patches that can be extracted from the data
+&gt;&gt;&gt; print(len(reader))
+6
+&gt;&gt;&gt; # Printing the indices of the patches
+&gt;&gt;&gt; print(reader.indices)
+[(0, 0), (0, 5), (2, 0), (2, 5), (4, 0), (4, 5)]
+&gt;&gt;&gt; # Fetch the first patch and print its shape
+&gt;&gt;&gt; print(reader[0].shape)
+(5, 5)
+&gt;&gt;&gt; # Fetch the third patch and print its content
+&gt;&gt;&gt; print(reader[2])
+[[20 21 22 23 24]</p>
+<blockquote>
+<div><p>[30 31 32 33 34]
+[40 41 42 43 44]
+[50 51 52 53 54]
+[60 61 62 63 64]]</p>
+</div></blockquote>
+<p><a href="#id35"><span class="problematic" id="id36">``</span></a><a href="#id37"><span class="problematic" id="id38">`</span></a></p>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>numpy.typing.ArrayLike</em><em>, </em><em>minerva.utils.typing.PathLike</em><em>]</em>)</p></li>
+<li><p><strong>data_shape</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em>)</p></li>
+<li><p><strong>stride</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_width</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_mode</strong> (<em>str</em>)</p></li>
+<li><p><strong>pad_kwargs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>)</p></li>
+<li><p><strong>allow_pickle</strong> (<em>bool</em>)</p></li>
+<li><p><strong>npz_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">NumpyFolderReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_pickle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/numpy_reader.html#NumpyFolderReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base_file_iterator/index.html#minerva.data.readers.base_file_iterator.BaseFileIterator" title="minerva.data.readers.base_file_iterator.BaseFileIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.base_file_iterator.BaseFileIterator</span></code></a></p>
+<p>A base class for iterating over files in a directory in a custom sorted
+order.</p>
+<p>Load image files from a directory.</p>
+<section id="id39">
+<h3>Parameters<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">Union[Path, str]</span></dt><dd><p>The path to the directory containing the image files. Files will be
+searched recursively.</p>
+</dd>
+<dt>sort_method<span class="classifier">Optional[List[str]], optional</span></dt><dd><p>A list specifying how to sort each part of the filename. Each
+element can  be either “text” (lexicographical) or “numeric”
+(numerically). By default, None, which will use “numeric” if
+numeric parts are detected.</p>
+</dd>
+<dt>delimiter<span class="classifier">Optional[str], optional</span></dt><dd><p>The delimiter to split filenames into components, by default None.</p>
+</dd>
+<dt>key_index<span class="classifier">Union[int, List[int]], optional</span></dt><dd><p>The index (or list of indices) of the part(s) of the filename to
+use  for sorting. If a list is provided, files will be sorted
+based on  multiple parts in sequence. Thus, first by the part at
+index 0, then by the part at index 1, and so on. By default 0.</p>
+</dd>
+<dt>reverse<span class="classifier">bool, optional</span></dt><dd><p>Whether to sort in reverse order, by default False.</p>
+</dd>
+<dt>filters: Optional[Union[List[str], str]]</dt><dd><p>An optional string or list of strings containing regular expressions
+with which to filter files by their stems. Files that match at least
+one pattern are kept, and the others are excluded. Defaults to None,
+which means no files are excluded.</p>
+</dd>
+</dl>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>If the path is not a directory.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/numpy_reader.html#NumpyFolderReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the PNG file at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/numpy_reader.html#NumpyFolderReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader.allow_pickle">
+<span class="sig-name descname"><span class="pre">allow_pickle</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader.allow_pickle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader.array_key">
+<span class="sig-name descname"><span class="pre">array_key</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader.array_key" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.NumpyFolderReader.root_dir">
+<span class="sig-name descname"><span class="pre">root_dir</span></span><a class="headerlink" href="#minerva.data.readers.NumpyFolderReader.root_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>sort_method</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>delimiter</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>key_index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>reverse</strong> (<em>bool</em>)</p></li>
+<li><p><strong>filters</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>allow_pickle</strong> (<em>bool</em>)</p></li>
+<li><p><strong>array_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.PNGReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">PNGReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/png_reader.html#PNGReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PNGReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base_file_iterator/index.html#minerva.data.readers.base_file_iterator.BaseFileIterator" title="minerva.data.readers.base_file_iterator.BaseFileIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.base_file_iterator.BaseFileIterator</span></code></a></p>
+<p>A base class for iterating over files in a directory in a custom sorted
+order.</p>
+<p>Load image files from a directory.</p>
+<section id="id40">
+<h3>Parameters<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">Union[Path, str]</span></dt><dd><p>The path to the directory containing the image files. Files will be
+searched recursively.</p>
+</dd>
+<dt>sort_method<span class="classifier">Optional[List[str]], optional</span></dt><dd><p>A list specifying how to sort each part of the filename. Each
+element can  be either “text” (lexicographical) or “numeric”
+(numerically). By default, None, which will use “numeric” if
+numeric parts are detected.</p>
+</dd>
+<dt>delimiter<span class="classifier">Optional[str], optional</span></dt><dd><p>The delimiter to split filenames into components, by default None.</p>
+</dd>
+<dt>key_index<span class="classifier">Union[int, List[int]], optional</span></dt><dd><p>The index (or list of indices) of the part(s) of the filename to
+use  for sorting. If a list is provided, files will be sorted
+based on  multiple parts in sequence. Thus, first by the part at
+index 0, then by the part at index 1, and so on. By default 0.</p>
+</dd>
+<dt>reverse<span class="classifier">bool, optional</span></dt><dd><p>Whether to sort in reverse order, by default False.</p>
+</dd>
+<dt>filters: Optional[Union[List[str], str]]</dt><dd><p>An optional string or list of strings containing regular expressions
+with which to filter files by their stems. Files that match at least
+one pattern are kept, and the others are excluded. Defaults to None,
+which means no files are excluded.</p>
+</dd>
+</dl>
+</section>
+<section id="id41">
+<h3>Raises<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>If the path is not a directory.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PNGReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/png_reader.html#PNGReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PNGReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the PNG file at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PNGReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/png_reader.html#PNGReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PNGReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PNGReader.root_dir">
+<span class="sig-name descname"><span class="pre">root_dir</span></span><a class="headerlink" href="#minerva.data.readers.PNGReader.root_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>sort_method</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>delimiter</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>key_index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>reverse</strong> (<em>bool</em>)</p></li>
+<li><p><strong>filters</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">PatchedArrayReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="reader/index.html#minerva.data.readers.reader._Reader" title="minerva.data.readers.reader._Reader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.reader._Reader</span></code></a></p>
+<p>This class is used to read data from a NumPy-like array. It is designed
+to generate patches from the data and provides sequential access to them.
+This  class can serve as a base class for other readers.</p>
+<p>Assumptions:
+- The input data is expected to be a NumPy-like array, that is, it should</p>
+<blockquote>
+<div><p>support NumPy-like indexing.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Patches are fixed-size subarrays of the data.</p></li>
+<li><p>Patches can have overlap between them.</p></li>
+</ul>
+<p>Reads data from a NumPy array and generates patches from it.</p>
+<section id="id42">
+<h3>Parameters<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>data<span class="classifier">ArrayLike</span></dt><dd><p>The input array from which patches are generated.</p>
+</dd>
+<dt>data_shape<span class="classifier">Tuple[int, …]</span></dt><dd><p>The shape of the patches to be extracted. This will be the shape of
+the subarray that is returned when a patch is accessed using
+__getitem__.</p>
+</dd>
+<dt>stride<span class="classifier">Tuple[int, …], optional</span></dt><dd><p>The stride between consecutive patches. If <cite>None</cite>, the stide will
+be the same as <cite>data_shape</cite>. By default None</p>
+</dd>
+<dt>pad_width<span class="classifier">Tuple[Tuple[int, int], …], optional</span></dt><dd><p>The width of padding to be applied to the data array. By default
+<cite>None</cite>, that is, no padding is applied. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_mode<span class="classifier">str, optional</span></dt><dd><p>The padding mode, by default “constant”. Check the documentation of
+<cite>numpy.pad</cite> for more information.</p>
+</dd>
+<dt>pad_kwargs<span class="classifier">dict, optional</span></dt><dd><p>Additional keyword arguments for padding, by default None</p>
+</dd>
+<dt>index_bounds<span class="classifier">Tuple[Tuple[int, …], Tuple[int, …]], optional</span></dt><dd><p>A tuple of two tuples specifying the start and end indices for each dimension
+to create a sub-region of the Zarr array. If None, the entire array is used.</p>
+</dd>
+</dl>
+</section>
+<section id="id43">
+<h3>Examples<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h3>
+<p><a href="#id44"><span class="problematic" id="id45">``</span></a><a href="#id46"><span class="problematic" id="id47">`</span></a>python
+&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; # Generate a 10x10 array
+&gt;&gt;&gt; data = np.arange(100).reshape(10, 10)
+&gt;&gt;&gt; # Create a reader that generates 5x5 patches with a stride of 2 in the
+&gt;&gt;&gt; # first dimension and 5 in the second dimension.
+&gt;&gt;&gt; reader = PatchedArrayReader(
+&gt;&gt;&gt;    data,
+&gt;&gt;&gt;    data_shape=(5, 5),
+&gt;&gt;&gt;    stride=(2, 5),
+&gt;&gt;&gt; )
+&gt;&gt;&gt; # Printing the number of patches that can be extracted from the data
+&gt;&gt;&gt; print(len(reader))
+6
+&gt;&gt;&gt; # Printing the indices of the patches
+&gt;&gt;&gt; print(reader.indices)
+[(0, 0), (0, 5), (2, 0), (2, 5), (4, 0), (4, 5)]
+&gt;&gt;&gt; # Fetch the first patch and print its shape
+&gt;&gt;&gt; print(reader[0].shape)
+(5, 5)
+&gt;&gt;&gt; # Fetch the third patch and print its content
+&gt;&gt;&gt; print(reader[2])
+[[20 21 22 23 24]</p>
+<blockquote>
+<div><p>[30 31 32 33 34]
+[40 41 42 43 44]
+[50 51 52 53 54]
+[60 61 62 63 64]]</p>
+</div></blockquote>
+<p><a href="#id48"><span class="problematic" id="id49">``</span></a><a href="#id50"><span class="problematic" id="id51">`</span></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Fetch a patch from the data array.</p>
+<section id="id52">
+<h4>Parameters<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>idx<span class="classifier">int</span></dt><dd><p>The index of the patch to be fetched.</p>
+</dd>
+</dl>
+</section>
+<section id="id53">
+<h4>Returns<a class="headerlink" href="#id53" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The patch that was fetched from the data array with shape
+<cite>data_shape</cite></p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Return the number of patches that can be extracted from the data
+array.</p>
+<section id="id54">
+<h4>Returns<a class="headerlink" href="#id54" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>int</dt><dd><p>The number of patches that can be extracted from the data array.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader._get_patches">
+<span class="sig-name descname"><span class="pre">_get_patches</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader._get_patches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader._get_patches" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the left upper corner indices of the patches that will be
+extracted from the data array. The patches are extracted with a stride
+between them. A list of indices is returned, where each index is a tuple
+of integers representing the coordinates of the left upper corner of the
+patches.</p>
+<section id="id55">
+<h4>Returns<a class="headerlink" href="#id55" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>List[Tuple[int, …]]</dt><dd><p>A list of indices (coordinates) representing the left upper corner
+of the patches.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[int, Ellipsis]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader._pad_data">
+<span class="sig-name descname"><span class="pre">_pad_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pad_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constant'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/patched_array_reader.html#PatchedArrayReader._pad_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader._pad_data" title="Link to this definition">¶</a></dt>
+<dd><p>Apply padding to the data array.</p>
+<section id="id56">
+<h4>Parameters<a class="headerlink" href="#id56" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>pad_width<span class="classifier">Tuple[Tuple[int, int], …]</span></dt><dd><p>The width of padding to be applied to the data array</p>
+</dd>
+<dt>mode<span class="classifier">str, optional</span></dt><dd><p>The padding mode, by default “constant”</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pad_width</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Ellipsis</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.data_shape">
+<span class="sig-name descname"><span class="pre">data_shape</span></span><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.data_shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.indices">
+<span class="sig-name descname"><span class="pre">indices</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.indices" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.pad_kwargs">
+<span class="sig-name descname"><span class="pre">pad_kwargs</span></span><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.pad_kwargs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.pad_mode">
+<span class="sig-name descname"><span class="pre">pad_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'constant'</span></em><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.pad_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.pad_width">
+<span class="sig-name descname"><span class="pre">pad_width</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.pad_width" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedArrayReader.stride">
+<span class="sig-name descname"><span class="pre">stride</span></span><a class="headerlink" href="#minerva.data.readers.PatchedArrayReader.stride" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.typing.ArrayLike</em>)</p></li>
+<li><p><strong>data_shape</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em>)</p></li>
+<li><p><strong>stride</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_width</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>pad_mode</strong> (<em>str</em>)</p></li>
+<li><p><strong>pad_kwargs</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>)</p></li>
+<li><p><strong>index_bounds</strong> (<em>Tuple</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>, </em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedMDIOReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">PatchedMDIOReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdio_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data/chunked_012'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/mdio_reader.html#PatchedMDIOReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedMDIOReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zarr_reader/index.html#minerva.data.readers.zarr_reader.PatchedZarrReader" title="minerva.data.readers.zarr_reader.PatchedZarrReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.zarr_reader.PatchedZarrReader</span></code></a></p>
+<p>Reads patches from a MDIO array. This class is a subclass of
+<cite>PatchedZarrReader</cite> and is designed to read patches from the the
+data Zarr array inside thre MDIO array subdirectory.</p>
+<p>Reads patches from a MDIO array. This class is a subclass of
+<cite>PatchedZarrReader</cite>. All other parameters are the same as parent class.
+Please refer to the documentation of <cite>PatchedZarrReader</cite> for more
+information.</p>
+<section id="id57">
+<h3>Parameters<a class="headerlink" href="#id57" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>Path to the MDIO array.</p>
+</dd>
+<dt>mdio_data: str</dt><dd><p>Name of data array inside MDIO subdirectory. Defaults to ‘data/chunked_012’</p>
+</dd>
+</dl>
+</section>
+<section id="id58">
+<h3>Notes<a class="headerlink" href="#id58" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The MDIO array is expected to be stored on disk. If the array is not
+stored on disk, it is recommended to use the <cite>PatchedArrayReader</cite>
+class instead.</p></li>
+<li><p>When using padding, the padding is applied to the entire array. This
+will load the entire array into memory. If the array is too large to
+fit into memory, it is recommended to pad before.
+See <cite>LazyPaddedPatchedMDIOReader</cite> for an a lazy alternative.</p></li>
+</ol>
+</section>
+<section id="id59">
+<h3>Examples<a class="headerlink" href="#id59" title="Link to this heading">¶</a></h3>
+<p><a href="#id60"><span class="problematic" id="id61">``</span></a><a href="#id62"><span class="problematic" id="id63">`</span></a>python
+&gt;&gt;&gt; from pathlib import Path
+&gt;&gt;&gt; data_path = Path(“data.mdio”)
+&gt;&gt;&gt; reader = PatchedMDIOReader(
+…     path=data_path,
+…     data_shape=(5, 5),
+…     stride=(2, 5),
+… )
+&gt;&gt;&gt; print(len(reader))
+&gt;&gt;&gt; print(reader[0])</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedMDIOReader.mdio_path">
+<span class="sig-name descname"><span class="pre">mdio_path</span></span><a class="headerlink" href="#minerva.data.readers.PatchedMDIOReader.mdio_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>mdio_data</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedZarrReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">PatchedZarrReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/zarr_reader.html#PatchedZarrReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.PatchedZarrReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="patched_array_reader/index.html#minerva.data.readers.patched_array_reader.PatchedArrayReader" title="minerva.data.readers.patched_array_reader.PatchedArrayReader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.patched_array_reader.PatchedArrayReader</span></code></a></p>
+<p>Reads patches from a Zarr array. This class is a subclass of
+<cite>PatchedArrayReader</cite> and is designed to read patches from a Zarr array.</p>
+<p>Reads patches from a Zarr array. This class is a subclass of
+<cite>PatchedArrayReader</cite>. All other parameters are the same as parent class.
+Please refer to the documentation of <cite>PatchedArrayReader</cite> for more
+information.</p>
+<section id="id64">
+<h3>Parameters<a class="headerlink" href="#id64" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">PathLike</span></dt><dd><p>Path to the Zarr array.</p>
+</dd>
+</dl>
+</section>
+<section id="id65">
+<h3>Notes<a class="headerlink" href="#id65" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The Zarr array is expected to be stored on disk. If the array is not
+stored on disk, it is recommended to use the <cite>PatchedArrayReader</cite>
+class instead.</p></li>
+<li><p>When using padding, the padding is applied to the entire array. This
+will load the entire array into memory. If the array is too large to
+fit into memory, it is recommended to pad before.
+See <cite>LazyPaddedPatchedZarrReader</cite> for an a lazy alternative.</p></li>
+</ol>
+</section>
+<section id="id66">
+<h3>Examples<a class="headerlink" href="#id66" title="Link to this heading">¶</a></h3>
+<p><a href="#id67"><span class="problematic" id="id68">``</span></a><a href="#id69"><span class="problematic" id="id70">`</span></a>python
+&gt;&gt;&gt; from pathlib import Path
+&gt;&gt;&gt; data_path = Path(“data.zarr”)
+&gt;&gt;&gt; reader = PatchedZarrReader(
+…     path=data_path,
+…     data_shape=(5, 5),
+…     stride=(2, 5),
+… )
+&gt;&gt;&gt; print(len(reader))
+&gt;&gt;&gt; print(reader[0])</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.PatchedZarrReader.path">
+<span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#minerva.data.readers.PatchedZarrReader.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">TabularReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns_to_select</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_to</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tabular_reader.html#TabularReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TabularReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="reader/index.html#minerva.data.readers.reader._Reader" title="minerva.data.readers.reader._Reader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.reader._Reader</span></code></a></p>
+<p>Base class for readers. Readers define an ordered collection of data and
+provide methods to access it. This class primarily handles:</p>
+<ol class="arabic simple">
+<li><p>Definition of data structure and storage.</p></li>
+<li><p>Reading data from the source.</p></li>
+</ol>
+<p>The access is handled by the __getitem__ and __len__ methods, which should be
+implemented by a subclass. Readers usually returns a single item at a time,
+that can be a single image, a single label, etc.</p>
+<p>Reader to select columns from a DataFrame and return them as a NumPy
+array. The DataFrame is indexed by the row number. Each row of the
+DataFrame is considered as a sample. Thus, the __getitem__ method will
+return the columns of the DataFrame at the specified index as a NumPy
+array.</p>
+<section id="id71">
+<h3>Parameters<a class="headerlink" href="#id71" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The DataFrame to select the columns from. The DataFrame should have
+the columns that are specified in the <cite>columns_to_select</cite> parameter.</p>
+</dd>
+<dt>columns_to_select<span class="classifier">Union[str, list[str]]</span></dt><dd><p>A string or a list of strings used to select the columns from the
+DataFrame. The string can be a regular expression pattern or a
+column name. The columns that match the pattern will be selected.
+Note that if columns_to_select is a list, the result is always a
+numpy array with the columns in the same order as the list.
+If the columns_to_select is a string, the result is a numpy array
+if the selected columns are more than one, otherwise it is a single
+value (which is not a numpy array).</p>
+</dd>
+<dt>cast_to<span class="classifier">str, optional</span></dt><dd><p>Cast the selected columns to the specified data type. If None, the
+data type of the columns will not be changed. (default is None)</p>
+</dd>
+<dt>data_shape<span class="classifier">tuple[int, …], optional</span></dt><dd><p>The shape of the data to be returned. If None, the data will be
+returned as a 1D array. If provided, the data will be reshaped to
+the specified shape. (default is None)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tabular_reader.html#TabularReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TabularReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Return the columns of the DataFrame at the specified row index as a NumPy
+array. The columns are selected based on the <cite>self.columns_to_select</cite>.</p>
+<section id="id72">
+<h4>Parameters<a class="headerlink" href="#id72" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>index<span class="classifier">int</span></dt><dd><p>The row index to select the columns from the DataFrame.</p>
+</dd>
+</dl>
+</section>
+<section id="id73">
+<h4>Returns<a class="headerlink" href="#id73" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>np.ndarray</dt><dd><p>The selected columns from the row as a NumPy array.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tabular_reader.html#TabularReader.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TabularReader.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Return the number of samples in the DataFrame. The number of samples
+is equal to the number of rows in the DataFrame.</p>
+<section id="id74">
+<h4>Returns<a class="headerlink" href="#id74" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>int</dt><dd><p>The number of samples in the DataFrame.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tabular_reader.html#TabularReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TabularReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Return a string representation of the TabularReader object.</p>
+<section id="id75">
+<h4>Returns<a class="headerlink" href="#id75" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt>str</dt><dd><p>A string representation of the TabularReader object.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.cast_to">
+<span class="sig-name descname"><span class="pre">cast_to</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.readers.TabularReader.cast_to" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.columns_to_select">
+<span class="sig-name descname"><span class="pre">columns_to_select</span></span><a class="headerlink" href="#minerva.data.readers.TabularReader.columns_to_select" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.data_shape">
+<span class="sig-name descname"><span class="pre">data_shape</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minerva.data.readers.TabularReader.data_shape" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#minerva.data.readers.TabularReader.df" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TabularReader.return_single">
+<span class="sig-name descname"><span class="pre">return_single</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#minerva.data.readers.TabularReader.return_single" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>)</p></li>
+<li><p><strong>columns_to_select</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>cast_to</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>data_shape</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>Ellipsis</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.TextReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">TextReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/text_reader.html#TextReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TextReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base_file_iterator/index.html#minerva.data.readers.base_file_iterator.BaseFileIterator" title="minerva.data.readers.base_file_iterator.BaseFileIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.base_file_iterator.BaseFileIterator</span></code></a></p>
+<p>A base class for iterating over files in a directory in a custom sorted
+order.</p>
+<p>Load image files from a directory.</p>
+<section id="id76">
+<h3>Parameters<a class="headerlink" href="#id76" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">Union[Path, str]</span></dt><dd><p>The path to the directory containing the image files. Files will be
+searched recursively.</p>
+</dd>
+<dt>sort_method<span class="classifier">Optional[List[str]], optional</span></dt><dd><p>A list specifying how to sort each part of the filename. Each
+element can  be either “text” (lexicographical) or “numeric”
+(numerically). By default, None, which will use “numeric” if
+numeric parts are detected.</p>
+</dd>
+<dt>delimiter<span class="classifier">Optional[str], optional</span></dt><dd><p>The delimiter to split filenames into components, by default None.</p>
+</dd>
+<dt>key_index<span class="classifier">Union[int, List[int]], optional</span></dt><dd><p>The index (or list of indices) of the part(s) of the filename to
+use  for sorting. If a list is provided, files will be sorted
+based on  multiple parts in sequence. Thus, first by the part at
+index 0, then by the part at index 1, and so on. By default 0.</p>
+</dd>
+<dt>reverse<span class="classifier">bool, optional</span></dt><dd><p>Whether to sort in reverse order, by default False.</p>
+</dd>
+<dt>filters: Optional[Union[List[str], str]]</dt><dd><p>An optional string or list of strings containing regular expressions
+with which to filter files by their stems. Files that match at least
+one pattern are kept, and the others are excluded. Defaults to None,
+which means no files are excluded.</p>
+</dd>
+</dl>
+</section>
+<section id="id77">
+<h3>Raises<a class="headerlink" href="#id77" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>If the path is not a directory.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TextReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/text_reader.html#TextReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TextReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the TIFF file at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TextReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/text_reader.html#TextReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TextReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TextReader.root_dir">
+<span class="sig-name descname"><span class="pre">root_dir</span></span><a class="headerlink" href="#minerva.data.readers.TextReader.root_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>sort_method</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>delimiter</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>key_index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>reverse</strong> (<em>bool</em>)</p></li>
+<li><p><strong>filters</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers.TiffReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">TiffReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tiff_reader.html#TiffReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TiffReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base_file_iterator/index.html#minerva.data.readers.base_file_iterator.BaseFileIterator" title="minerva.data.readers.base_file_iterator.BaseFileIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minerva.data.readers.base_file_iterator.BaseFileIterator</span></code></a></p>
+<p>A base class for iterating over files in a directory in a custom sorted
+order.</p>
+<p>Load image files from a directory.</p>
+<section id="id78">
+<h3>Parameters<a class="headerlink" href="#id78" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>path<span class="classifier">Union[Path, str]</span></dt><dd><p>The path to the directory containing the image files. Files will be
+searched recursively.</p>
+</dd>
+<dt>sort_method<span class="classifier">Optional[List[str]], optional</span></dt><dd><p>A list specifying how to sort each part of the filename. Each
+element can  be either “text” (lexicographical) or “numeric”
+(numerically). By default, None, which will use “numeric” if
+numeric parts are detected.</p>
+</dd>
+<dt>delimiter<span class="classifier">Optional[str], optional</span></dt><dd><p>The delimiter to split filenames into components, by default None.</p>
+</dd>
+<dt>key_index<span class="classifier">Union[int, List[int]], optional</span></dt><dd><p>The index (or list of indices) of the part(s) of the filename to
+use  for sorting. If a list is provided, files will be sorted
+based on  multiple parts in sequence. Thus, first by the part at
+index 0, then by the part at index 1, and so on. By default 0.</p>
+</dd>
+<dt>reverse<span class="classifier">bool, optional</span></dt><dd><p>Whether to sort in reverse order, by default False.</p>
+</dd>
+<dt>filters: Optional[Union[List[str], str]]</dt><dd><p>An optional string or list of strings containing regular expressions
+with which to filter files by their stems. Files that match at least
+one pattern are kept, and the others are excluded. Defaults to None,
+which means no files are excluded.</p>
+</dd>
+</dl>
+</section>
+<section id="id79">
+<h3>Raises<a class="headerlink" href="#id79" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>NotADirectoryError</dt><dd><p>If the path is not a directory.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TiffReader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tiff_reader.html#TiffReader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TiffReader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the TIFF file at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers.TiffReader.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/tiff_reader.html#TiffReader.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers.TiffReader.__str__" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minerva.data.readers.TiffReader.root_dir">
+<span class="sig-name descname"><span class="pre">root_dir</span></span><a class="headerlink" href="#minerva.data.readers.TiffReader.root_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>minerva.utils.typing.PathLike</em>)</p></li>
+<li><p><strong>sort_method</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>delimiter</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>key_index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>reverse</strong> (<em>bool</em>)</p></li>
+<li><p><strong>filters</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="minerva.data.readers._Reader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minerva.data.readers.</span></span><span class="sig-name descname"><span class="pre">_Reader</span></span><a class="reference internal" href="../../../../_modules/minerva/data/readers/reader.html#_Reader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers._Reader" title="Link to this definition">¶</a></dt>
+<dd><p>Base class for readers. Readers define an ordered collection of data and
+provide methods to access it. This class primarily handles:</p>
+<ol class="arabic simple">
+<li><p>Definition of data structure and storage.</p></li>
+<li><p>Reading data from the source.</p></li>
+</ol>
+<p>The access is handled by the __getitem__ and __len__ methods, which should be
+implemented by a subclass. Readers usually returns a single item at a time,
+that can be a single image, a single label, etc.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers._Reader.__getitem__">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/reader.html#_Reader.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers._Reader.__getitem__" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve an item from the reader at the specified index.</p>
+<section id="id80">
+<h3>Parameters<a class="headerlink" href="#id80" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>index<span class="classifier">int</span></dt><dd><p>Index of the item to retrieve.</p>
+</dd>
+</dl>
+</section>
+<section id="id81">
+<h3>Returns<a class="headerlink" href="#id81" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Any</dt><dd><p>An item from the reader.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minerva.data.readers._Reader.__len__">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/minerva/data/readers/reader.html#_Reader.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minerva.data.readers._Reader.__len__" title="Link to this definition">¶</a></dt>
+<dd><p>Get the length of the reader.</p>
+<section id="id82">
+<h3>Returns<a class="headerlink" href="#id82" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>int</dt><dd><p>The length of the reader.</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="base_file_iterator/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">minerva.data.readers.base_file_iterator</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../datasets/series_dataset/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">minerva.data.datasets.series_dataset</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Unicamp
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">minerva.data.readers</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.CSVReader"><code class="docutils literal notranslate"><span class="pre">CSVReader</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.IndexReader"><code class="docutils literal notranslate"><span class="pre">IndexReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.IndexReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">IndexReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.IndexReader.__len__"><code class="docutils literal notranslate"><span class="pre">IndexReader.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.IndexReader.len"><code class="docutils literal notranslate"><span class="pre">IndexReader.len</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedArrayReader"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedArrayReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedArrayReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedArrayReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedArrayReader._get_patches"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedArrayReader._get_patches()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedArrayReader._pad_data"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedArrayReader._pad_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedMDIOReader"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedMDIOReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedMDIOReader.mdio_path"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedMDIOReader.mdio_path</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedZarrReader"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedZarrReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.LazyPaddedPatchedZarrReader.path"><code class="docutils literal notranslate"><span class="pre">LazyPaddedPatchedZarrReader.path</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyArrayReader"><code class="docutils literal notranslate"><span class="pre">NumpyArrayReader</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader.__str__"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader.allow_pickle"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader.allow_pickle</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader.array_key"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader.array_key</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.NumpyFolderReader.root_dir"><code class="docutils literal notranslate"><span class="pre">NumpyFolderReader.root_dir</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.PNGReader"><code class="docutils literal notranslate"><span class="pre">PNGReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.PNGReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">PNGReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PNGReader.__str__"><code class="docutils literal notranslate"><span class="pre">PNGReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PNGReader.root_dir"><code class="docutils literal notranslate"><span class="pre">PNGReader.root_dir</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.__len__"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.__str__"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader._get_patches"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader._get_patches()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader._pad_data"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader._pad_data()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.data"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.data</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.data_shape"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.data_shape</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.indices"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.indices</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.pad_kwargs"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.pad_kwargs</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.pad_mode"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.pad_mode</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.pad_width"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.pad_width</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.shape"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.shape</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedArrayReader.stride"><code class="docutils literal notranslate"><span class="pre">PatchedArrayReader.stride</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedMDIOReader"><code class="docutils literal notranslate"><span class="pre">PatchedMDIOReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedMDIOReader.mdio_path"><code class="docutils literal notranslate"><span class="pre">PatchedMDIOReader.mdio_path</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedZarrReader"><code class="docutils literal notranslate"><span class="pre">PatchedZarrReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.PatchedZarrReader.path"><code class="docutils literal notranslate"><span class="pre">PatchedZarrReader.path</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader"><code class="docutils literal notranslate"><span class="pre">TabularReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">TabularReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.__len__"><code class="docutils literal notranslate"><span class="pre">TabularReader.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.__str__"><code class="docutils literal notranslate"><span class="pre">TabularReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.cast_to"><code class="docutils literal notranslate"><span class="pre">TabularReader.cast_to</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.columns_to_select"><code class="docutils literal notranslate"><span class="pre">TabularReader.columns_to_select</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.data_shape"><code class="docutils literal notranslate"><span class="pre">TabularReader.data_shape</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.df"><code class="docutils literal notranslate"><span class="pre">TabularReader.df</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TabularReader.return_single"><code class="docutils literal notranslate"><span class="pre">TabularReader.return_single</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.TextReader"><code class="docutils literal notranslate"><span class="pre">TextReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.TextReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">TextReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TextReader.__str__"><code class="docutils literal notranslate"><span class="pre">TextReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TextReader.root_dir"><code class="docutils literal notranslate"><span class="pre">TextReader.root_dir</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers.TiffReader"><code class="docutils literal notranslate"><span class="pre">TiffReader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers.TiffReader.__getitem__"><code class="docutils literal notranslate"><span class="pre">TiffReader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TiffReader.__str__"><code class="docutils literal notranslate"><span class="pre">TiffReader.__str__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers.TiffReader.root_dir"><code class="docutils literal notranslate"><span class="pre">TiffReader.root_dir</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minerva.data.readers._Reader"><code class="docutils literal notranslate"><span class="pre">_Reader</span></code></a><ul>
+<li><a class="reference internal" href="#minerva.data.readers._Reader.__getitem__"><code class="docutils literal notranslate"><span class="pre">_Reader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#minerva.data.readers._Reader.__len__"><code class="docutils literal notranslate"><span class="pre">_Reader.__len__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

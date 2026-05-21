@@ -1,0 +1,140 @@
+minerva.utils.instantiators
+===========================
+
+.. py:module:: minerva.utils.instantiators
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   minerva.utils.instantiators.T
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   minerva.utils.instantiators.ParserException
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.utils.instantiators._instantiate_cls
+   minerva.utils.instantiators.instantiate_cls
+
+
+Module Contents
+---------------
+
+.. py:exception:: ParserException
+
+   Bases: :py:obj:`Exception`
+
+
+   Custom exception for parser errors.
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+.. py:data:: T
+
+.. py:function:: _instantiate_cls(cls, config_dict, additional_kwargs = None)
+
+   Instantiate a class from a configuration dictionary.
+
+   This function uses the `ArgumentParser` from `jsonargparse` to parse the
+   configuration dictionary and instantiate the class with the provided
+   arguments. It also allows for additional keyword arguments to be passed.
+
+   Parameters
+   ----------
+   cls : Type[T]
+       The class to instantiate.
+   config_dict : dict
+       The configuration dictionary containing the parameters for the class,
+       following the structure expected by `jsonargparse`.
+   additional_kwargs : Optional[dict], optional
+       Additional arguments that override or extend the configuration dictionary.
+       It uses dot notation for nested parameters, e.g., `{"nested.param": "value"}`.
+
+   Returns
+   -------
+   T
+       An instance of the class `cls` initialized with the parameters from
+       `config_dict` and `additional_kwargs`.
+
+   Raises
+   ------
+   ParserException
+       If there is an error during parsing or instantiation, a `ParserException` is raised.
+
+
+.. py:function:: instantiate_cls(cls, config, additional_kwargs = None)
+
+   Instantiate a class from a configuration dictionary.
+
+   This function uses the `ArgumentParser` from `jsonargparse` to parse the
+   configuration dictionary and instantiate the class with the provided
+   arguments. It also allows for additional keyword arguments to be passed.
+
+   Parameters
+   ----------
+   cls : Type[T]
+       The class to instantiate.
+   config : Union[dict, PathLike]
+       The configuration dictionary containing the parameters for the class,
+       following the structure expected by `jsonargparse`.
+       It can also be a path to a JSON or YAML file containing the configuration.
+       If a path is provided, it will read the file and parse its contents
+       into a dictionary. Supported formats are JSON (`.json`) and YAML (`.yaml`,
+       `.yml`).
+   additional_kwargs : Optional[dict], optional
+       Additional arguments that override or extend the configuration dictionary.
+       It uses dot notation for nested parameters, e.g., `{"nested.param": "value"}`.
+
+   Returns
+   -------
+   T
+       An instance of the class `cls` initialized with the parameters from
+       `config_dict` and `additional_kwargs`.
+
+   Raises
+   ------
+   ParserException
+       If there is an error during parsing or instantiation, a `ParserException`
+       is raised.
+   FileNotFoundError
+       If the provided path does not exist when a path-like object is given.
+   ValueError
+       If the provided configuration is neither a dictionary nor a valid path-like object,
+       or if the file format is unsupported.
+
+   Examples
+   --------
+
+   >>> from minerva.utils.instantiators import instantiate_cls
+   >>> from minerva.models.nets.base import SimpleSupervisedModel
+   >>> model_config = {
+           "class_path": "minerva.models.nets.base.SimpleSupervisedModel",
+           "init_args": {
+               "backbone": {
+                   "class_path": "minerva.models.nets.time_series.cnns.CNN_PF_Backbone",
+                   "init_args": {"include_middle": True},
+               },
+               "fc": {
+                   "class_path": "minerva.models.nets.mlp.MLP",
+                   "init_args": {"layer_sizes": [768, 128, 6]},
+               },
+               "loss_fn": {"class_path": "torch.nn.CrossEntropyLoss"},
+               "flatten": True,
+           },
+       }
+   >>> model = instantiate_cls(SimpleSupervisedModel, model_config)
+
+

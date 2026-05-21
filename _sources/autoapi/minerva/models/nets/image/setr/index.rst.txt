@@ -1,0 +1,1059 @@
+minerva.models.nets.image.setr
+==============================
+
+.. py:module:: minerva.models.nets.image.setr
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.setr.ConvModule
+   minerva.models.nets.image.setr.MMDropPath
+   minerva.models.nets.image.setr.SETR_PUP
+   minerva.models.nets.image.setr._SETRUPHead
+   minerva.models.nets.image.setr._SetR_PUP
+
+
+Module Contents
+---------------
+
+.. py:class:: ConvModule(in_channels, out_channels, kernel_size, padding, norm_type, act_type, norm_params = None, act_params = None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Convolutional module with normalization and activation.
+
+   Parameters
+   ----------
+   in_channels : int
+       Number of input channels.
+   out_channels : int
+       Number of output channels.
+   kernel_size : int
+       Size of the convolution kernel.
+   padding : int
+       Padding added to both sides of the input.
+   norm_type : type
+       Type of normalization layer (e.g., nn.BatchNorm2d).
+   act_type : type
+       Type of activation function (e.g., nn.ReLU).
+   norm_params : dict, optional
+       Optional parameters for normalization.
+   act_params : dict, optional
+       Optional parameters for activation.
+
+
+   .. py:attribute:: activate
+
+
+   .. py:attribute:: bn
+
+
+   .. py:attribute:: conv
+
+
+   .. py:method:: forward(x)
+
+      Forward pass of the ConvModule.
+
+
+
+   .. py:method:: init_weights()
+
+      Initialize convolution weights.
+
+
+
+.. py:class:: MMDropPath(drop_prob)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:attribute:: drop_prob
+
+
+   .. py:method:: forward(x)
+
+
+.. py:class:: SETR_PUP(original_resolution = None, img_size = (512, 512), patch_size = 16, in_channels = 3, embed_dims = 1024, num_layers = 24, num_heads = 16, out_indices = (9, 14, 19, 23), encoder_stride = None, patch_norm = False, dilatation = 1, bias = True, padding_type = 'corner', mlp_ratio = 4, attn_drop_rate = 0.0, drop_path_rate = 0.0, num_fcs = 2, qkv_bias = True, output_cls_token = False, act_type = nn.GELU, with_cp = False, encoder_dropout = 0.0, encoder_norm_type = nn.LayerNorm, dropout_type = MMDropPath, cls_token = True, interpolate_mode = 'bilinear', act_params = None, dropout_params = None, encoder_norm_params = None, decoder_channels = 256, decoder_in_index = 3, num_classes = 6, decoder_dropout = 0.0, decoder_norm_type = nn.SyncBatchNorm, decoder_num_convs = 4, decoder_up_scale = 2, decoder_kernel_size = 3, decoder_align_corners = False, decoder_norm_params = None, aux_heads_in_index = (0, 1, 2), aux_head_num_convs = 2, aux_head_up_scale = 4, aux_weights = None, loss_fn = None, optimizer = Adam, optimizer_kwargs = None, train_metrics = None, val_metrics = None, test_metrics = None, freeze_backbone = False, learning_rate = 0.001, loss_weights = None, lr_scheduler = None, lr_scheduler_kwargs = None, head_lr_factor = 1.0, use_sliding_inference = True, sliding_window_stride = (341, 341))
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A modular Lightning model wrapper for supervised learning tasks.
+
+   This class enables the construction of supervised models by combining a
+   backbone (feature extractor), an optional adapter, and a fully connected
+   (FC) head. It provides a clean interface for setting up custom training,
+   validation, and testing pipelines with pluggable loss functions, metrics,
+   optimizers, and learning rate schedulers.
+
+   The architecture is structured as follows:
+
+       +------------------+
+       |  Backbone Model  |
+       +------------------+
+               |
+               v
+       +------------------------+
+       |  Adapter (Optional)    |
+       +------------------------+
+               |
+        (Flatten if needed)
+               v
+       +------------------------+
+       |  Fully Connected Head  |
+       +------------------------+
+               |
+               v
+       +------------------+
+       |  Loss Function   |
+       +------------------+
+
+   Training and validation steps comprise the following steps:
+
+   1. Forward pass input through the backbone.
+   2. Pass through adapter (if provided).
+   3. Flatten the output (if `flatten` is True) before the FC head.
+   4. Forward through the FC head.
+   5. Compute loss with respect to targets.
+   6. Backpropagate and update parameters.
+   7. Compute metrics and log them.
+   8. Return loss. `train_loss`, `val_loss`, and `test_loss` are always
+      logged, along with any additional metrics specified in the
+      `train_metrics`, `val_metrics`, and `test_metrics` dictionaries.
+
+   This wrapper is especially useful to quickly set up supervised models for
+   various tasks, such as image classification, object detection, and
+   segmentation. It is designed to be flexible and extensible, allowing users
+   to easily swap out components like the backbone, adapter, and FC head as
+   needed. The model is built with a focus on simplicity and modularity, making
+   it easy to adapt to different use cases and requirements.
+   The model is designed to be used with PyTorch Lightning and is compatible
+   with its training loop.
+
+   **Note**: For more complex architectures that does not follow the above
+   structure should not inherit from this class.
+
+   **Note**: Input batches must be tuples (input_tensor, target_tensor).
+
+   LightningModule implementation for SETR_PUP (SEgmentation TRansformer with Progressive UPsampling).
+
+   Parameters
+   ----------
+   original_resolution : tuple
+       Resolution of the original images used to pretrain the backbone.
+   img_size : tuple
+       Input image size (height, width) used during training and patch embedding.
+   patch_size : int
+       Size of each image patch extracted in the ViT encoder.
+   in_channels : int
+       Number of input channels (usually 3 for RGB).
+   embed_dims : int
+       Embedding dimension for each patch.
+   num_layers : int
+       Number of transformer encoder layers.
+   num_heads : int
+       Number of attention heads in each transformer layer.
+   out_indices : tuple, optional
+       Indices of the encoder layers to use as features for decoding.
+   encoder_stride : int
+       Stride used in patch embedding.
+   patch_norm : bool
+       Whether to apply normalization to patch embeddings.
+   dilatation : int
+       Dilation factor for patch embedding.
+   bias : bool
+       Whether to include bias in the projection layers.
+   padding_type : str
+       Padding mode used in patch embedding ("same" or "corner").
+   mlp_ratio : int
+       Expansion ratio for the MLP block inside transformer layers.
+   attn_drop_rate : float
+       Dropout rate applied to attention weights.
+   drop_path_rate : float
+       Probability of dropping entire residual paths (stochastic depth).
+   num_fcs : int
+       Number of linear layers in the feed-forward MLP of the transformer.
+   qkv_bias : bool
+       Whether to include bias in QKV projections.
+   output_cls_token : bool
+       Whether to include class token in encoder output.
+   act_type : type
+       Activation function class to use (e.g., nn.GELU).
+   with_cp : bool
+       Whether to enable checkpointing to save memory.
+   encoder_dropout : float
+       Dropout rate after positional embedding in the encoder.
+   encoder_norm_type : type
+       Normalization type used in the encoder.
+   dropout_type : type
+       Type of stochastic path dropout layer.
+   cls_token : bool
+       Whether to use a class token in the ViT.
+   interpolate_mode : str
+       Interpolation mode used for resizing positional embeddings.
+   act_params : dict, optional
+       Additional parameters for the activation function.
+   dropout_params : dict, optional
+       Additional parameters for the dropout layer.
+   encoder_norm_params : dict, optional
+       Additional parameters for the encoder normalization layer.
+
+   decoder_channels : int
+       Number of channels in intermediate layers of the decoder.
+   decoder_in_index : int
+       Index into encoder outputs to be used as decoder input.
+   num_classes : int
+       Number of segmentation classes.
+   decoder_dropout : float
+       Dropout probability in the decoder.
+   decoder_norm_type : type
+       Type of normalization in decoder conv blocks.
+   decoder_num_convs : int
+       Number of conv+upsample blocks in the decoder.
+   decoder_up_scale : int
+       Upsample scale factor for decoder blocks.
+   decoder_kernel_size : int
+       Convolution kernel size in decoder blocks.
+   decoder_align_corners : bool
+       Whether to align corners when using bilinear interpolation.
+   decoder_norm_params : dict, optional
+       Additional arguments for decoder normalization.
+
+   aux_heads_in_index : tuple of int
+       Indices of encoder layers to feed into each auxiliary decoder head.
+   aux_head_num_convs : int
+       Number of conv blocks in each auxiliary head.
+   aux_head_up_scale : int
+       Upsample factor for auxiliary heads.
+
+   aux_weights : list of float, optional
+       Weights for auxiliary losses [aux1, aux2, aux3].
+   loss_fn : nn.Module, optional
+       Loss function module (defaults to CrossEntropy).
+   optimizer_type : type, optional
+       Optimizer class (e.g., torch.optim.Adam).
+   optimizer_params : dict, optional
+       Parameters to pass to the optimizer.
+   train_metrics : dict, optional
+       Dictionary of training metrics.
+   val_metrics : dict, optional
+       Dictionary of validation metrics.
+   test_metrics : dict, optional
+       Dictionary of test metrics.
+   learning_rate : float
+       Learning rate for training.
+   loss_weights : list of float, optional
+       Class-wise weights for the loss function.
+   head_lr_factor : float
+       Learning rate multiplier for decoder heads.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+   use_sliding_inference : bool
+       Whether to use sliding window inference for large images on validation and test.
+   sliding_window_stride : tuple of int
+       Stride for sliding window inference (height, width).
+
+
+   .. py:method:: _compute_metrics(y_hat, y, step_name)
+
+      Calculate the metrics for the given step.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+      step_name : str
+          Name of the step. It will be used to get the metrics from the
+          `self.metrics` attribute.
+
+      Returns
+      -------
+      Dict[str, torch.Tensor]
+          A dictionary with the metrics values.
+
+
+
+   .. py:method:: _eval_step_with_slide(batch, step_name)
+
+
+   .. py:method:: _loss_func(y_hat, y)
+
+      Calculate the loss between the output and the input data.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+
+      Returns
+      -------
+      torch.Tensor
+          The loss value.
+
+
+
+   .. py:method:: _slide_inference(image, crop_size=(512, 512), stride=(341, 341), ori_shape = None)
+
+      Realiza inferência por janelamento (sliding window) com reconstrução e resize final opcional.
+
+
+
+   .. py:attribute:: aux_head1
+
+
+   .. py:attribute:: aux_head2
+
+
+   .. py:attribute:: aux_head3
+
+
+   .. py:attribute:: aux_weights
+      :value: None
+
+
+
+   .. py:method:: configure_optimizers()
+
+      Choose what optimizers and learning-rate schedulers to use in your optimization. Normally you'd need one.
+      But in the case of GANs or similar you might have multiple. Optimization with multiple optimizers only works in
+      the manual optimization mode.
+
+      Return:
+          Any of these 6 options.
+
+          - **Single optimizer**.
+          - **List or Tuple** of optimizers.
+          - **Two lists** - The first list has multiple optimizers, and the second has multiple LR schedulers
+            (or multiple ``lr_scheduler_config``).
+          - **Dictionary**, with an ``"optimizer"`` key, and (optionally) a ``"lr_scheduler"``
+            key whose value is a single LR scheduler or ``lr_scheduler_config``.
+          - **None** - Fit will run without any optimizer.
+
+      The ``lr_scheduler_config`` is a dictionary which contains the scheduler and its associated configuration.
+      The default configuration is shown below.
+
+      .. code-block:: python
+
+          lr_scheduler_config = {
+              # REQUIRED: The scheduler instance
+              "scheduler": lr_scheduler,
+              # The unit of the scheduler's step size, could also be 'step'.
+              # 'epoch' updates the scheduler on epoch end whereas 'step'
+              # updates it after a optimizer update.
+              "interval": "epoch",
+              # How many epochs/steps should pass between calls to
+              # `scheduler.step()`. 1 corresponds to updating the learning
+              # rate after every epoch/step.
+              "frequency": 1,
+              # Metric to monitor for schedulers like `ReduceLROnPlateau`
+              "monitor": "val_loss",
+              # If set to `True`, will enforce that the value specified 'monitor'
+              # is available when the scheduler is updated, thus stopping
+              # training if not found. If set to `False`, it will only produce a warning
+              "strict": True,
+              # If using the `LearningRateMonitor` callback to monitor the
+              # learning rate progress, this keyword can be used to specify
+              # a custom logged name
+              "name": None,
+          }
+
+      When there are schedulers in which the ``.step()`` method is conditioned on a value, such as the
+      :class:`torch.optim.lr_scheduler.ReduceLROnPlateau` scheduler, Lightning requires that the
+      ``lr_scheduler_config`` contains the keyword ``"monitor"`` set to the metric name that the scheduler
+      should be conditioned on.
+
+      .. testcode::
+
+          # The ReduceLROnPlateau scheduler requires a monitor
+          def configure_optimizers(self):
+              optimizer = Adam(...)
+              return {
+                  "optimizer": optimizer,
+                  "lr_scheduler": {
+                      "scheduler": ReduceLROnPlateau(optimizer, ...),
+                      "monitor": "metric_to_track",
+                      "frequency": "indicates how often the metric is updated",
+                      # If "monitor" references validation metrics, then "frequency" should be set to a
+                      # multiple of "trainer.check_val_every_n_epoch".
+                  },
+              }
+
+
+          # In the case of two optimizers, only one using the ReduceLROnPlateau scheduler
+          def configure_optimizers(self):
+              optimizer1 = Adam(...)
+              optimizer2 = SGD(...)
+              scheduler1 = ReduceLROnPlateau(optimizer1, ...)
+              scheduler2 = LambdaLR(optimizer2, ...)
+              return (
+                  {
+                      "optimizer": optimizer1,
+                      "lr_scheduler": {
+                          "scheduler": scheduler1,
+                          "monitor": "metric_to_track",
+                      },
+                  },
+                  {"optimizer": optimizer2, "lr_scheduler": scheduler2},
+              )
+
+      Metrics can be made available to monitor by simply logging it using
+      ``self.log('metric_to_track', metric_val)`` in your :class:`~lightning.pytorch.core.LightningModule`.
+
+      Note:
+          Some things to know:
+
+          - Lightning calls ``.backward()`` and ``.step()`` automatically in case of automatic optimization.
+          - If a learning rate scheduler is specified in ``configure_optimizers()`` with key
+            ``"interval"`` (default "epoch") in the scheduler configuration, Lightning will call
+            the scheduler's ``.step()`` method automatically in case of automatic optimization.
+          - If you use 16-bit precision (``precision=16``), Lightning will automatically handle the optimizer.
+          - If you use :class:`torch.optim.LBFGS`, Lightning handles the closure function automatically for you.
+          - If you use multiple optimizers, you will have to switch to 'manual optimization' mode and step them
+            yourself.
+          - If you need to control how often the optimizer steps, override the :meth:`optimizer_step` hook.
+
+
+
+
+   .. py:method:: create_from_dict(config)
+      :staticmethod:
+
+
+
+   .. py:attribute:: decoder_num_classes
+      :value: 6
+
+
+
+   .. py:attribute:: encoder_out_indices
+      :value: (9, 14, 19, 23)
+
+
+
+   .. py:method:: forward(x)
+
+      Perform a forward pass with the input data on the backbone model.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          The input data.
+
+      Returns
+      -------
+      torch.Tensor
+          The output data from the forward pass.
+
+
+
+   .. py:attribute:: head_lr_factor
+      :value: 1.0
+
+
+
+   .. py:attribute:: img_size
+      :value: (512, 512)
+
+
+
+   .. py:method:: load_backbone(path, freeze = False)
+
+      Loads pretrained ViT backbone optionally freezing its weights.
+
+
+
+   .. py:attribute:: num_classes
+      :value: 6
+
+
+
+   .. py:method:: predict_step(batch, batch_idx, dataloader_idx = None)
+
+      Step function called during :meth:`~lightning.pytorch.trainer.trainer.Trainer.predict`. By default, it calls
+      :meth:`~lightning.pytorch.core.LightningModule.forward`. Override to add any processing logic.
+
+      The :meth:`~lightning.pytorch.core.LightningModule.predict_step` is used
+      to scale inference on multi-devices.
+
+      To prevent an OOM error, it is possible to use :class:`~lightning.pytorch.callbacks.BasePredictionWriter`
+      callback to write the predictions to disk or database after each batch or on epoch end.
+
+      The :class:`~lightning.pytorch.callbacks.BasePredictionWriter` should be used while using a spawn
+      based accelerator. This happens for ``Trainer(strategy="ddp_spawn")``
+      or training on 8 TPU cores with ``Trainer(accelerator="tpu", devices=8)`` as predictions won't be returned.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          Predicted output (optional).
+
+      Example ::
+
+          class MyModel(LightningModule):
+
+              def predict_step(self, batch, batch_idx, dataloader_idx=0):
+                  return self(batch)
+
+          dm = ...
+          model = MyModel()
+          trainer = Trainer(accelerator="gpu", devices=2)
+          predictions = trainer.predict(model, dm)
+
+
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Operates on a single batch of data from the test set. In this step you'd normally generate examples or
+      calculate anything of interest such as accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one test dataloader:
+          def test_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple test dataloaders:
+          def test_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single test dataset
+          def test_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              test_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'test_loss': loss, 'test_acc': test_acc})
+
+      If you pass in multiple test dataloaders, :meth:`test_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple test dataloaders
+          def test_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"test_loss_{dataloader_idx}": loss, f"test_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to test you don't need to implement this method.
+
+      Note:
+          When the :meth:`test_step` is called, the model has been put in eval mode and
+          PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+          to training mode and gradients are enabled.
+
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Here you compute and return the training loss and some additional metrics for e.g. the progress bar or
+      logger.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary which can include any keys, but must include the key ``'loss'`` in the case of
+            automatic optimization.
+          - ``None`` - In automatic optimization, this will skip to the next batch (but is not supported for
+            multi-GPU, TPU, or DeepSpeed). For manual optimization, this has no special meaning, as returning
+            the loss is not required.
+
+      In this step you'd normally do the forward pass and calculate the loss for a batch.
+      You can also do fancier things like multiple forward passes or something model specific.
+
+      Example::
+
+          def training_step(self, batch, batch_idx):
+              x, y, z = batch
+              out = self.encoder(x)
+              loss = self.loss(out, x)
+              return loss
+
+      To use multiple optimizers, you can switch to 'manual optimization' and control their stepping:
+
+      .. code-block:: python
+
+          def __init__(self):
+              super().__init__()
+              self.automatic_optimization = False
+
+
+          # Multiple optimizers (e.g.: GANs)
+          def training_step(self, batch, batch_idx):
+              opt1, opt2 = self.optimizers()
+
+              # do training_step with encoder
+              ...
+              opt1.step()
+              # do training_step with decoder
+              ...
+              opt2.step()
+
+      Note:
+          When ``accumulate_grad_batches`` > 1, the loss returned here will be automatically
+          normalized by ``accumulate_grad_batches`` internally.
+
+
+
+
+   .. py:attribute:: use_sliding_inference
+      :value: True
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Operates on a single batch of data from the validation set. In this step you'd might generate examples or
+      calculate anything of interest like accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one val dataloader:
+          def validation_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple val dataloaders:
+          def validation_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single validation dataset
+          def validation_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              val_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'val_loss': loss, 'val_acc': val_acc})
+
+      If you pass in multiple val dataloaders, :meth:`validation_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple validation dataloaders
+          def validation_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"val_loss_{dataloader_idx}": loss, f"val_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to validate you don't need to implement this method.
+
+      Note:
+          When the :meth:`validation_step` is called, the model has been put in eval mode
+          and PyTorch gradients have been disabled. At the end of validation,
+          the model goes back to training mode and gradients are enabled.
+
+
+
+
+.. py:class:: _SETRUPHead(in_channels, channels, num_classes, in_index, num_convs, up_scale, kernel_size, align_corners, dropout, norm_type, act_type, norm_params = None, act_params = None, interpolate_mode = 'bilinear')
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Lightweight decoder head with LayerNorm and upsampling for SETR.
+
+   Parameters
+   ----------
+   in_channels : int
+       Number of input channels from encoder.
+   channels : int
+       Number of internal intermediate channels.
+   num_classes : int
+       Number of target output classes.
+   in_index : int
+       Index to select feature from encoder outputs.
+   num_convs : int
+       Number of upsampling convolutional layers.
+   up_scale : int
+       Upsample factor per layer.
+   kernel_size : int
+       Convolution kernel size.
+   align_corners : bool
+       Align corners in bilinear upsampling.
+   dropout : float
+       Dropout probability.
+   norm_type : type
+       Normalization layer type.
+   act_type : type
+       Activation function type.
+   norm_params : dict, optional
+       Additional parameters for normalization.
+   act_params : dict, optional
+       Additional parameters for activation.
+   interpolate_mode : str, default="bilinear"
+       Interpolation mode for upsampling.
+
+
+   .. py:attribute:: align_corners
+
+
+   .. py:attribute:: conv_seg
+
+
+   .. py:method:: forward(xs)
+
+      Forward pass of SETR decoder head.
+
+
+
+   .. py:attribute:: in_index
+
+
+   .. py:attribute:: norm
+
+
+   .. py:attribute:: up_convs
+
+
+.. py:class:: _SetR_PUP(original_resolution, img_size, patch_size, in_channels, embed_dims, num_layers, num_heads, out_indices, stride, patch_norm, dilatation, bias, padding_type, mlp_ratio, attn_drop_rate, drop_path_rate, num_fcs, qkv_bias, output_cls_token, act_type, with_cp, encoder_dropout, encoder_norm_type, dropout_type, cls_token, interpolate_mode, act_params, dropout_params, encoder_norm_params, decoder_channels, decoder_in_index, num_classes, decoder_dropout, decoder_norm_type, decoder_num_convs, decoder_up_scale, decoder_kernel_size, decoder_align_corners, decoder_norm_params, aux_heads_in_index, aux_head_num_convs, aux_head_up_scale)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Full SETR_PUP model with encoder and decoder.
+
+   Parameters
+   ----------
+   original_resolution : tuple
+       Resolution of original input image.
+   img_size : tuple
+       Input image size used for patch embedding.
+   patch_size : int
+       Patch size for Vision Transformer.
+   in_channels : int
+       Number of input image channels.
+   embed_dims : int
+       Dimensionality of embeddings.
+   num_layers : int
+       Number of transformer encoder layers.
+   num_heads : int
+       Number of attention heads.
+   out_indices : tuple or None
+       Indices of intermediate outputs for decoding.
+   stride : int
+       Patch stride.
+   patch_norm : bool
+       Apply normalization to patches.
+   dilatation : int
+       Dilation for patch embedding.
+   bias : bool
+       Use bias in conv layers.
+   padding_type : str
+       Padding type used for patch embedding.
+   mlp_ratio : int
+       MLP expansion ratio.
+   attn_drop_rate : float
+       Attention dropout rate.
+   drop_path_rate : float
+       Stochastic depth dropout rate.
+   num_fcs : int
+       Number of fully connected layers in FFN.
+   qkv_bias : bool
+       Use bias in QKV projections.
+   output_cls_token : bool
+       Output class token with final features.
+   act_type : type
+       Activation function type.
+   with_cp : bool
+       Use gradient checkpointing.
+   encoder_dropout : float
+       Dropout rate after patch embedding.
+   encoder_norm_type : type
+       Type of normalization used in encoder.
+   dropout_type : type
+       Type of residual dropout layer.
+   cls_token : bool
+       Use class token in transformer.
+   interpolate_mode : str
+       Mode for interpolating positional embeddings.
+   act_params : dict, optional
+       Params for activation function.
+   dropout_params : dict, optional
+       Params for dropout module.
+   encoder_norm_params : dict, optional
+       Params for encoder normalization.
+   decoder_channels : int
+       Number of intermediate decoder channels.
+   decoder_in_index : int
+       Which encoder layer to use in decoder.
+   num_classes : int
+       Number of classes for segmentation.
+   decoder_dropout : float
+       Dropout rate in decoder.
+   decoder_norm_type : type
+       Normalization type in decoder.
+   decoder_num_convs : int
+       Number of conv blocks in decoder.
+   decoder_up_scale : int
+       Upsample scale factor.
+   decoder_kernel_size : int
+       Decoder conv kernel size.
+   decoder_align_corners : bool
+       Use align_corners in bilinear upsample.
+   decoder_norm_params : dict, optional
+       Parameters for decoder normalization.
+   aux_heads_in_index : tuple of int
+       Which layers to use in auxiliary decoders.
+   aux_head_num_convs : int
+       Number of convs in each auxiliary head.
+   aux_head_up_scale : int
+       Upsample factor in each auxiliary head.
+
+
+   .. py:attribute:: aux_head1
+
+
+   .. py:attribute:: aux_head2
+
+
+   .. py:attribute:: aux_head3
+
+
+   .. py:attribute:: decoder
+
+
+   .. py:attribute:: encoder
+
+
+   .. py:attribute:: encoder_out_indices
+
+
+   .. py:method:: forward(x)
+
+

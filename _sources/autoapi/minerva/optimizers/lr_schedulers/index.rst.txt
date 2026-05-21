@@ -1,0 +1,102 @@
+minerva.optimizers.lr_schedulers
+================================
+
+.. py:module:: minerva.optimizers.lr_schedulers
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.optimizers.lr_schedulers.PolyLRScheduler
+
+
+Module Contents
+---------------
+
+.. py:class:: PolyLRScheduler(optimizer, max_iter, power = 0.9, min_lr = 0.0001, last_epoch = -1)
+
+   Bases: :py:obj:`torch.optim.lr_scheduler._LRScheduler`
+
+
+   Base class for all learning rate schedulers.
+
+   Subclasses implement :meth:`get_lr` and optionally override :meth:`step` to
+   define scheduling behavior.
+
+   Args:
+       optimizer (Optimizer): The optimizer this scheduler will adjust the
+           learning rates of.
+       last_epoch (int): Index of the last epoch seen by the scheduler. Use
+           ``-1`` (default) to initialize the scheduler. Only use a non-default
+           value when restoring this scheduler from a saved checkpoint.
+
+   .. warning::
+       Initializing a scheduler overwrites its optimizer's
+       ``param_group["lr"]``\s. When restoring a checkpoint, initialize the
+       scheduler **before** calling your optimizer's
+       :meth:`~torch.optim.Optimizer.load_state_dict` to avoid overwriting the
+       loaded learning rates.
+
+   Polynomial decay LR scheduler.
+
+   The learning rate decays from the initial ``base_lr`` to at least ``min_lr``
+   following a polynomial schedule:
+
+   :math:`lr = \max(\text{min\_lr}, \text{base\_lr} \cdot (1 - \tfrac{t}{T})^{power})`
+
+   where :math:`t` is the current step (``last_epoch``) and :math:`T` is ``max_iter``.
+
+   Parameters
+   ----------
+   optimizer : torch.optim.Optimizer
+       Wrapped optimizer.
+   max_iter : int
+       Total number of iterations (epochs or steps, depending on usage).
+       Must be strictly greater than 0. When ``last_epoch`` reaches or exceeds
+       ``max_iter``, the learning rate is clamped to ``min_lr``.
+   power : float, default=0.9
+       Power factor for polynomial decay, controlling how fast the learning rate decays.
+   min_lr : float, default=1e-4
+       Minimum learning rate allowed. Once the polynomial decay falls below this
+       value, the learning rate is fixed at ``min_lr``.
+   last_epoch : int, default=-1
+       The index of the last epoch. If set to ``-1`` (default), the scheduler
+       initializes with the optimizer’s learning rates, and the first call to
+       ``step()`` sets the learning rate to ``base_lr`` without applying decay.
+
+
+   .. py:method:: get_lr()
+
+      Compute the next learning rate for each of the optimizer's
+      :attr:`~torch.optim.Optimizer.param_groups`.
+
+      Returns:
+          list[float | Tensor]: A :class:`list` of learning rates for each of
+          the optimizer's :attr:`~torch.optim.Optimizer.param_groups` with the
+          same types as their current ``group["lr"]``\s.
+
+      .. note::
+          If you're trying to inspect the most recent learning rate, use
+          :meth:`get_last_lr()` instead.
+
+      .. note::
+          The returned :class:`~torch.Tensor`\s are copies, and never alias
+          the optimizer's ``group["lr"]``\s.
+
+
+
+   .. py:attribute:: max_iter
+
+
+   .. py:attribute:: min_lr
+      :value: 0.0001
+
+
+
+   .. py:attribute:: power
+      :value: 0.9
+
+
+

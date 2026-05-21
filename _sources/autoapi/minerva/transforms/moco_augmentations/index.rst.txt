@@ -1,0 +1,49 @@
+minerva.transforms.moco_augmentations
+=====================================
+
+.. py:module:: minerva.transforms.moco_augmentations
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.transforms.moco_augmentations.MoCoRandomAugmentations
+
+
+Module Contents
+---------------
+
+.. py:class:: MoCoRandomAugmentations
+
+   Default MoCo augmentations.
+
+   Based on the paper's technical details:
+   - 224×224-pixel crop from a randomly resized image
+   - Random color jittering
+   - Random horizontal flip
+   - Random grayscale conversion
+
+   Initialize MoCo's default augmentation pipeline.
+
+
+   .. py:method:: __call__(image)
+
+      Apply MoCo augmentations to a PIL Image.
+
+      Parameters
+      ----------
+      image : PIL.Image.Image
+          Input PIL image
+
+      Returns
+      -------
+      Tuple[torch.Tensor, None]
+          Augmented tensor and None (for compatibility with other augmentation classes)
+
+
+
+   .. py:attribute:: augment
+
+

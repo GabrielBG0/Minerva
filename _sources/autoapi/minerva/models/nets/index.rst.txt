@@ -1,0 +1,1721 @@
+minerva.models.nets
+===================
+
+.. py:module:: minerva.models.nets
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/minerva/models/nets/base/index
+   /autoapi/minerva/models/nets/classic_ml_pipeline/index
+   /autoapi/minerva/models/nets/conv_autoencoders_encoders/index
+   /autoapi/minerva/models/nets/cpc_networks/index
+   /autoapi/minerva/models/nets/dcnn/index
+   /autoapi/minerva/models/nets/diet_linear/index
+   /autoapi/minerva/models/nets/lfr_har_architectures/index
+   /autoapi/minerva/models/nets/mlp/index
+   /autoapi/minerva/models/nets/siamese_network_wrapper/index
+   /autoapi/minerva/models/nets/tfc/index
+   /autoapi/minerva/models/nets/tnc/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.DeepLabV3
+   minerva.models.nets.MLP
+   minerva.models.nets.SETR_PUP
+   minerva.models.nets.SimpleSupervisedModel
+   minerva.models.nets.UNet
+   minerva.models.nets.WiseNet
+
+
+Package Contents
+----------------
+
+.. py:class:: DeepLabV3(backbone = None, pred_head = None, loss_fn = None, learning_rate = 0.001, num_classes = 6, pretrained = False, weights_path = None, train_metrics = None, val_metrics = None, test_metrics = None, optimizer = torch.optim.Adam, optimizer_kwargs = None, lr_scheduler = None, lr_scheduler_kwargs = None, output_shape = None, freeze_backbone = False, interpolate_mode = 'bilinear', flatten = False, loss_squeeze = True, loss_long = True)
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A DeeplabV3 with a ResNet50 backbone
+
+   References
+   ----------
+   Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.
+   "Rethinking Atrous Convolution for Semantic Image Segmentation", 2017
+
+   Initializes a DeepLabV3 model.
+
+   Parameters
+   ----------
+   backbone: Optional[nn.Module]
+       The backbone network. Defaults to None, which will use a ResNet50
+       backbone.
+   pred_head: Optional[nn.Module]
+       The prediction head network. Defaults to None, which will use a
+       DeepLabV3PredictionHead with specified number of classes.
+   loss_fn: Optional[nn.Module]
+       The loss function. Defaults to None, which will use a
+       CrossEntropyLoss.
+   learning_rate: float
+       The learning rate for the optimizer. Defaults to 0.001.
+   num_classes: int
+       The number of classes for prediction. Defaults to 6.
+   pretrained: bool
+       Whether to use pretrained weights. Defaults to False.
+   weights_path: Optional[str]
+       Path to local pretrained weights file. If provided with pretrained=True,
+       loads weights from this path instead of downloading. Defaults to None.
+   train_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during training. Defaults to None.
+   val_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during validation. Defaults to None.
+   test_metrics: Optional[Dict[str, Metric]]
+       The metrics to be computed during testing. Defaults to None.
+   optimizer: type
+       Optimizer class to be instantiated. By default, it is set to
+       `torch.optim.Adam`. Should be a subclass of
+       `torch.optim.Optimizer` (e.g., `torch.optim.SGD`).
+   optimizer_kwargs : dict, optional
+       Additional kwargs passed to the optimizer constructor.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+   output_shape: Optional[Tuple[int, ...]]
+       The output shape of the model. If None, the output shape will be
+       the same as the input shape. Defaults to None. This is useful for
+       models that require a specific output shape, that is different from
+       the input shape.
+   freeze_backbone: bool
+       Whether to freeze the backbone weights during training. Defaults to
+       False.
+   interpolate_mode: Optional[str]
+       The interpolation mode to use when upscaling the output to the
+       desired output shape. Defaults to "bilinear". Other options include
+       "nearest", "bicubic", etc. See PyTorch documentation for
+       `torch.nn.functional.interpolate` for all options. Use None to
+       disable upscaling.
+   flatten: bool
+       Whether to flatten the output of the backbone before passing it to
+       the prediction head. Defaults to False. Set to True for classification
+       tasks where the prediction head is a fully connected layer.
+   loss_squeeze: bool
+       Whether to squeeze the target tensor in the loss function. Defaults
+       to True. This is useful for segmentation tasks where the target tensor
+       has a singleton channel dimension (e.g., shape (B, 1, H, W)) and the
+       loss function expects shape (B, H, W).
+   loss_long: bool
+       Whether to convert the target tensor to long type in the loss
+       function. Defaults to True. This is useful for classification tasks
+       where the target tensor is of integer type.
+
+
+
+   .. py:method:: _loss_func(y_hat, y)
+
+      Computes the loss between predictions and ground truth.
+
+      Parameters
+      ----------
+      y_hat : Tensor
+          Predicted tensor of shape (batch_size, num_classes, height, width)
+      y : Tensor
+          Ground truth tensor of shape (batch_size, 1, height, width)
+
+
+
+   .. py:method:: forward(x)
+
+      Performs the forward pass of the DeepLabV3 model.
+
+      Parameters
+      ----------
+      x : Tensor
+          Input tensor of shape (batch_size, channels, height, width)
+
+      Returns
+      -------
+      Tensor
+          Output tensor of shape (batch_size, num_classes, height, width)
+
+
+
+   .. py:attribute:: interpolate_mode
+      :value: 'bilinear'
+
+
+
+   .. py:attribute:: loss_long
+      :value: True
+
+
+
+   .. py:attribute:: output_shape
+      :value: None
+
+
+
+   .. py:attribute:: squeeze_loss
+      :value: True
+
+
+
+.. py:class:: MLP(layer_sizes, activation_cls = nn.ReLU, intermediate_ops = None, final_op = None, *args, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   A flexible multilayer perceptron (MLP) implemented as a subclass of nn.Sequential.
+
+   This class allows you to quickly build an MLP with:
+   - Custom layer sizes
+   - Configurable activation functions
+   - Optional intermediate operations (e.g., BatchNorm, Dropout) after each linear layer
+   - An optional final operation (e.g., normalization, final activation)
+
+   Parameters
+   ----------
+   layer_sizes : Sequence[int]
+       A list of integers specifying the sizes of each layer. Must contain at least two values:
+       the input and output dimensions.
+   activation_cls : type, optional
+       The activation function class (must inherit from nn.Module) to use between layers.
+       Defaults to nn.ReLU.
+   intermediate_ops : Optional[List[Optional[nn.Module]]], optional
+       A list of modules (e.g., nn.BatchNorm1d, nn.Dropout) to apply after each linear layer
+       and before the activation. Each item corresponds to one linear layer. Use `None` to skip
+       an operation for that layer. Must be the same length as the number of linear layers.
+   final_op : Optional[nn.Module], optional
+       A module to apply after the last layer (e.g., a final activation or normalization).
+
+   *args, **kwargs :
+       Additional arguments passed to the activation function constructor.
+
+   Example
+   -------
+   >>> from torch import nn
+   >>> mlp = MLP(
+   ...     [128, 256, 64, 10],
+   ...     activation_cls=nn.ReLU,
+   ...     intermediate_ops=[nn.BatchNorm1d(256), nn.BatchNorm1d(64), None],
+   ...     final_op=nn.Sigmoid()
+   ... )
+   >>> print(mlp)
+   MLP(
+       (0): Linear(in_features=128, out_features=256, bias=True)
+       (1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+       (2): ReLU()
+       (3): Linear(in_features=256, out_features=64, bias=True)
+       (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+       (5): ReLU()
+       (6): Linear(in_features=64, out_features=10, bias=True)
+       (7): Sigmoid()
+   )
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+.. py:class:: SETR_PUP(original_resolution = None, img_size = (512, 512), patch_size = 16, in_channels = 3, embed_dims = 1024, num_layers = 24, num_heads = 16, out_indices = (9, 14, 19, 23), encoder_stride = None, patch_norm = False, dilatation = 1, bias = True, padding_type = 'corner', mlp_ratio = 4, attn_drop_rate = 0.0, drop_path_rate = 0.0, num_fcs = 2, qkv_bias = True, output_cls_token = False, act_type = nn.GELU, with_cp = False, encoder_dropout = 0.0, encoder_norm_type = nn.LayerNorm, dropout_type = MMDropPath, cls_token = True, interpolate_mode = 'bilinear', act_params = None, dropout_params = None, encoder_norm_params = None, decoder_channels = 256, decoder_in_index = 3, num_classes = 6, decoder_dropout = 0.0, decoder_norm_type = nn.SyncBatchNorm, decoder_num_convs = 4, decoder_up_scale = 2, decoder_kernel_size = 3, decoder_align_corners = False, decoder_norm_params = None, aux_heads_in_index = (0, 1, 2), aux_head_num_convs = 2, aux_head_up_scale = 4, aux_weights = None, loss_fn = None, optimizer = Adam, optimizer_kwargs = None, train_metrics = None, val_metrics = None, test_metrics = None, freeze_backbone = False, learning_rate = 0.001, loss_weights = None, lr_scheduler = None, lr_scheduler_kwargs = None, head_lr_factor = 1.0, use_sliding_inference = True, sliding_window_stride = (341, 341))
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A modular Lightning model wrapper for supervised learning tasks.
+
+   This class enables the construction of supervised models by combining a
+   backbone (feature extractor), an optional adapter, and a fully connected
+   (FC) head. It provides a clean interface for setting up custom training,
+   validation, and testing pipelines with pluggable loss functions, metrics,
+   optimizers, and learning rate schedulers.
+
+   The architecture is structured as follows:
+
+       +------------------+
+       |  Backbone Model  |
+       +------------------+
+               |
+               v
+       +------------------------+
+       |  Adapter (Optional)    |
+       +------------------------+
+               |
+        (Flatten if needed)
+               v
+       +------------------------+
+       |  Fully Connected Head  |
+       +------------------------+
+               |
+               v
+       +------------------+
+       |  Loss Function   |
+       +------------------+
+
+   Training and validation steps comprise the following steps:
+
+   1. Forward pass input through the backbone.
+   2. Pass through adapter (if provided).
+   3. Flatten the output (if `flatten` is True) before the FC head.
+   4. Forward through the FC head.
+   5. Compute loss with respect to targets.
+   6. Backpropagate and update parameters.
+   7. Compute metrics and log them.
+   8. Return loss. `train_loss`, `val_loss`, and `test_loss` are always
+      logged, along with any additional metrics specified in the
+      `train_metrics`, `val_metrics`, and `test_metrics` dictionaries.
+
+   This wrapper is especially useful to quickly set up supervised models for
+   various tasks, such as image classification, object detection, and
+   segmentation. It is designed to be flexible and extensible, allowing users
+   to easily swap out components like the backbone, adapter, and FC head as
+   needed. The model is built with a focus on simplicity and modularity, making
+   it easy to adapt to different use cases and requirements.
+   The model is designed to be used with PyTorch Lightning and is compatible
+   with its training loop.
+
+   **Note**: For more complex architectures that does not follow the above
+   structure should not inherit from this class.
+
+   **Note**: Input batches must be tuples (input_tensor, target_tensor).
+
+   LightningModule implementation for SETR_PUP (SEgmentation TRansformer with Progressive UPsampling).
+
+   Parameters
+   ----------
+   original_resolution : tuple
+       Resolution of the original images used to pretrain the backbone.
+   img_size : tuple
+       Input image size (height, width) used during training and patch embedding.
+   patch_size : int
+       Size of each image patch extracted in the ViT encoder.
+   in_channels : int
+       Number of input channels (usually 3 for RGB).
+   embed_dims : int
+       Embedding dimension for each patch.
+   num_layers : int
+       Number of transformer encoder layers.
+   num_heads : int
+       Number of attention heads in each transformer layer.
+   out_indices : tuple, optional
+       Indices of the encoder layers to use as features for decoding.
+   encoder_stride : int
+       Stride used in patch embedding.
+   patch_norm : bool
+       Whether to apply normalization to patch embeddings.
+   dilatation : int
+       Dilation factor for patch embedding.
+   bias : bool
+       Whether to include bias in the projection layers.
+   padding_type : str
+       Padding mode used in patch embedding ("same" or "corner").
+   mlp_ratio : int
+       Expansion ratio for the MLP block inside transformer layers.
+   attn_drop_rate : float
+       Dropout rate applied to attention weights.
+   drop_path_rate : float
+       Probability of dropping entire residual paths (stochastic depth).
+   num_fcs : int
+       Number of linear layers in the feed-forward MLP of the transformer.
+   qkv_bias : bool
+       Whether to include bias in QKV projections.
+   output_cls_token : bool
+       Whether to include class token in encoder output.
+   act_type : type
+       Activation function class to use (e.g., nn.GELU).
+   with_cp : bool
+       Whether to enable checkpointing to save memory.
+   encoder_dropout : float
+       Dropout rate after positional embedding in the encoder.
+   encoder_norm_type : type
+       Normalization type used in the encoder.
+   dropout_type : type
+       Type of stochastic path dropout layer.
+   cls_token : bool
+       Whether to use a class token in the ViT.
+   interpolate_mode : str
+       Interpolation mode used for resizing positional embeddings.
+   act_params : dict, optional
+       Additional parameters for the activation function.
+   dropout_params : dict, optional
+       Additional parameters for the dropout layer.
+   encoder_norm_params : dict, optional
+       Additional parameters for the encoder normalization layer.
+
+   decoder_channels : int
+       Number of channels in intermediate layers of the decoder.
+   decoder_in_index : int
+       Index into encoder outputs to be used as decoder input.
+   num_classes : int
+       Number of segmentation classes.
+   decoder_dropout : float
+       Dropout probability in the decoder.
+   decoder_norm_type : type
+       Type of normalization in decoder conv blocks.
+   decoder_num_convs : int
+       Number of conv+upsample blocks in the decoder.
+   decoder_up_scale : int
+       Upsample scale factor for decoder blocks.
+   decoder_kernel_size : int
+       Convolution kernel size in decoder blocks.
+   decoder_align_corners : bool
+       Whether to align corners when using bilinear interpolation.
+   decoder_norm_params : dict, optional
+       Additional arguments for decoder normalization.
+
+   aux_heads_in_index : tuple of int
+       Indices of encoder layers to feed into each auxiliary decoder head.
+   aux_head_num_convs : int
+       Number of conv blocks in each auxiliary head.
+   aux_head_up_scale : int
+       Upsample factor for auxiliary heads.
+
+   aux_weights : list of float, optional
+       Weights for auxiliary losses [aux1, aux2, aux3].
+   loss_fn : nn.Module, optional
+       Loss function module (defaults to CrossEntropy).
+   optimizer_type : type, optional
+       Optimizer class (e.g., torch.optim.Adam).
+   optimizer_params : dict, optional
+       Parameters to pass to the optimizer.
+   train_metrics : dict, optional
+       Dictionary of training metrics.
+   val_metrics : dict, optional
+       Dictionary of validation metrics.
+   test_metrics : dict, optional
+       Dictionary of test metrics.
+   learning_rate : float
+       Learning rate for training.
+   loss_weights : list of float, optional
+       Class-wise weights for the loss function.
+   head_lr_factor : float
+       Learning rate multiplier for decoder heads.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+   use_sliding_inference : bool
+       Whether to use sliding window inference for large images on validation and test.
+   sliding_window_stride : tuple of int
+       Stride for sliding window inference (height, width).
+
+
+   .. py:method:: _compute_metrics(y_hat, y, step_name)
+
+      Calculate the metrics for the given step.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+      step_name : str
+          Name of the step. It will be used to get the metrics from the
+          `self.metrics` attribute.
+
+      Returns
+      -------
+      Dict[str, torch.Tensor]
+          A dictionary with the metrics values.
+
+
+
+   .. py:method:: _eval_step_with_slide(batch, step_name)
+
+
+   .. py:method:: _loss_func(y_hat, y)
+
+      Calculate the loss between the output and the input data.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+
+      Returns
+      -------
+      torch.Tensor
+          The loss value.
+
+
+
+   .. py:method:: _slide_inference(image, crop_size=(512, 512), stride=(341, 341), ori_shape = None)
+
+      Realiza inferência por janelamento (sliding window) com reconstrução e resize final opcional.
+
+
+
+   .. py:attribute:: aux_head1
+
+
+   .. py:attribute:: aux_head2
+
+
+   .. py:attribute:: aux_head3
+
+
+   .. py:attribute:: aux_weights
+      :value: None
+
+
+
+   .. py:method:: configure_optimizers()
+
+      Choose what optimizers and learning-rate schedulers to use in your optimization. Normally you'd need one.
+      But in the case of GANs or similar you might have multiple. Optimization with multiple optimizers only works in
+      the manual optimization mode.
+
+      Return:
+          Any of these 6 options.
+
+          - **Single optimizer**.
+          - **List or Tuple** of optimizers.
+          - **Two lists** - The first list has multiple optimizers, and the second has multiple LR schedulers
+            (or multiple ``lr_scheduler_config``).
+          - **Dictionary**, with an ``"optimizer"`` key, and (optionally) a ``"lr_scheduler"``
+            key whose value is a single LR scheduler or ``lr_scheduler_config``.
+          - **None** - Fit will run without any optimizer.
+
+      The ``lr_scheduler_config`` is a dictionary which contains the scheduler and its associated configuration.
+      The default configuration is shown below.
+
+      .. code-block:: python
+
+          lr_scheduler_config = {
+              # REQUIRED: The scheduler instance
+              "scheduler": lr_scheduler,
+              # The unit of the scheduler's step size, could also be 'step'.
+              # 'epoch' updates the scheduler on epoch end whereas 'step'
+              # updates it after a optimizer update.
+              "interval": "epoch",
+              # How many epochs/steps should pass between calls to
+              # `scheduler.step()`. 1 corresponds to updating the learning
+              # rate after every epoch/step.
+              "frequency": 1,
+              # Metric to monitor for schedulers like `ReduceLROnPlateau`
+              "monitor": "val_loss",
+              # If set to `True`, will enforce that the value specified 'monitor'
+              # is available when the scheduler is updated, thus stopping
+              # training if not found. If set to `False`, it will only produce a warning
+              "strict": True,
+              # If using the `LearningRateMonitor` callback to monitor the
+              # learning rate progress, this keyword can be used to specify
+              # a custom logged name
+              "name": None,
+          }
+
+      When there are schedulers in which the ``.step()`` method is conditioned on a value, such as the
+      :class:`torch.optim.lr_scheduler.ReduceLROnPlateau` scheduler, Lightning requires that the
+      ``lr_scheduler_config`` contains the keyword ``"monitor"`` set to the metric name that the scheduler
+      should be conditioned on.
+
+      .. testcode::
+
+          # The ReduceLROnPlateau scheduler requires a monitor
+          def configure_optimizers(self):
+              optimizer = Adam(...)
+              return {
+                  "optimizer": optimizer,
+                  "lr_scheduler": {
+                      "scheduler": ReduceLROnPlateau(optimizer, ...),
+                      "monitor": "metric_to_track",
+                      "frequency": "indicates how often the metric is updated",
+                      # If "monitor" references validation metrics, then "frequency" should be set to a
+                      # multiple of "trainer.check_val_every_n_epoch".
+                  },
+              }
+
+
+          # In the case of two optimizers, only one using the ReduceLROnPlateau scheduler
+          def configure_optimizers(self):
+              optimizer1 = Adam(...)
+              optimizer2 = SGD(...)
+              scheduler1 = ReduceLROnPlateau(optimizer1, ...)
+              scheduler2 = LambdaLR(optimizer2, ...)
+              return (
+                  {
+                      "optimizer": optimizer1,
+                      "lr_scheduler": {
+                          "scheduler": scheduler1,
+                          "monitor": "metric_to_track",
+                      },
+                  },
+                  {"optimizer": optimizer2, "lr_scheduler": scheduler2},
+              )
+
+      Metrics can be made available to monitor by simply logging it using
+      ``self.log('metric_to_track', metric_val)`` in your :class:`~lightning.pytorch.core.LightningModule`.
+
+      Note:
+          Some things to know:
+
+          - Lightning calls ``.backward()`` and ``.step()`` automatically in case of automatic optimization.
+          - If a learning rate scheduler is specified in ``configure_optimizers()`` with key
+            ``"interval"`` (default "epoch") in the scheduler configuration, Lightning will call
+            the scheduler's ``.step()`` method automatically in case of automatic optimization.
+          - If you use 16-bit precision (``precision=16``), Lightning will automatically handle the optimizer.
+          - If you use :class:`torch.optim.LBFGS`, Lightning handles the closure function automatically for you.
+          - If you use multiple optimizers, you will have to switch to 'manual optimization' mode and step them
+            yourself.
+          - If you need to control how often the optimizer steps, override the :meth:`optimizer_step` hook.
+
+
+
+
+   .. py:method:: create_from_dict(config)
+      :staticmethod:
+
+
+
+   .. py:attribute:: decoder_num_classes
+      :value: 6
+
+
+
+   .. py:attribute:: encoder_out_indices
+      :value: (9, 14, 19, 23)
+
+
+
+   .. py:method:: forward(x)
+
+      Perform a forward pass with the input data on the backbone model.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          The input data.
+
+      Returns
+      -------
+      torch.Tensor
+          The output data from the forward pass.
+
+
+
+   .. py:attribute:: head_lr_factor
+      :value: 1.0
+
+
+
+   .. py:attribute:: img_size
+      :value: (512, 512)
+
+
+
+   .. py:method:: load_backbone(path, freeze = False)
+
+      Loads pretrained ViT backbone optionally freezing its weights.
+
+
+
+   .. py:attribute:: num_classes
+      :value: 6
+
+
+
+   .. py:method:: predict_step(batch, batch_idx, dataloader_idx = None)
+
+      Step function called during :meth:`~lightning.pytorch.trainer.trainer.Trainer.predict`. By default, it calls
+      :meth:`~lightning.pytorch.core.LightningModule.forward`. Override to add any processing logic.
+
+      The :meth:`~lightning.pytorch.core.LightningModule.predict_step` is used
+      to scale inference on multi-devices.
+
+      To prevent an OOM error, it is possible to use :class:`~lightning.pytorch.callbacks.BasePredictionWriter`
+      callback to write the predictions to disk or database after each batch or on epoch end.
+
+      The :class:`~lightning.pytorch.callbacks.BasePredictionWriter` should be used while using a spawn
+      based accelerator. This happens for ``Trainer(strategy="ddp_spawn")``
+      or training on 8 TPU cores with ``Trainer(accelerator="tpu", devices=8)`` as predictions won't be returned.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          Predicted output (optional).
+
+      Example ::
+
+          class MyModel(LightningModule):
+
+              def predict_step(self, batch, batch_idx, dataloader_idx=0):
+                  return self(batch)
+
+          dm = ...
+          model = MyModel()
+          trainer = Trainer(accelerator="gpu", devices=2)
+          predictions = trainer.predict(model, dm)
+
+
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Operates on a single batch of data from the test set. In this step you'd normally generate examples or
+      calculate anything of interest such as accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one test dataloader:
+          def test_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple test dataloaders:
+          def test_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single test dataset
+          def test_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              test_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'test_loss': loss, 'test_acc': test_acc})
+
+      If you pass in multiple test dataloaders, :meth:`test_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple test dataloaders
+          def test_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"test_loss_{dataloader_idx}": loss, f"test_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to test you don't need to implement this method.
+
+      Note:
+          When the :meth:`test_step` is called, the model has been put in eval mode and
+          PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+          to training mode and gradients are enabled.
+
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Here you compute and return the training loss and some additional metrics for e.g. the progress bar or
+      logger.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary which can include any keys, but must include the key ``'loss'`` in the case of
+            automatic optimization.
+          - ``None`` - In automatic optimization, this will skip to the next batch (but is not supported for
+            multi-GPU, TPU, or DeepSpeed). For manual optimization, this has no special meaning, as returning
+            the loss is not required.
+
+      In this step you'd normally do the forward pass and calculate the loss for a batch.
+      You can also do fancier things like multiple forward passes or something model specific.
+
+      Example::
+
+          def training_step(self, batch, batch_idx):
+              x, y, z = batch
+              out = self.encoder(x)
+              loss = self.loss(out, x)
+              return loss
+
+      To use multiple optimizers, you can switch to 'manual optimization' and control their stepping:
+
+      .. code-block:: python
+
+          def __init__(self):
+              super().__init__()
+              self.automatic_optimization = False
+
+
+          # Multiple optimizers (e.g.: GANs)
+          def training_step(self, batch, batch_idx):
+              opt1, opt2 = self.optimizers()
+
+              # do training_step with encoder
+              ...
+              opt1.step()
+              # do training_step with decoder
+              ...
+              opt2.step()
+
+      Note:
+          When ``accumulate_grad_batches`` > 1, the loss returned here will be automatically
+          normalized by ``accumulate_grad_batches`` internally.
+
+
+
+
+   .. py:attribute:: use_sliding_inference
+      :value: True
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Operates on a single batch of data from the validation set. In this step you'd might generate examples or
+      calculate anything of interest like accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one val dataloader:
+          def validation_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple val dataloaders:
+          def validation_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single validation dataset
+          def validation_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              val_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'val_loss': loss, 'val_acc': val_acc})
+
+      If you pass in multiple val dataloaders, :meth:`validation_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple validation dataloaders
+          def validation_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"val_loss_{dataloader_idx}": loss, f"val_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to validate you don't need to implement this method.
+
+      Note:
+          When the :meth:`validation_step` is called, the model has been put in eval mode
+          and PyTorch gradients have been disabled. At the end of validation,
+          the model goes back to training mode and gradients are enabled.
+
+
+
+
+.. py:class:: SimpleSupervisedModel(backbone, fc, loss_fn, adapter = None, learning_rate = 0.001, flatten = True, train_metrics = None, val_metrics = None, test_metrics = None, freeze_backbone = False, optimizer = torch.optim.Adam, optimizer_kwargs = None, lr_scheduler = None, lr_scheduler_kwargs = None)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+
+   A modular Lightning model wrapper for supervised learning tasks.
+
+   This class enables the construction of supervised models by combining a
+   backbone (feature extractor), an optional adapter, and a fully connected
+   (FC) head. It provides a clean interface for setting up custom training,
+   validation, and testing pipelines with pluggable loss functions, metrics,
+   optimizers, and learning rate schedulers.
+
+   The architecture is structured as follows:
+
+       +------------------+
+       |  Backbone Model  |
+       +------------------+
+               |
+               v
+       +------------------------+
+       |  Adapter (Optional)    |
+       +------------------------+
+               |
+        (Flatten if needed)
+               v
+       +------------------------+
+       |  Fully Connected Head  |
+       +------------------------+
+               |
+               v
+       +------------------+
+       |  Loss Function   |
+       +------------------+
+
+   Training and validation steps comprise the following steps:
+
+   1. Forward pass input through the backbone.
+   2. Pass through adapter (if provided).
+   3. Flatten the output (if `flatten` is True) before the FC head.
+   4. Forward through the FC head.
+   5. Compute loss with respect to targets.
+   6. Backpropagate and update parameters.
+   7. Compute metrics and log them.
+   8. Return loss. `train_loss`, `val_loss`, and `test_loss` are always
+      logged, along with any additional metrics specified in the
+      `train_metrics`, `val_metrics`, and `test_metrics` dictionaries.
+
+   This wrapper is especially useful to quickly set up supervised models for
+   various tasks, such as image classification, object detection, and
+   segmentation. It is designed to be flexible and extensible, allowing users
+   to easily swap out components like the backbone, adapter, and FC head as
+   needed. The model is built with a focus on simplicity and modularity, making
+   it easy to adapt to different use cases and requirements.
+   The model is designed to be used with PyTorch Lightning and is compatible
+   with its training loop.
+
+   **Note**: For more complex architectures that does not follow the above
+   structure should not inherit from this class.
+
+   **Note**: Input batches must be tuples (input_tensor, target_tensor).
+
+   Initializes the supervised model with training components and configs.
+
+   Parameters
+   ----------
+   backbone : torch.nn.Module or LoadableModule
+       The backbone (feature extractor) model.
+   fc : torch.nn.Module or LoadableModule
+       The fully connected head. Use nn.Identity() if not required.
+   loss_fn : torch.nn.Module
+       Loss function to optimize during training.
+   adapter : Callable, optional
+       Function to transform backbone outputs before feeding into `fc`.
+   learning_rate : float, default=1e-3
+       Learning rate used for optimization.
+   flatten : bool, default=True
+       If True, flattens backbone outputs before `fc`.
+   train_metrics : dict, optional
+       TorchMetrics dictionary for training evaluation.
+   val_metrics : dict, optional
+       TorchMetrics dictionary for validation evaluation.
+   test_metrics : dict, optional
+       TorchMetrics dictionary for test evaluation.
+   freeze_backbone : bool, default=False
+       If True, backbone parameters are frozen during training.
+   optimizer: type
+       Optimizer class to be instantiated. By default, it is set to
+       `torch.optim.Adam`. Should be a subclass of
+       `torch.optim.Optimizer` (e.g., `torch.optim.SGD`).
+   optimizer_kwargs : dict, optional
+       Additional kwargs passed to the optimizer constructor.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+
+
+   .. py:method:: _compute_metrics(y_hat, y, step_name)
+
+      Calculate the metrics for the given step.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+      step_name : str
+          Name of the step. It will be used to get the metrics from the
+          `self.metrics` attribute.
+
+      Returns
+      -------
+      Dict[str, torch.Tensor]
+          A dictionary with the metrics values.
+
+
+
+   .. py:method:: _loss_func(y_hat, y)
+
+      Calculate the loss between the output and the input data.
+
+      Parameters
+      ----------
+      y_hat : torch.Tensor
+          The output data from the forward pass.
+      y : torch.Tensor
+          The input data/label.
+
+      Returns
+      -------
+      torch.Tensor
+          The loss value.
+
+
+
+   .. py:method:: _set_trainable_params()
+
+      Freeze the parameters of the backbone model if `freeze_backbone` is
+      set to True.
+
+
+
+   .. py:method:: _single_step(batch, batch_idx, step_name)
+
+      Perform a single train/validation/test step. It consists in making a
+      forward pass with the input data on the backbone model, computing the
+      loss between the output and the input data, and logging the loss.
+
+      Parameters
+      ----------
+      batch : torch.Tensor
+          The input data. It must be a 2-element tuple of tensors, where the
+          first tensor is the input data and the second tensor is the mask.
+      batch_idx : int
+          The index of the batch.
+      step_name : str
+          The name of the step. It will be used to log the loss. The possible
+          values are: "train", "val" and "test". The loss will be logged as
+          "{step_name}_loss".
+
+      Returns
+      -------
+      torch.Tensor
+          A tensor with the loss value.
+
+
+
+   .. py:attribute:: adapter
+      :value: None
+
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:method:: configure_optimizers()
+
+      Choose what optimizers and learning-rate schedulers to use in your optimization. Normally you'd need one.
+      But in the case of GANs or similar you might have multiple. Optimization with multiple optimizers only works in
+      the manual optimization mode.
+
+      Return:
+          Any of these 6 options.
+
+          - **Single optimizer**.
+          - **List or Tuple** of optimizers.
+          - **Two lists** - The first list has multiple optimizers, and the second has multiple LR schedulers
+            (or multiple ``lr_scheduler_config``).
+          - **Dictionary**, with an ``"optimizer"`` key, and (optionally) a ``"lr_scheduler"``
+            key whose value is a single LR scheduler or ``lr_scheduler_config``.
+          - **None** - Fit will run without any optimizer.
+
+      The ``lr_scheduler_config`` is a dictionary which contains the scheduler and its associated configuration.
+      The default configuration is shown below.
+
+      .. code-block:: python
+
+          lr_scheduler_config = {
+              # REQUIRED: The scheduler instance
+              "scheduler": lr_scheduler,
+              # The unit of the scheduler's step size, could also be 'step'.
+              # 'epoch' updates the scheduler on epoch end whereas 'step'
+              # updates it after a optimizer update.
+              "interval": "epoch",
+              # How many epochs/steps should pass between calls to
+              # `scheduler.step()`. 1 corresponds to updating the learning
+              # rate after every epoch/step.
+              "frequency": 1,
+              # Metric to monitor for schedulers like `ReduceLROnPlateau`
+              "monitor": "val_loss",
+              # If set to `True`, will enforce that the value specified 'monitor'
+              # is available when the scheduler is updated, thus stopping
+              # training if not found. If set to `False`, it will only produce a warning
+              "strict": True,
+              # If using the `LearningRateMonitor` callback to monitor the
+              # learning rate progress, this keyword can be used to specify
+              # a custom logged name
+              "name": None,
+          }
+
+      When there are schedulers in which the ``.step()`` method is conditioned on a value, such as the
+      :class:`torch.optim.lr_scheduler.ReduceLROnPlateau` scheduler, Lightning requires that the
+      ``lr_scheduler_config`` contains the keyword ``"monitor"`` set to the metric name that the scheduler
+      should be conditioned on.
+
+      .. testcode::
+
+          # The ReduceLROnPlateau scheduler requires a monitor
+          def configure_optimizers(self):
+              optimizer = Adam(...)
+              return {
+                  "optimizer": optimizer,
+                  "lr_scheduler": {
+                      "scheduler": ReduceLROnPlateau(optimizer, ...),
+                      "monitor": "metric_to_track",
+                      "frequency": "indicates how often the metric is updated",
+                      # If "monitor" references validation metrics, then "frequency" should be set to a
+                      # multiple of "trainer.check_val_every_n_epoch".
+                  },
+              }
+
+
+          # In the case of two optimizers, only one using the ReduceLROnPlateau scheduler
+          def configure_optimizers(self):
+              optimizer1 = Adam(...)
+              optimizer2 = SGD(...)
+              scheduler1 = ReduceLROnPlateau(optimizer1, ...)
+              scheduler2 = LambdaLR(optimizer2, ...)
+              return (
+                  {
+                      "optimizer": optimizer1,
+                      "lr_scheduler": {
+                          "scheduler": scheduler1,
+                          "monitor": "metric_to_track",
+                      },
+                  },
+                  {"optimizer": optimizer2, "lr_scheduler": scheduler2},
+              )
+
+      Metrics can be made available to monitor by simply logging it using
+      ``self.log('metric_to_track', metric_val)`` in your :class:`~lightning.pytorch.core.LightningModule`.
+
+      Note:
+          Some things to know:
+
+          - Lightning calls ``.backward()`` and ``.step()`` automatically in case of automatic optimization.
+          - If a learning rate scheduler is specified in ``configure_optimizers()`` with key
+            ``"interval"`` (default "epoch") in the scheduler configuration, Lightning will call
+            the scheduler's ``.step()`` method automatically in case of automatic optimization.
+          - If you use 16-bit precision (``precision=16``), Lightning will automatically handle the optimizer.
+          - If you use :class:`torch.optim.LBFGS`, Lightning handles the closure function automatically for you.
+          - If you use multiple optimizers, you will have to switch to 'manual optimization' mode and step them
+            yourself.
+          - If you need to control how often the optimizer steps, override the :meth:`optimizer_step` hook.
+
+
+
+
+   .. py:attribute:: fc
+
+
+   .. py:attribute:: flatten
+      :value: True
+
+
+
+   .. py:method:: forward(x)
+
+      Perform a forward pass with the input data on the backbone model.
+
+      Parameters
+      ----------
+      x : torch.Tensor
+          The input data.
+
+      Returns
+      -------
+      torch.Tensor
+          The output data from the forward pass.
+
+
+
+   .. py:attribute:: freeze_backbone
+      :value: False
+
+
+
+   .. py:attribute:: learning_rate
+      :value: 0.001
+
+
+
+   .. py:attribute:: loss_fn
+
+
+   .. py:attribute:: lr_scheduler
+      :value: None
+
+
+
+   .. py:attribute:: lr_scheduler_kwargs
+
+
+   .. py:attribute:: metrics
+
+
+   .. py:attribute:: optimizer
+
+
+   .. py:attribute:: optimizer_kwargs
+
+
+   .. py:method:: predict_step(batch, batch_idx, dataloader_idx=None)
+
+      Step function called during :meth:`~lightning.pytorch.trainer.trainer.Trainer.predict`. By default, it calls
+      :meth:`~lightning.pytorch.core.LightningModule.forward`. Override to add any processing logic.
+
+      The :meth:`~lightning.pytorch.core.LightningModule.predict_step` is used
+      to scale inference on multi-devices.
+
+      To prevent an OOM error, it is possible to use :class:`~lightning.pytorch.callbacks.BasePredictionWriter`
+      callback to write the predictions to disk or database after each batch or on epoch end.
+
+      The :class:`~lightning.pytorch.callbacks.BasePredictionWriter` should be used while using a spawn
+      based accelerator. This happens for ``Trainer(strategy="ddp_spawn")``
+      or training on 8 TPU cores with ``Trainer(accelerator="tpu", devices=8)`` as predictions won't be returned.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          Predicted output (optional).
+
+      Example ::
+
+          class MyModel(LightningModule):
+
+              def predict_step(self, batch, batch_idx, dataloader_idx=0):
+                  return self(batch)
+
+          dm = ...
+          model = MyModel()
+          trainer = Trainer(accelerator="gpu", devices=2)
+          predictions = trainer.predict(model, dm)
+
+
+
+
+   .. py:method:: test_step(batch, batch_idx)
+
+      Operates on a single batch of data from the test set. In this step you'd normally generate examples or
+      calculate anything of interest such as accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one test dataloader:
+          def test_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple test dataloaders:
+          def test_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single test dataset
+          def test_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              test_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'test_loss': loss, 'test_acc': test_acc})
+
+      If you pass in multiple test dataloaders, :meth:`test_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple test dataloaders
+          def test_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"test_loss_{dataloader_idx}": loss, f"test_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to test you don't need to implement this method.
+
+      Note:
+          When the :meth:`test_step` is called, the model has been put in eval mode and
+          PyTorch gradients have been disabled. At the end of the test epoch, the model goes back
+          to training mode and gradients are enabled.
+
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Here you compute and return the training loss and some additional metrics for e.g. the progress bar or
+      logger.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary which can include any keys, but must include the key ``'loss'`` in the case of
+            automatic optimization.
+          - ``None`` - In automatic optimization, this will skip to the next batch (but is not supported for
+            multi-GPU, TPU, or DeepSpeed). For manual optimization, this has no special meaning, as returning
+            the loss is not required.
+
+      In this step you'd normally do the forward pass and calculate the loss for a batch.
+      You can also do fancier things like multiple forward passes or something model specific.
+
+      Example::
+
+          def training_step(self, batch, batch_idx):
+              x, y, z = batch
+              out = self.encoder(x)
+              loss = self.loss(out, x)
+              return loss
+
+      To use multiple optimizers, you can switch to 'manual optimization' and control their stepping:
+
+      .. code-block:: python
+
+          def __init__(self):
+              super().__init__()
+              self.automatic_optimization = False
+
+
+          # Multiple optimizers (e.g.: GANs)
+          def training_step(self, batch, batch_idx):
+              opt1, opt2 = self.optimizers()
+
+              # do training_step with encoder
+              ...
+              opt1.step()
+              # do training_step with decoder
+              ...
+              opt2.step()
+
+      Note:
+          When ``accumulate_grad_batches`` > 1, the loss returned here will be automatically
+          normalized by ``accumulate_grad_batches`` internally.
+
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Operates on a single batch of data from the validation set. In this step you'd might generate examples or
+      calculate anything of interest like accuracy.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          - :class:`~torch.Tensor` - The loss tensor
+          - ``dict`` - A dictionary. Can include any keys, but must include the key ``'loss'``.
+          - ``None`` - Skip to the next batch.
+
+      .. code-block:: python
+
+          # if you have one val dataloader:
+          def validation_step(self, batch, batch_idx): ...
+
+
+          # if you have multiple val dataloaders:
+          def validation_step(self, batch, batch_idx, dataloader_idx=0): ...
+
+      Examples::
+
+          # CASE 1: A single validation dataset
+          def validation_step(self, batch, batch_idx):
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+              loss = self.loss(out, y)
+
+              # log 6 example images
+              # or generated text... or whatever
+              sample_imgs = x[:6]
+              grid = torchvision.utils.make_grid(sample_imgs)
+              self.logger.experiment.add_image('example_images', grid, 0)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              val_acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs!
+              self.log_dict({'val_loss': loss, 'val_acc': val_acc})
+
+      If you pass in multiple val dataloaders, :meth:`validation_step` will have an additional argument. We recommend
+      setting the default value of 0 so that you can quickly switch between single and multiple dataloaders.
+
+      .. code-block:: python
+
+          # CASE 2: multiple validation dataloaders
+          def validation_step(self, batch, batch_idx, dataloader_idx=0):
+              # dataloader_idx tells you which dataset this is.
+              x, y = batch
+
+              # implement your own
+              out = self(x)
+
+              if dataloader_idx == 0:
+                  loss = self.loss0(out, y)
+              else:
+                  loss = self.loss1(out, y)
+
+              # calculate acc
+              labels_hat = torch.argmax(out, dim=1)
+              acc = torch.sum(y == labels_hat).item() / (len(y) * 1.0)
+
+              # log the outputs separately for each dataloader
+              self.log_dict({f"val_loss_{dataloader_idx}": loss, f"val_acc_{dataloader_idx}": acc})
+
+      Note:
+          If you don't need to validate you don't need to implement this method.
+
+      Note:
+          When the :meth:`validation_step` is called, the model has been put in eval mode
+          and PyTorch gradients have been disabled. At the end of validation,
+          the model goes back to training mode and gradients are enabled.
+
+
+
+
+.. py:class:: UNet(n_channels = 1, bilinear = False, learning_rate = 0.001, loss_fn = None, **kwargs)
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   This class is a simple implementation of the U-Net model, which is a
+   convolutional neural network used for image segmentation. The model consists
+   of a contracting path (encoder) and an expansive path (decoder). The
+   contracting path follows the typical architecture of a convolutional neural
+   network, with repeated applications of convolutions and max pooling layers.
+   The expansive path consists of up-convolutions and concatenation of feature
+   maps from the contracting path. The model also has skip connections, which
+   allows the expansive path to use information from the contracting path at
+   multiple resolutions. The U-Net model was originally proposed by
+   Ronneberger, Fischer, and Brox in 2015.
+
+   This architecture, handles arbitrary input sizes, and returns an output of
+   the same size as the input. The expected input size is (N, C, H, W), where N
+   is the batch size, C is the number of channels, H is the height of the input
+   image, and W is the width of the input image.
+
+   Note that, for this implementation, the input batch is a single tensor and
+   not a tuple of tensors (e.g., data and label).
+
+   Note that this class wrappers the `_UNet` class, which is the actual
+   implementation of the U-Net model, into a `SimpleReconstructionNet` class,
+   which is a simple autoencoder pipeline for reconstruction tasks.
+
+   References
+   ----------
+   Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional
+   networks for biomedical image segmentation." Medical Image Computing and
+   Computer-Assisted Intervention-MICCAI 2015: 18th International Conference,
+   Munich, Germany, October 5-9, 2015, Proceedings, Part III 18. Springer
+   International Publishing, 2015.
+
+   Wrapper implementation of the U-Net model.
+
+   Parameters
+   ----------
+   n_channels : int, optional
+       The number of channels of the input, by default 1
+   bilinear : bool, optional
+       If `True` use bilinear interpolation for upsampling, by default
+       False.
+   learning_rate : float, optional
+       The learning rate to Adam optimizer, by default 1e-3
+   loss_fn : torch.nn.Module, optional
+       The function used to compute the loss. If `None`, it will be used
+       the MSELoss, by default None.
+   kwargs : Dict
+       Additional arguments to be passed to the `SimpleSupervisedModel`
+       class.
+
+
+.. py:class:: WiseNet(in_channels = 1, out_channels = 1, loss_fn = None, learning_rate = 0.001, **kwargs)
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A modular Lightning model wrapper for supervised learning tasks.
+
+   This class enables the construction of supervised models by combining a
+   backbone (feature extractor), an optional adapter, and a fully connected
+   (FC) head. It provides a clean interface for setting up custom training,
+   validation, and testing pipelines with pluggable loss functions, metrics,
+   optimizers, and learning rate schedulers.
+
+   The architecture is structured as follows:
+
+       +------------------+
+       |  Backbone Model  |
+       +------------------+
+               |
+               v
+       +------------------------+
+       |  Adapter (Optional)    |
+       +------------------------+
+               |
+        (Flatten if needed)
+               v
+       +------------------------+
+       |  Fully Connected Head  |
+       +------------------------+
+               |
+               v
+       +------------------+
+       |  Loss Function   |
+       +------------------+
+
+   Training and validation steps comprise the following steps:
+
+   1. Forward pass input through the backbone.
+   2. Pass through adapter (if provided).
+   3. Flatten the output (if `flatten` is True) before the FC head.
+   4. Forward through the FC head.
+   5. Compute loss with respect to targets.
+   6. Backpropagate and update parameters.
+   7. Compute metrics and log them.
+   8. Return loss. `train_loss`, `val_loss`, and `test_loss` are always
+      logged, along with any additional metrics specified in the
+      `train_metrics`, `val_metrics`, and `test_metrics` dictionaries.
+
+   This wrapper is especially useful to quickly set up supervised models for
+   various tasks, such as image classification, object detection, and
+   segmentation. It is designed to be flexible and extensible, allowing users
+   to easily swap out components like the backbone, adapter, and FC head as
+   needed. The model is built with a focus on simplicity and modularity, making
+   it easy to adapt to different use cases and requirements.
+   The model is designed to be used with PyTorch Lightning and is compatible
+   with its training loop.
+
+   **Note**: For more complex architectures that does not follow the above
+   structure should not inherit from this class.
+
+   **Note**: Input batches must be tuples (input_tensor, target_tensor).
+
+   Initializes the supervised model with training components and configs.
+
+   Parameters
+   ----------
+   backbone : torch.nn.Module or LoadableModule
+       The backbone (feature extractor) model.
+   fc : torch.nn.Module or LoadableModule
+       The fully connected head. Use nn.Identity() if not required.
+   loss_fn : torch.nn.Module
+       Loss function to optimize during training.
+   adapter : Callable, optional
+       Function to transform backbone outputs before feeding into `fc`.
+   learning_rate : float, default=1e-3
+       Learning rate used for optimization.
+   flatten : bool, default=True
+       If True, flattens backbone outputs before `fc`.
+   train_metrics : dict, optional
+       TorchMetrics dictionary for training evaluation.
+   val_metrics : dict, optional
+       TorchMetrics dictionary for validation evaluation.
+   test_metrics : dict, optional
+       TorchMetrics dictionary for test evaluation.
+   freeze_backbone : bool, default=False
+       If True, backbone parameters are frozen during training.
+   optimizer: type
+       Optimizer class to be instantiated. By default, it is set to
+       `torch.optim.Adam`. Should be a subclass of
+       `torch.optim.Optimizer` (e.g., `torch.optim.SGD`).
+   optimizer_kwargs : dict, optional
+       Additional kwargs passed to the optimizer constructor.
+   lr_scheduler : type, optional
+       Learning rate scheduler class to be instantiated. By default, it is
+       set to None, which means no scheduler will be used. Should be a
+       subclass of `torch.optim.lr_scheduler.LRScheduler` (e.g.,
+       `torch.optim.lr_scheduler.StepLR`).
+   lr_scheduler_kwargs : dict, optional
+       Additional kwargs passed to the scheduler constructor.
+
+
+   .. py:method:: _single_step(batch, batch_idx, step_name)
+
+      Perform a single train/validation/test step. It consists in making a
+      forward pass with the input data on the backbone model, computing the
+      loss between the output and the input data, and logging the loss.
+
+      Parameters
+      ----------
+      batch : torch.Tensor
+          The input data. It must be a 2-element tuple of tensors, where the
+          first tensor is the input data and the second tensor is the mask.
+      batch_idx : int
+          The index of the batch.
+      step_name : str
+          The name of the step. It will be used to log the loss. The possible
+          values are: "train", "val" and "test". The loss will be logged as
+          "{step_name}_loss".
+
+      Returns
+      -------
+      torch.Tensor
+          A tensor with the loss value.
+
+
+
+   .. py:method:: predict_step(batch, batch_idx, dataloader_idx=None)
+
+      Step function called during :meth:`~lightning.pytorch.trainer.trainer.Trainer.predict`. By default, it calls
+      :meth:`~lightning.pytorch.core.LightningModule.forward`. Override to add any processing logic.
+
+      The :meth:`~lightning.pytorch.core.LightningModule.predict_step` is used
+      to scale inference on multi-devices.
+
+      To prevent an OOM error, it is possible to use :class:`~lightning.pytorch.callbacks.BasePredictionWriter`
+      callback to write the predictions to disk or database after each batch or on epoch end.
+
+      The :class:`~lightning.pytorch.callbacks.BasePredictionWriter` should be used while using a spawn
+      based accelerator. This happens for ``Trainer(strategy="ddp_spawn")``
+      or training on 8 TPU cores with ``Trainer(accelerator="tpu", devices=8)`` as predictions won't be returned.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          Predicted output (optional).
+
+      Example ::
+
+          class MyModel(LightningModule):
+
+              def predict_step(self, batch, batch_idx, dataloader_idx=0):
+                  return self(batch)
+
+          dm = ...
+          model = MyModel()
+          trainer = Trainer(accelerator="gpu", devices=2)
+          predictions = trainer.predict(model, dm)
+
+
+
+

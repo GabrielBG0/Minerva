@@ -1,0 +1,257 @@
+minerva.models.ssl.diet
+=======================
+
+.. py:module:: minerva.models.ssl.diet
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.ssl.diet.DIET
+
+
+Module Contents
+---------------
+
+.. py:class:: DIET(backbone, linear_head = None, num_data = None, flatten = True, adapter = None, loss = None, learning_rate = 0.0003, weight_decay = 0.0003, wca_scheduler_total_epochs = None)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   DIET model.
+
+   Parameters
+   ----------
+   backbone : torch.nn.Module
+       Backbone model.
+   linear_head: torch.nn.Module, optional
+       Linear head that computes logits from embeddings of the data input, by default None.
+       If None, the linear head is automatically defined before training. The lengths of
+       both training dataset and linear head output must match.
+   num_data : int, optional
+       Total number of samples in the training dataset, by default None. If None, the length
+       of the training dataset is computed before the training in the setup() function.
+   flatten : bool
+       If True, the output of the backbone is flattened before the linear layer,
+       by default True.
+   adapter : Optional[Callable[[torch.Tensor], torch.Tensor]], optional
+       If not None, an adapter is added after the backbone and before the flatten process,
+       by default None.
+   loss : Callable
+       Loss function, by default CrossEntropyLoss with label smoothing 0.8.
+   learning_rate : float, optional
+       Learning rate used in the optimizer, by default 3e-4.
+   weight_decay : float, optional
+       Weight decay used in the optimizer, by default 3e-4.
+   wca_scheduler_total_epochs : int, optional
+       Total number of epochs for the WarmupCosineAnnealing scheduler, by default None.
+       Must be None or an integer greater than 10. If None, no scheduler is used.
+
+
+   .. py:attribute:: adapter
+      :value: None
+
+
+
+   .. py:attribute:: backbone
+
+
+   .. py:method:: configure_optimizers()
+
+      Choose what optimizers and learning-rate schedulers to use in your optimization. Normally you'd need one.
+      But in the case of GANs or similar you might have multiple. Optimization with multiple optimizers only works in
+      the manual optimization mode.
+
+      Return:
+          Any of these 6 options.
+
+          - **Single optimizer**.
+          - **List or Tuple** of optimizers.
+          - **Two lists** - The first list has multiple optimizers, and the second has multiple LR schedulers
+            (or multiple ``lr_scheduler_config``).
+          - **Dictionary**, with an ``"optimizer"`` key, and (optionally) a ``"lr_scheduler"``
+            key whose value is a single LR scheduler or ``lr_scheduler_config``.
+          - **None** - Fit will run without any optimizer.
+
+      The ``lr_scheduler_config`` is a dictionary which contains the scheduler and its associated configuration.
+      The default configuration is shown below.
+
+      .. code-block:: python
+
+          lr_scheduler_config = {
+              # REQUIRED: The scheduler instance
+              "scheduler": lr_scheduler,
+              # The unit of the scheduler's step size, could also be 'step'.
+              # 'epoch' updates the scheduler on epoch end whereas 'step'
+              # updates it after a optimizer update.
+              "interval": "epoch",
+              # How many epochs/steps should pass between calls to
+              # `scheduler.step()`. 1 corresponds to updating the learning
+              # rate after every epoch/step.
+              "frequency": 1,
+              # Metric to monitor for schedulers like `ReduceLROnPlateau`
+              "monitor": "val_loss",
+              # If set to `True`, will enforce that the value specified 'monitor'
+              # is available when the scheduler is updated, thus stopping
+              # training if not found. If set to `False`, it will only produce a warning
+              "strict": True,
+              # If using the `LearningRateMonitor` callback to monitor the
+              # learning rate progress, this keyword can be used to specify
+              # a custom logged name
+              "name": None,
+          }
+
+      When there are schedulers in which the ``.step()`` method is conditioned on a value, such as the
+      :class:`torch.optim.lr_scheduler.ReduceLROnPlateau` scheduler, Lightning requires that the
+      ``lr_scheduler_config`` contains the keyword ``"monitor"`` set to the metric name that the scheduler
+      should be conditioned on.
+
+      .. testcode::
+
+          # The ReduceLROnPlateau scheduler requires a monitor
+          def configure_optimizers(self):
+              optimizer = Adam(...)
+              return {
+                  "optimizer": optimizer,
+                  "lr_scheduler": {
+                      "scheduler": ReduceLROnPlateau(optimizer, ...),
+                      "monitor": "metric_to_track",
+                      "frequency": "indicates how often the metric is updated",
+                      # If "monitor" references validation metrics, then "frequency" should be set to a
+                      # multiple of "trainer.check_val_every_n_epoch".
+                  },
+              }
+
+
+          # In the case of two optimizers, only one using the ReduceLROnPlateau scheduler
+          def configure_optimizers(self):
+              optimizer1 = Adam(...)
+              optimizer2 = SGD(...)
+              scheduler1 = ReduceLROnPlateau(optimizer1, ...)
+              scheduler2 = LambdaLR(optimizer2, ...)
+              return (
+                  {
+                      "optimizer": optimizer1,
+                      "lr_scheduler": {
+                          "scheduler": scheduler1,
+                          "monitor": "metric_to_track",
+                      },
+                  },
+                  {"optimizer": optimizer2, "lr_scheduler": scheduler2},
+              )
+
+      Metrics can be made available to monitor by simply logging it using
+      ``self.log('metric_to_track', metric_val)`` in your :class:`~lightning.pytorch.core.LightningModule`.
+
+      Note:
+          Some things to know:
+
+          - Lightning calls ``.backward()`` and ``.step()`` automatically in case of automatic optimization.
+          - If a learning rate scheduler is specified in ``configure_optimizers()`` with key
+            ``"interval"`` (default "epoch") in the scheduler configuration, Lightning will call
+            the scheduler's ``.step()`` method automatically in case of automatic optimization.
+          - If you use 16-bit precision (``precision=16``), Lightning will automatically handle the optimizer.
+          - If you use :class:`torch.optim.LBFGS`, Lightning handles the closure function automatically for you.
+          - If you use multiple optimizers, you will have to switch to 'manual optimization' mode and step them
+            yourself.
+          - If you need to control how often the optimizer steps, override the :meth:`optimizer_step` hook.
+
+
+
+
+   .. py:attribute:: flatten
+      :value: True
+
+
+
+   .. py:method:: forward(x)
+
+      Same as :meth:`torch.nn.Module.forward`.
+
+      Args:
+          *args: Whatever you decide to pass into the forward method.
+          **kwargs: Keyword arguments are also possible.
+
+      Return:
+          Your model's output
+
+
+
+
+   .. py:attribute:: learning_rate
+      :value: 0.0003
+
+
+
+   .. py:attribute:: linear_head
+      :value: None
+
+
+
+   .. py:attribute:: loss
+
+
+   .. py:attribute:: num_data
+      :value: None
+
+
+
+   .. py:method:: setup(stage)
+
+      Setup function. If the model lacks a linear head, this function computes the length
+      of the training dataset, the encoding size, and creates a linear head accordingly. Also
+      checks whether the linear head output matches the length of the training dataset,
+      raising an error in case of mismatch.
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      A simple training step.
+
+
+
+   .. py:attribute:: wca_scheduler_total_epochs
+      :value: None
+
+
+
+   .. py:attribute:: weight_decay
+      :value: 0.0003
+
+
+

@@ -1,0 +1,34 @@
+minerva.utils.output
+====================
+
+.. py:module:: minerva.utils.output
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.utils.output.Tee
+
+
+Module Contents
+---------------
+
+.. py:class:: Tee(filename, mode = 'w', stream=None)
+
+   .. py:method:: close()
+
+
+   .. py:attribute:: file
+
+
+   .. py:method:: flush()
+
+
+   .. py:attribute:: stream
+
+
+   .. py:method:: write(message)
+
+

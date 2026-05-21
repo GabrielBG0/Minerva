@@ -1,0 +1,224 @@
+minerva.data.data_modules.har_rodrigues_24
+==========================================
+
+.. py:module:: minerva.data.data_modules.har_rodrigues_24
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.data.data_modules.har_rodrigues_24.HARDataModuleCPC
+
+
+Module Contents
+---------------
+
+.. py:class:: HARDataModuleCPC(data_path, input_size = 6, window = 60, overlap = 30, batch_size = 64, use_train_as_val = False, use_val_with_train = True, columns = None, num_workers = 8, drop_last = True, label = 'standard activity code', transpose_data = True)
+
+   Bases: :py:obj:`lightning.LightningDataModule`
+
+
+   A DataModule standardizes the training, val, test splits, data preparation and transforms. The main advantage is
+   consistent data splits, data preparation and transforms across models.
+
+   Example::
+
+       import lightning as L
+       import torch.utils.data as data
+       from lightning.pytorch.demos.boring_classes import RandomDataset
+
+       class MyDataModule(L.LightningDataModule):
+           def prepare_data(self):
+               # download, IO, etc. Useful with shared filesystems
+               # only called on 1 GPU/TPU in distributed
+               ...
+
+           def setup(self, stage):
+               # make assignments here (val/train/test split)
+               # called on every process in DDP
+               dataset = RandomDataset(1, 100)
+               self.train, self.val, self.test = data.random_split(
+                   dataset, [80, 10, 10], generator=torch.Generator().manual_seed(42)
+               )
+
+           def train_dataloader(self):
+               return data.DataLoader(self.train)
+
+           def val_dataloader(self):
+               return data.DataLoader(self.val)
+
+           def test_dataloader(self):
+               return data.DataLoader(self.test)
+
+           def on_exception(self, exception):
+               # clean up state after the trainer faced an exception
+               ...
+
+           def teardown(self):
+               # clean up state after the trainer stops, delete files...
+               # called on every process in DDP
+               ...
+
+
+   Data module for Human Activity Recognition (HAR) using CPC.
+
+   This class handles the creation of training, validation, and test
+   dataloaders for the HAR dataset. It uses the HARDatasetCPC class to
+   load the data.
+
+   Parameters
+   ----------
+   data_path : Union[PathLike, List[PathLike]]
+       The root directory where the dataset is stored. If a list is
+       the datasets will be concatenated, in their respective order, to
+       each partition (train, val, test).
+   input_size : int, optional
+       The number of input features (default is 6).
+   window : int, optional
+       The size of the sliding window (default is 60).
+   overlap : int, optional
+       The overlap size for the sliding window (default is 30).
+   batch_size : int, optional
+       The batch size for the dataloaders (default is 64).
+   use_val_with_train : bool
+       Whether to use the training set with validation set togheter.
+   label : Optional[str]
+       The column to be used as the label. If None, no labels will be
+       used. If 'return_index_as_label', the index of the data will be
+       used as the label.
+   transpose_data : bool
+       If True, the data will be returned as a vector of shape (C, T),
+       else the data will be returned as a vector of shape  (T, C).
+
+
+   .. py:method:: __repr__()
+
+
+   .. py:attribute:: batch_size
+      :value: 64
+
+
+
+   .. py:attribute:: data_path
+
+
+   .. py:attribute:: drop_last
+      :value: True
+
+
+
+   .. py:attribute:: label
+      :value: 'standard activity code'
+
+
+
+   .. py:attribute:: num_workers
+      :value: 8
+
+
+
+   .. py:method:: test_dataloader()
+
+      An iterable or collection of iterables specifying test samples.
+
+      For more information about multiple dataloaders, see this :ref:`section <multiple-dataloaders>`.
+
+      For data processing use the following pattern:
+
+          - download in :meth:`prepare_data`
+          - process and split in :meth:`setup`
+
+      However, the above are only necessary for distributed processing.
+
+      .. warning:: do not assign state in prepare_data
+
+
+      - :meth:`~lightning.pytorch.trainer.trainer.Trainer.test`
+      - :meth:`prepare_data`
+      - :meth:`setup`
+
+      Note:
+          Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+          There is no need to set it yourself.
+
+      Note:
+          If you don't need a test dataset and a :meth:`test_step`, you don't need to implement
+          this method.
+
+
+
+
+   .. py:attribute:: test_dataset
+
+
+   .. py:method:: train_dataloader()
+
+      An iterable or collection of iterables specifying training samples.
+
+      For more information about multiple dataloaders, see this :ref:`section <multiple-dataloaders>`.
+
+      The dataloader you return will not be reloaded unless you set
+      :paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs` to
+      a positive integer.
+
+      For data processing use the following pattern:
+
+          - download in :meth:`prepare_data`
+          - process and split in :meth:`setup`
+
+      However, the above are only necessary for distributed processing.
+
+      .. warning:: do not assign state in prepare_data
+
+      - :meth:`~lightning.pytorch.trainer.trainer.Trainer.fit`
+      - :meth:`prepare_data`
+      - :meth:`setup`
+
+      Note:
+          Lightning tries to add the correct sampler for distributed and arbitrary hardware.
+          There is no need to set it yourself.
+
+
+
+
+   .. py:attribute:: train_dataset
+
+
+   .. py:attribute:: transpose_data
+      :value: True
+
+
+
+   .. py:method:: val_dataloader()
+
+      An iterable or collection of iterables specifying validation samples.
+
+      For more information about multiple dataloaders, see this :ref:`section <multiple-dataloaders>`.
+
+      The dataloader you return will not be reloaded unless you set
+      :paramref:`~lightning.pytorch.trainer.trainer.Trainer.reload_dataloaders_every_n_epochs` to
+      a positive integer.
+
+      It's recommended that all data downloads and preparation happen in :meth:`prepare_data`.
+
+      - :meth:`~lightning.pytorch.trainer.trainer.Trainer.fit`
+      - :meth:`~lightning.pytorch.trainer.trainer.Trainer.validate`
+      - :meth:`prepare_data`
+      - :meth:`setup`
+
+      Note:
+          Lightning tries to add the correct sampler for distributed and arbitrary hardware
+          There is no need to set it yourself.
+
+      Note:
+          If you don't need a validation dataset and a :meth:`validation_step`, you don't need to
+          implement this method.
+
+
+
+
+   .. py:attribute:: val_dataset
+
+

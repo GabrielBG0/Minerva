@@ -1,0 +1,201 @@
+minerva.engines.slidingwindow_inferencer_engine
+===============================================
+
+.. py:module:: minerva.engines.slidingwindow_inferencer_engine
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.engines.slidingwindow_inferencer_engine.SlidingWindowInferencer
+   minerva.engines.slidingwindow_inferencer_engine.SlidingWindowInferencerEngine
+
+
+Module Contents
+---------------
+
+.. py:class:: SlidingWindowInferencer(model, strides, input_shape, output_shape = None, weight_function = None, padding = None, return_tuple = None)
+
+   Bases: :py:obj:`minerva.engines.engine._Inferencer`
+
+
+   This class acts as a normal `L.LightningModule` that wraps a
+   `SimpleSupervisedModel` model allowing it to perform inference with a
+   custom engine (e.g., PatchInferencerEngine, SlidingWindowInferencerEngine).
+   This is useful when the model's default input size is smaller than the
+   desired input size (sample size). In this case, the engine split the input
+   tensor into patches, perform inference in each patch, and combine them into
+   a single output of the desired size. The combination of patches can be
+   parametrized by a `weight_function` allowing a customizable combination of
+   patches (e.g, combining using weighted average). It is important to note
+   that only model's forward are wrapped, and, thus, any method that requires
+   the forward method (e.g., training_step, predict_step) will be performed in
+   patches, transparently to the user.
+
+   Wrap a `SimpleSupervisedModel` model's forward method to perform
+   inference with sliding windows, transparently traversing the input tensor,
+   performing inference in windows, and combining them into a
+   single output of the desired size.
+
+   Parameters
+   ----------
+   model : SimpleSupervisedModel
+       Model to be wrapped.
+   strides : Tuple[int, ...]
+       Sliding window stride for each dimension of the input data, if
+       data
+   input_shape : Tuple[int, ...]
+       Expected input shape of the wrapped model.
+   output_shape : Tuple[int, ...], optional
+       Expected output shape of the wrapped model. For models that return
+       logits (e.g., classification models), the `output_shape` must
+       include an  additional dimension at the beginning to accommodate
+       the number of output classes. For example, if the model processes
+       an input tensor of shape (1, 128, 128) and outputs logits for 10
+       classes, the expected `output_shape` should be (10, 1, 128, 128).
+       If the model does not return logits (e.g., return a tensor after
+       applying an `argmax` operation, or a regression models that usually
+       returns a tensor with the same shape as the input tensor), the
+       `output_shape` should have the same number of dimensions as the
+       input shape. Defaults to None, which assumes the output shape is
+       the same as the `input_shape` parameter.
+   weight_function: Callable[[Tuple[int, ...]], torch.Tensor], optional
+       Function that receives a tensor shape and returns the weights for
+       each position of a tensor with the given shape. Useful when regions
+       of the inference present diminishing performance when getting
+       closer to borders, for instance.
+   padding : Dict[str, Any], optional
+       Dictionary describing padding strategy. Keys:
+           - pad (mandatory): tuple with pad width (int) for each
+               dimension, e.g.(0, 3, 3) when working with a tensor with 3
+               dimensions.
+           - mode (optional): 'constant', 'reflect', 'replicate' or
+               'circular'. Defaults to 'constant'.
+           - value (optional): fill value for 'constant'. Defaults to 0.
+       If None, no padding is applied.
+   return_tuple: int, optional
+       Some models may return multiple outputs for a single sample (e.g.,
+       outputs from multiple auxiliary heads). This parameter is a integer
+       that defines the number of outputs the model generates. By default,
+       it is None, which indicates that the model produces a single output
+       for a single input. When set, it indicates the number of outputs
+       the model produces.
+
+
+   .. py:attribute:: inferencer
+
+
+   .. py:attribute:: model
+
+
+.. py:class:: SlidingWindowInferencerEngine(strides, input_shape, output_shape = None, padding = None, weight_function = None, return_tuple = None)
+
+   Bases: :py:obj:`minerva.engines.engine._Engine`
+
+
+   Main interface for Engine classes. Engines are used to alter the behavior of a model's prediction.
+   An engine should be able to take a `model` and input data `x` and return a prediction.
+   An use case for Engines is patched inference, where the model's default input size is smaller them the desired input size.
+   The engine can be used to make predictions in patches and combine this predictions in to a single output.
+
+   Parameters
+   ----------
+   strides: Tuple[int, ...]
+
+   input_shape : Tuple[int, ...]
+       Shape of each patch to process.
+   output_shape : Tuple[int, ...], optional
+       Expected output shape of the model. For models that return logits,
+       the `output_shape` must include an additional dimension at the
+       beginning to accommodate the number of output classes. Else, the
+       `output_shape` should have the same number of dimensions as the
+       `input_shape` (i.e., no logits are returned). Defaults to
+       input_shape.
+   padding : Dict[str, Any], optional
+       Padding configuration with keys:
+           - 'pad': Tuple of padding for each expected final dimension,
+               e.g., (0, 512, 512) - (c, h, w).
+           - 'mode': Padding mode, e.g., 'constant', 'reflect'.
+           - 'value': Padding value if mode is 'constant'.
+       Defaults to None, which means no padding is applyied.
+   weight_function : Callable, optional
+       Function to calculate the weight of each patch. Defaults to None.
+   return_tuple : int, optional
+       Number of outputs to return. This is useful when the model returns
+       multiple outputs for a single input (e.g., from multiple auxiliary
+       heads). Defaults to None.
+
+
+   .. py:method:: __call__(model, x)
+
+      Perform inference in sliding windows, from the input tensor `x` using the
+      model `model`.
+
+      Parameters
+      ----------
+      model: Union[L.LightningModule, torch.nn.Module]
+          Model to perform inference.
+      x : torch.Tensor
+          Input tensor of the sample. It can be a single sample or a batch
+          of samples.
+
+
+
+   .. py:method:: _combine_patches(patches, weight_distribution, index, ref_shape)
+
+      Combines each patch extracted to obtain final result.
+      The combination is done by placing each inference result in its respective output place,
+      the weight distribution is also placed on a weight accumulator.
+      After all patches have been accumulated, the weighted average of the resulting volume is computed.
+
+
+
+   .. py:method:: _compute_base_padding(tensor)
+
+      Computes the padding for the base patch set based on the input
+      tensor shape and the model's input shape.
+
+
+
+   .. py:method:: _compute_output_shape(tensor)
+
+      Computes `SlidingWindowInferencer` output shape based on input tensor shape,
+      and model's input and output shapes.
+
+
+
+   .. py:method:: _extract_patches(data)
+
+      Sliding window patch extraction method.
+
+
+
+   .. py:attribute:: input_shape
+
+
+   .. py:attribute:: logits_dim
+
+
+   .. py:attribute:: output_shape
+
+
+   .. py:attribute:: output_simplified_shape
+      :value: ()
+
+
+
+   .. py:attribute:: return_tuple
+      :value: None
+
+
+
+   .. py:attribute:: strides
+
+
+   .. py:attribute:: weight_function
+      :value: None
+
+
+

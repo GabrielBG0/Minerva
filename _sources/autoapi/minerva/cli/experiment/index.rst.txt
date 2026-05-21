@@ -1,0 +1,31 @@
+minerva.cli.experiment
+======================
+
+.. py:module:: minerva.cli.experiment
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.cli.experiment.get_parser
+   minerva.cli.experiment.main
+   minerva.cli.experiment.timestamp_now
+   minerva.cli.experiment.write_experiment_config
+   minerva.cli.experiment.write_system_info
+
+
+Module Contents
+---------------
+
+.. py:function:: get_parser()
+
+.. py:function:: main()
+
+.. py:function:: timestamp_now()
+
+.. py:function:: write_experiment_config(experiment, string)
+
+.. py:function:: write_system_info(experiment)
+

@@ -1,0 +1,1405 @@
+minerva.models.nets.image.vit
+=============================
+
+.. py:module:: minerva.models.nets.image.vit
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.vit.mae_vit_base_patch16
+   minerva.models.nets.image.vit.mae_vit_base_patch16D4d256
+   minerva.models.nets.image.vit.mae_vit_huge_patch14
+   minerva.models.nets.image.vit.mae_vit_large_patch16
+   minerva.models.nets.image.vit.mae_vit_large_patch16D4d256
+   minerva.models.nets.image.vit.mae_vit_small_patch16
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.vit.Conv2dReLU
+   minerva.models.nets.image.vit.DecoderBlock
+   minerva.models.nets.image.vit.DecoderCup
+   minerva.models.nets.image.vit.MLAHead
+   minerva.models.nets.image.vit.MMAdaptivePadding
+   minerva.models.nets.image.vit.MMFFN
+   minerva.models.nets.image.vit.MMMultiheadAttention
+   minerva.models.nets.image.vit.MMPatchEmbed
+   minerva.models.nets.image.vit.MMTransformerEncoderLayer
+   minerva.models.nets.image.vit.MaskedAutoencoderViT
+   minerva.models.nets.image.vit.SFM_BasePatch16_Downstream
+   minerva.models.nets.image.vit.SegmentationHead
+   minerva.models.nets.image.vit.SetrVitBackbone
+   minerva.models.nets.image.vit.VIT_MLAHead
+   minerva.models.nets.image.vit.VisionTransformer
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.models.nets.image.vit.interpolate_pos_embed
+   minerva.models.nets.image.vit.vit_base_patch16_downstream_regression
+   minerva.models.nets.image.vit.vit_huge_patch14_downstream_regression
+   minerva.models.nets.image.vit.vit_large_patch16_downstream_regression
+
+
+Module Contents
+---------------
+
+.. py:class:: Conv2dReLU(in_channels, out_channels, kernel_size, padding=0, stride=1, use_batchnorm=True)
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   A sequential container.
+
+   Modules will be added to it in the order they are passed in the
+   constructor. Alternatively, an ``OrderedDict`` of modules can be
+   passed in. The ``forward()`` method of ``Sequential`` accepts any
+   input and forwards it to the first module it contains. It then
+   "chains" outputs to inputs sequentially for each subsequent module,
+   finally returning the output of the last module.
+
+   The value a ``Sequential`` provides over manually calling a sequence
+   of modules is that it allows treating the whole container as a
+   single module, such that performing a transformation on the
+   ``Sequential`` applies to each of the modules it stores (which are
+   each a registered submodule of the ``Sequential``).
+
+   What's the difference between a ``Sequential`` and a
+   :class:`torch.nn.ModuleList`? A ``ModuleList`` is exactly what it
+   sounds like--a list for storing ``Module`` s! On the other hand,
+   the layers in a ``Sequential`` are connected in a cascading way.
+
+   Example::
+
+       # Using Sequential to create a small model. When `model` is run,
+       # input will first be passed to `Conv2d(1,20,5)`. The output of
+       # `Conv2d(1,20,5)` will be used as the input to the first
+       # `ReLU`; the output of the first `ReLU` will become the input
+       # for `Conv2d(20,64,5)`. Finally, the output of
+       # `Conv2d(20,64,5)` will be used as input to the second `ReLU`
+       model = nn.Sequential(
+           nn.Conv2d(1, 20, 5), nn.ReLU(), nn.Conv2d(20, 64, 5), nn.ReLU()
+       )
+
+       # Using Sequential with OrderedDict. This is functionally the
+       # same as the above code
+       model = nn.Sequential(
+           OrderedDict(
+               [
+                   ("conv1", nn.Conv2d(1, 20, 5)),
+                   ("relu1", nn.ReLU()),
+                   ("conv2", nn.Conv2d(20, 64, 5)),
+                   ("relu2", nn.ReLU()),
+               ]
+           )
+       )
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+.. py:class:: DecoderBlock(in_channels, out_channels, skip_channels=0, use_batchnorm=True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:attribute:: conv1
+
+
+   .. py:attribute:: conv2
+
+
+   .. py:method:: forward(x, skip=None)
+
+
+   .. py:attribute:: up
+
+
+.. py:class:: DecoderCup
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:method:: TransShape(x, head_channels=512, up=0)
+
+
+   .. py:attribute:: blocks
+
+
+   .. py:attribute:: conv_feature1
+
+
+   .. py:attribute:: conv_feature2
+
+
+   .. py:attribute:: conv_feature3
+
+
+   .. py:attribute:: conv_feature4
+
+
+   .. py:attribute:: conv_more
+
+
+   .. py:method:: forward(hidden_states, features=None)
+
+
+   .. py:attribute:: up2
+
+
+   .. py:attribute:: up3
+
+
+   .. py:attribute:: up4
+
+
+.. py:class:: MLAHead(mla_channels=256, mlahead_channels=128, norm_cfg=None)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:method:: forward(mla_p2, mla_p3, mla_p4, mla_p5)
+
+
+   .. py:attribute:: head2
+
+
+   .. py:attribute:: head3
+
+
+   .. py:attribute:: head4
+
+
+   .. py:attribute:: head5
+
+
+.. py:class:: MMAdaptivePadding(kernel_size, stride, dilation, padding = 'corner')
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+       Applies adaptive padding to the input tensor to ensure its dimensions are compatible
+   with a convolutional layer using a given kernel size, stride, and dilation.
+
+   Parameters
+   ----------
+   kernel_size : Tuple[int, int]
+       Size of the convolution kernel.
+   stride : Tuple[int, int]
+       Stride of the convolution.
+   dilation : Tuple[int, int]
+       Dilation rate of the convolution.
+   padding : str, default="corner"
+       Padding mode. Options are "same" or "corner".
+
+
+   .. py:attribute:: dilation
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:method:: get_pad_shape(input_shape)
+
+
+   .. py:attribute:: kernel_size
+
+
+   .. py:attribute:: padding
+      :value: 'corner'
+
+
+
+   .. py:attribute:: stride
+
+
+.. py:class:: MMFFN(embed_dims, feedforward_channels, dropout_type, dropout_params, act_type, act_params, num_fcs, ffn_drop)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Feed-forward network used within the Transformer encoder layer.
+
+   Parameters
+   ----------
+   embed_dims : int
+       Dimensionality of the token embeddings.
+   feedforward_channels : int
+       Number of hidden units in the feed-forward layer.
+   dropout_type : type
+       Dropout module class (e.g., nn.Dropout, DropPath).
+   dropout_params : Optional[dict]
+       Parameters for the dropout layer.
+   act_type : type
+       Activation function class (e.g., nn.GELU).
+   act_params : Optional[dict]
+       Parameters for the activation function.
+   num_fcs : int
+       Number of fully-connected layers. Only supports 2.
+   ffn_drop : float
+       Dropout rate applied after each FC layer.
+
+
+   .. py:attribute:: activate
+
+
+   .. py:attribute:: dropout_layer
+
+
+   .. py:method:: forward(x, identity=None)
+
+
+   .. py:attribute:: layers
+
+
+.. py:class:: MMMultiheadAttention(embed_dims, num_heads, attn_drop, proj_drop, batch_first, bias)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+       Wrapper around `nn.MultiheadAttention` with support for dropout and residual connections.
+
+   Parameters
+   ----------
+   embed_dims : int
+       Dimensionality of each token embedding.
+   num_heads : int
+       Number of attention heads.
+   attn_drop : float
+       Dropout rate for attention weights.
+   proj_drop : float
+       Dropout rate for output projection.
+   batch_first : bool
+       Whether the input is in (B, L, C) format.
+   bias : bool
+       If True, add bias terms to the query, key, and value projections.
+
+
+   .. py:attribute:: attn
+
+
+   .. py:attribute:: batch_first
+
+
+   .. py:attribute:: dropout_layer
+
+
+   .. py:method:: forward(x, identity=None)
+
+
+   .. py:attribute:: proj_drop
+
+
+.. py:class:: MMPatchEmbed(in_channels, embed_dims, patch_size, stride, dilation, bias, norm_type, norm_params, patch_norm, padding_type = 'corner')
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+       Converts an image into patch embeddings using a convolutional projection layer.
+
+   Parameters
+   ----------
+   in_channels : int
+       Number of input image channels.
+   embed_dims : int
+       Dimensionality of the output patch embeddings.
+   patch_size : int
+       Size of the square patches.
+   stride : Optional[int]
+       Stride for the convolution. If None, defaults to patch size.
+   dilation : int
+       Dilation applied to the convolution.
+   bias : bool
+       Whether to include a bias term in the projection.
+   norm_type : Optional[type]
+       Normalization layer class (e.g., nn.LayerNorm).
+   norm_params : Optional[dict]
+       Parameters to initialize the normalization layer.
+   patch_norm : bool
+       Whether to apply normalization after patch embedding.
+   padding_type : str, default="corner"
+       Padding strategy for adaptive padding.
+
+
+   .. py:attribute:: adapt_padding
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:attribute:: projection
+
+
+.. py:class:: MMTransformerEncoderLayer(embed_dims, num_heads, feedforward_channels, drop_rate, attn_drop_rate, drop_path_rate, num_fcs, qkv_bias, act_type, act_params, dropout_type, dropout_params, norm_type, norm_params, batch_first, with_cp)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+   Transformer encoder block consisting of multi-head attention and FFN.
+
+   Parameters
+   ----------
+   embed_dims : int
+       Token embedding dimension.
+   num_heads : int
+       Number of attention heads.
+   feedforward_channels : int
+       Hidden dimension in the FFN.
+   drop_rate : float
+       Dropout rate after attention and FFN.
+   attn_drop_rate : float
+       Dropout rate for attention weights.
+   drop_path_rate : float
+       Stochastic depth drop path rate.
+   num_fcs : int
+       Number of FC layers in FFN. Must be 2.
+   qkv_bias : bool
+       Whether to use bias in QKV projections.
+   act_type : type
+       Activation function type.
+   act_params : Optional[dict]
+       Activation function parameters.
+   dropout_type : type
+       Dropout class (e.g., nn.Dropout, DropPath).
+   dropout_params : Optional[dict]
+       Dropout parameters.
+   norm_type : type
+       Normalization layer type.
+   norm_params : Optional[dict]
+       Parameters for normalization layers.
+   batch_first : bool
+       Whether input has shape (B, L, C).
+   with_cp : bool
+       Whether to use checkpointing for memory savings.
+
+
+
+   .. py:attribute:: attn
+
+
+   .. py:attribute:: ffn
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:attribute:: ln1
+
+
+   .. py:attribute:: ln2
+
+
+   .. py:attribute:: with_cp
+
+
+.. py:class:: MaskedAutoencoderViT(img_size=224, patch_size=16, in_chans=1, embed_dim=1024, depth=24, num_heads=16, decoder_embed_dim=512, decoder_depth=8, decoder_num_heads=16, mlp_ratio=4.0, norm_layer=nn.LayerNorm, norm_pix_loss=False)
+
+   Bases: :py:obj:`lightning.LightningModule`
+
+
+   Masked Autoencoder with VisionTransformer backbone.
+
+   Args:
+       img_size (int): Size of input image.
+       patch_size (int): Size of image patch.
+       in_chans (int): Number of input channels.
+       embed_dim (int): Dimension of token embeddings.
+       depth (int): Number of transformer blocks.
+       num_heads (int): Number of attention heads.
+       decoder_embed_dim (int): Dimension of decoder embeddings.
+       decoder_depth (int): Number of decoder transformer blocks.
+       decoder_num_heads (int): Number of decoder attention heads.
+       mlp_ratio (float): Ratio of MLP hidden layer size to embedding size.
+       norm_layer (torch.nn.LayerNorm): Normalization layer.
+       norm_pix_loss (bool): Whether to normalize pixel loss.
+
+   References:
+       - timm: https://github.com/rwightman/pytorch-image-models/tree/master/timm
+       - DeiT: https://github.com/facebookresearch/deit
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:method:: _init_weights(m)
+
+
+   .. py:attribute:: blocks
+
+
+   .. py:attribute:: cls_token
+
+
+   .. py:method:: configure_optimizers()
+
+      Configure optimizer.
+
+      Returns:
+          torch.optim.Optimizer: Optimizer.
+
+
+
+   .. py:attribute:: decoder_blocks
+
+
+   .. py:attribute:: decoder_embed
+
+
+   .. py:attribute:: decoder_norm
+
+
+   .. py:attribute:: decoder_pos_embed
+
+
+   .. py:attribute:: decoder_pred
+
+
+   .. py:method:: forward(imgs, mask_ratio=0.75)
+
+      Forward pass.
+
+      Args:
+          imgs (torch.Tensor): Input images of shape (N, C, H, W).
+          mask_ratio (float): Ratio of values to mask.
+
+      Returns:
+          Tuple[torch.Tensor, torch.Tensor, torch.Tensor]: Loss value,
+          predicted output, binary mask.
+
+
+
+   .. py:method:: forward_decoder(x, ids_restore)
+
+      Forward pass through the decoder.
+
+      Args:
+          x (torch.Tensor): Input tensor of shape (N, L, D).
+          ids_restore (torch.Tensor): Indices to restore the original order
+          of patches.
+
+      Returns:
+          torch.Tensor: Decoded output tensor of shape (N, L, patch_size^2 * in_chans).
+
+
+
+   .. py:method:: forward_encoder(x, mask_ratio)
+
+      Forward pass through the encoder.
+
+      Args:
+          x (torch.Tensor): Input tensor of shape (N, C, H, W).
+          mask_ratio (float): Ratio of values to mask.
+
+      Returns:
+          Tuple[torch.Tensor, torch.Tensor, torch.Tensor]: Encoded
+          representation, binary mask, shuffled indices.
+
+
+
+   .. py:method:: forward_loss(imgs, pred, mask)
+
+      Calculate the loss.
+
+      Args:
+          imgs (torch.Tensor): Input images of shape (N, C, H, W).
+          pred (torch.Tensor): Predicted output of shape (N, L, patch_size^2 * in_chans).
+          mask (torch.Tensor): Binary mask of shape (N, L).
+
+      Returns:
+          torch.Tensor: Computed loss value.
+
+
+
+   .. py:attribute:: in_chans
+      :value: 1
+
+
+
+   .. py:method:: initialize_weights()
+
+
+   .. py:attribute:: mask_token
+
+
+   .. py:attribute:: norm
+
+
+   .. py:attribute:: norm_pix_loss
+      :value: False
+
+
+
+   .. py:attribute:: patch_embed
+
+
+   .. py:method:: patchify(imgs)
+
+      Extract patches from input images.
+
+      Args:
+          imgs (torch.Tensor): Input images of shape (N, C, H, W).
+
+      Returns:
+          torch.Tensor: Patches of shape (N, num_patches, patch_size^2 * in_chans).
+
+
+
+   .. py:attribute:: pos_embed
+
+
+   .. py:method:: random_masking(x, mask_ratio)
+
+      Perform per-sample random masking by per-sample shuffling.
+
+      Args:
+          x (torch.Tensor): Input tensor of shape (N, L, D).
+          mask_ratio (float): Ratio of values to mask.
+
+      Returns:
+          Tuple[torch.Tensor, torch.Tensor, torch.Tensor]: Masked input,
+          binary mask, shuffled indices.
+
+
+
+   .. py:method:: training_step(batch, batch_idx)
+
+      Training step.
+
+      Args:
+          batch (Tuple[torch.Tensor]): Input batch of images and corresponding labels.
+          batch_idx (int): Index of the current batch.
+
+      Returns:
+          Dict[str, torch.Tensor]: Dictionary containing the loss value for
+          the current step.
+
+
+
+   .. py:method:: unpatchify(x)
+
+      Reconstruct images from patches.
+
+      Args:
+          x (torch.Tensor): Patches of shape (N, L, patch_size^2 * in_chans).
+
+      Returns:
+          torch.Tensor: Reconstructed images of shape (N, C, H, W).
+
+
+
+   .. py:method:: validation_step(batch, batch_idx)
+
+      Validation step.
+
+      Args:
+          batch (Tuple[torch.Tensor]): Input batch of images and
+          corresponding labels.
+          batch_idx (int): Index of the current batch.
+
+      Returns:
+          Dict[str, torch.Tensor]: Dictionary containing the loss value for
+          the current step.
+
+
+
+.. py:class:: SFM_BasePatch16_Downstream(img_size = (512, 512), num_classes = 6, in_chans = 1, loss_fn = None, learning_rate = 0.001, **kwargs)
+
+   Bases: :py:obj:`minerva.models.nets.base.SimpleSupervisedModel`
+
+
+   A modular Lightning model wrapper for supervised learning tasks.
+
+   This class enables the construction of supervised models by combining a
+   backbone (feature extractor), an optional adapter, and a fully connected
+   (FC) head. It provides a clean interface for setting up custom training,
+   validation, and testing pipelines with pluggable loss functions, metrics,
+   optimizers, and learning rate schedulers.
+
+   The architecture is structured as follows:
+
+       +------------------+
+       |  Backbone Model  |
+       +------------------+
+               |
+               v
+       +------------------------+
+       |  Adapter (Optional)    |
+       +------------------------+
+               |
+        (Flatten if needed)
+               v
+       +------------------------+
+       |  Fully Connected Head  |
+       +------------------------+
+               |
+               v
+       +------------------+
+       |  Loss Function   |
+       +------------------+
+
+   Training and validation steps comprise the following steps:
+
+   1. Forward pass input through the backbone.
+   2. Pass through adapter (if provided).
+   3. Flatten the output (if `flatten` is True) before the FC head.
+   4. Forward through the FC head.
+   5. Compute loss with respect to targets.
+   6. Backpropagate and update parameters.
+   7. Compute metrics and log them.
+   8. Return loss. `train_loss`, `val_loss`, and `test_loss` are always
+      logged, along with any additional metrics specified in the
+      `train_metrics`, `val_metrics`, and `test_metrics` dictionaries.
+
+   This wrapper is especially useful to quickly set up supervised models for
+   various tasks, such as image classification, object detection, and
+   segmentation. It is designed to be flexible and extensible, allowing users
+   to easily swap out components like the backbone, adapter, and FC head as
+   needed. The model is built with a focus on simplicity and modularity, making
+   it easy to adapt to different use cases and requirements.
+   The model is designed to be used with PyTorch Lightning and is compatible
+   with its training loop.
+
+   **Note**: For more complex architectures that does not follow the above
+   structure should not inherit from this class.
+
+   **Note**: Input batches must be tuples (input_tensor, target_tensor).
+
+   Create a SFM model with a ViT base backbone. The ViT-Base-16 backbone
+   has the following configuration:
+   - Patch size: 16
+   - Embedding dimension: 768
+   - Depth: 12
+   - Number of heads: 12
+
+   Parameters
+   ----------
+   img_size : Union[int, Tuple[int, ...]]
+       Size of the input image. Note that, to use default pre-trained SFM
+       model, the size should be (512, 512).
+   num_classes : int
+       Number of classes for segmentation head. Default is 6.
+   in_chans : int
+       Number of input channels. Default is 1.
+   loss_fn : Optional[torch.nn.Module], optional
+       Loss function, by default None
+   learning_rate : float, optional
+       Learning rate value, by default 1e-3
+
+
+   .. py:method:: _single_step(batch, batch_idx, step_name)
+
+      Perform a single train/validation/test step. It consists in making a
+      forward pass with the input data on the backbone model, computing the
+      loss between the output and the input data, and logging the loss.
+
+      Parameters
+      ----------
+      batch : torch.Tensor
+          The input data. It must be a 2-element tuple of tensors, where the
+          first tensor is the input data and the second tensor is the mask.
+      batch_idx : int
+          The index of the batch.
+      step_name : str
+          The name of the step. It will be used to log the loss. The possible
+          values are: "train", "val" and "test". The loss will be logged as
+          "{step_name}_loss".
+
+      Returns
+      -------
+      torch.Tensor
+          A tensor with the loss value.
+
+
+
+   .. py:method:: predict_step(batch, batch_idx, dataloader_idx = 0)
+
+      Step function called during :meth:`~lightning.pytorch.trainer.trainer.Trainer.predict`. By default, it calls
+      :meth:`~lightning.pytorch.core.LightningModule.forward`. Override to add any processing logic.
+
+      The :meth:`~lightning.pytorch.core.LightningModule.predict_step` is used
+      to scale inference on multi-devices.
+
+      To prevent an OOM error, it is possible to use :class:`~lightning.pytorch.callbacks.BasePredictionWriter`
+      callback to write the predictions to disk or database after each batch or on epoch end.
+
+      The :class:`~lightning.pytorch.callbacks.BasePredictionWriter` should be used while using a spawn
+      based accelerator. This happens for ``Trainer(strategy="ddp_spawn")``
+      or training on 8 TPU cores with ``Trainer(accelerator="tpu", devices=8)`` as predictions won't be returned.
+
+      Args:
+          batch: The output of your data iterable, normally a :class:`~torch.utils.data.DataLoader`.
+          batch_idx: The index of this batch.
+          dataloader_idx: The index of the dataloader that produced this batch.
+              (only if multiple dataloaders used)
+
+      Return:
+          Predicted output (optional).
+
+      Example ::
+
+          class MyModel(LightningModule):
+
+              def predict_step(self, batch, batch_idx, dataloader_idx=0):
+                  return self(batch)
+
+          dm = ...
+          model = MyModel()
+          trainer = Trainer(accelerator="gpu", devices=2)
+          predictions = trainer.predict(model, dm)
+
+
+
+
+.. py:class:: SegmentationHead(in_channels, out_channels, kernel_size=3, upsampling=1)
+
+   Bases: :py:obj:`torch.nn.Sequential`
+
+
+   A sequential container.
+
+   Modules will be added to it in the order they are passed in the
+   constructor. Alternatively, an ``OrderedDict`` of modules can be
+   passed in. The ``forward()`` method of ``Sequential`` accepts any
+   input and forwards it to the first module it contains. It then
+   "chains" outputs to inputs sequentially for each subsequent module,
+   finally returning the output of the last module.
+
+   The value a ``Sequential`` provides over manually calling a sequence
+   of modules is that it allows treating the whole container as a
+   single module, such that performing a transformation on the
+   ``Sequential`` applies to each of the modules it stores (which are
+   each a registered submodule of the ``Sequential``).
+
+   What's the difference between a ``Sequential`` and a
+   :class:`torch.nn.ModuleList`? A ``ModuleList`` is exactly what it
+   sounds like--a list for storing ``Module`` s! On the other hand,
+   the layers in a ``Sequential`` are connected in a cascading way.
+
+   Example::
+
+       # Using Sequential to create a small model. When `model` is run,
+       # input will first be passed to `Conv2d(1,20,5)`. The output of
+       # `Conv2d(1,20,5)` will be used as the input to the first
+       # `ReLU`; the output of the first `ReLU` will become the input
+       # for `Conv2d(20,64,5)`. Finally, the output of
+       # `Conv2d(20,64,5)` will be used as input to the second `ReLU`
+       model = nn.Sequential(
+           nn.Conv2d(1, 20, 5), nn.ReLU(), nn.Conv2d(20, 64, 5), nn.ReLU()
+       )
+
+       # Using Sequential with OrderedDict. This is functionally the
+       # same as the above code
+       model = nn.Sequential(
+           OrderedDict(
+               [
+                   ("conv1", nn.Conv2d(1, 20, 5)),
+                   ("relu1", nn.ReLU()),
+                   ("conv2", nn.Conv2d(20, 64, 5)),
+                   ("relu2", nn.ReLU()),
+               ]
+           )
+       )
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+.. py:class:: SetrVitBackbone(original_resolution, img_size, patch_size, embed_dims, interpolate_mode, in_channels, patch_norm, stride, dilatation, bias, norm_type, norm_params, padding_type, num_layers, num_heads, out_indices, drop_rate, with_cls_token, mlp_ratio, attn_drop_rate, drop_path_rate, num_fcs, qkv_bias, output_cls_token, act_type, act_params, with_cp, dropout_type, dropout_params, batch_first = True)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Base class for all neural network modules.
+
+   Your models should also subclass this class.
+
+   Modules can also contain other Modules, allowing them to be nested in
+   a tree structure. You can assign the submodules as regular attributes::
+
+       import torch.nn as nn
+       import torch.nn.functional as F
+
+
+       class Model(nn.Module):
+           def __init__(self) -> None:
+               super().__init__()
+               self.conv1 = nn.Conv2d(1, 20, 5)
+               self.conv2 = nn.Conv2d(20, 20, 5)
+
+           def forward(self, x):
+               x = F.relu(self.conv1(x))
+               return F.relu(self.conv2(x))
+
+   Submodules assigned in this way will be registered, and will also have their
+   parameters converted when you call :meth:`to`, etc.
+
+   .. note::
+       As per the example above, an ``__init__()`` call to the parent class
+       must be made before assignment on the child.
+
+   :ivar training: Boolean represents whether this module is in training or
+                   evaluation mode.
+   :vartype training: bool
+
+       Vision Transformer (ViT) backbone for semantic segmentation, following the SETR architecture.
+
+   Parameters
+   ----------
+   original_resolution : Optional[tuple]
+       Original training image resolution (used for interpolating positional embeddings).
+   img_size : tuple
+       Target image size (H, W).
+   patch_size : int
+       Size of square patches.
+   embed_dims : int
+       Dimensionality of patch embeddings.
+   interpolate_mode : str
+       Interpolation method for resizing positional embeddings.
+   in_channels : int
+       Number of input channels.
+   patch_norm : bool
+       Whether to apply normalization after patch embedding.
+   stride : Optional[int]
+       Convolution stride for patch embedding.
+   dilatation : int
+       Dilation factor for convolution.
+   bias : bool
+       Whether to use bias in convolution.
+   norm_type : type
+       Normalization layer class.
+   norm_params : Optional[dict]
+       Parameters for normalization layers.
+   padding_type : str
+       Padding type for adaptive padding ("same" or "corner").
+   num_layers : int
+       Number of transformer encoder layers.
+   num_heads : int
+       Number of attention heads.
+   out_indices : Union[int, List[int], Tuple[int, ...]]
+       Indices of layers whose outputs are returned.
+   drop_rate : float
+       Dropout rate after positional encoding.
+   with_cls_token : bool
+       Whether to use a class token in the encoder.
+   mlp_ratio : int
+       Expansion ratio for the hidden layer in FFN.
+   attn_drop_rate : float
+       Dropout rate in attention.
+   drop_path_rate : float
+       Stochastic depth drop rate.
+   num_fcs : int
+       Number of FCs in FFN. Must be 2.
+   qkv_bias : bool
+       Whether to use bias in QKV projections.
+   output_cls_token : bool
+       Whether to return the class token in outputs.
+   act_type : type
+       Activation function class.
+   act_params : dict
+       Parameters for the activation function.
+   with_cp : bool
+       Whether to use checkpointing for memory savings.
+   dropout_type : type
+       Dropout class used in FFN.
+   dropout_params : Optional[dict]
+       Parameters for dropout.
+   batch_first : bool, default=True
+       If True, inputs/outputs are in shape (B, L, C).
+
+
+   .. py:method:: _pos_embeding(patched_img, hw_shape, pos_embed)
+
+      Positioning embeding method. Resize the pos_embed, if the input image size doesn't match the training size.
+
+      Args:
+          patched_img (torch.Tensor):
+              The patched image, it should be shape of [B, L1, C].
+          hw_shape (tuple):
+              The downsampled image resolution. pos_embed (torch.Tensor): The pos_embed weighs, it should be shape of [B, L2, c].
+      Return:
+          torch.Tensor:
+              The pos encoded image feature.
+
+
+
+   .. py:attribute:: cls_token
+
+
+   .. py:attribute:: drop_after_pos
+
+
+   .. py:attribute:: embed_dims
+
+
+   .. py:method:: forward(x)
+
+
+   .. py:attribute:: img_size
+
+
+   .. py:attribute:: interpolate_mode
+
+
+   .. py:method:: interpolate_pos_embeddings(pretrained_pos_embed, new_img_size, patch_size=16)
+
+
+   .. py:attribute:: layers
+
+
+   .. py:method:: load_backbone(path)
+
+      Loads pretrained weights and handles positional embedding resizing
+      if necessary.
+
+
+
+   .. py:attribute:: original_resolution
+
+
+   .. py:attribute:: output_cls_token
+
+
+   .. py:attribute:: patch_embed
+
+
+   .. py:attribute:: patch_size
+
+
+   .. py:attribute:: pos_embed
+
+
+   .. py:method:: resize_pos_embed(pos_embed, input_shape, pos_shape, mode = 'bicubic')
+      :staticmethod:
+
+
+      Resize pos_embed weights. Resize pos_embed using bicubic interpolate method.
+
+      Args:
+          pos_embed (torch.Tensor):
+              Position embedding weights.
+          input_shape (tuple):
+              Tuple for (downsampled input image height,  downsampled input image width).
+          pos_shape (tuple):
+              The resolution of downsampled origin training image.
+          mode (str):
+              Algorithm used for upsampling:
+              ``'linear'`` | ``'bilinear'`` | ``'bicubic'`` | ``'trilinear'``. Default: ``'bicubic'``
+      Return:
+          torch.Tensor:
+              The resized pos_embed of shape [B, L_new, C]
+
+
+
+   .. py:attribute:: with_cls_token
+
+
+.. py:class:: VIT_MLAHead(img_size=768, mla_channels=256, mlahead_channels=128, num_classes=6, norm_layer=nn.BatchNorm2d, norm_cfg=None, **kwargs)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Vision Transformer with support for patch or hybrid CNN input stage
+
+   Initialize internal Module state, shared by both nn.Module and ScriptModule.
+
+
+   .. py:attribute:: BatchNorm
+
+
+   .. py:attribute:: cls
+
+
+   .. py:method:: forward(x1, x2, x3, x4, h=14, w=14)
+
+
+   .. py:attribute:: img_size
+      :value: 768
+
+
+
+   .. py:attribute:: mla_channels
+      :value: 256
+
+
+
+   .. py:attribute:: mlahead
+
+
+   .. py:attribute:: mlahead_channels
+      :value: 128
+
+
+
+   .. py:attribute:: norm_cfg
+      :value: None
+
+
+
+   .. py:attribute:: num_classes
+      :value: 6
+
+
+
+.. py:class:: VisionTransformer(global_pool=False, **kwargs)
+
+   Bases: :py:obj:`timm.models.vision_transformer.VisionTransformer`, :py:obj:`lightning.LightningModule`
+
+
+   Vision Transformer with support for global average pooling
+
+   Args:
+       img_size: Input image size.
+       patch_size: Patch size.
+       in_chans: Number of image input channels.
+       num_classes: Number of classes for classification head.
+       global_pool: Type of global pooling for final sequence (default: 'token').
+       embed_dim: Transformer embedding dimension.
+       depth: Depth of transformer.
+       num_heads: Number of attention heads.
+       mlp_ratio: Ratio of mlp hidden dim to embedding dim.
+       qkv_bias: Enable bias for qkv projections if True.
+       init_values: Layer-scale init values (layer-scale enabled if not None).
+       class_token: Use class token.
+       no_embed_class: Don't include position embeddings for class (or reg) tokens.
+       reg_tokens: Number of register tokens.
+       pre_norm: Enable norm after embeddings, before transformer blocks (standard in CLIP ViT).
+       final_norm: Enable norm after transformer blocks, before head (standard in most ViT).
+       fc_norm: Move final norm after pool (instead of before), if None, enabled when global_pool == 'avg'.
+       drop_rate: Head dropout rate.
+       pos_drop_rate: Position embedding dropout rate.
+       attn_drop_rate: Attention dropout rate.
+       drop_path_rate: Stochastic depth rate.
+       weight_init: Weight initialization scheme.
+       fix_init: Apply weight initialization fix (scaling w/ layer index).
+       embed_layer: Patch embedding layer.
+       embed_norm_layer: Normalization layer to use / override in patch embed module.
+       norm_layer: Normalization layer.
+       act_layer: MLP activation layer.
+       block_fn: Transformer block layer.
+
+
+   .. py:attribute:: decoder
+
+
+   .. py:method:: forward(x)
+
+      Same as :meth:`torch.nn.Module.forward`.
+
+      Args:
+          *args: Whatever you decide to pass into the forward method.
+          **kwargs: Keyword arguments are also possible.
+
+      Return:
+          Your model's output
+
+
+
+
+   .. py:method:: forward_features(x)
+
+      Forward pass through feature layers (embeddings, transformer blocks, post-transformer norm).
+
+
+
+   .. py:attribute:: global_pool
+      :value: False
+
+
+
+   .. py:attribute:: loss_fn
+
+
+   .. py:attribute:: segmentation_head
+
+
+.. py:function:: interpolate_pos_embed(model, checkpoint_model, newsize1=None, newsize2=None)
+
+.. py:data:: mae_vit_base_patch16
+
+.. py:data:: mae_vit_base_patch16D4d256
+
+.. py:data:: mae_vit_huge_patch14
+
+.. py:data:: mae_vit_large_patch16
+
+.. py:data:: mae_vit_large_patch16D4d256
+
+.. py:data:: mae_vit_small_patch16
+
+.. py:function:: vit_base_patch16_downstream_regression(**kwargs)
+
+.. py:function:: vit_huge_patch14_downstream_regression(**kwargs)
+
+.. py:function:: vit_large_patch16_downstream_regression(**kwargs)
+

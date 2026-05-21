@@ -1,0 +1,278 @@
+minerva.transforms.context_transform
+====================================
+
+.. py:module:: minerva.transforms.context_transform
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.transforms.context_transform.ClassRatioCrop
+   minerva.transforms.context_transform.ContextTransformPipeline
+   minerva.transforms.context_transform.DataOnlyTransform
+   minerva.transforms.context_transform._ContextTransform
+
+
+Module Contents
+---------------
+
+.. py:class:: ClassRatioCrop(target_size, max_ratio = 0.75, max_attempts = 10, ignore_index = -1, seed = None)
+
+   Bases: :py:obj:`_ContextTransform`
+
+
+   Base class for context transforms that operate on paired data samples.
+
+   Context transforms are specialized transforms that work with paired data such as
+   image-mask pairs, where the transformation needs to be applied consistently to both
+   components. Unlike regular transforms that operate on single inputs, context transforms
+   receive a tuple of related data and must maintain the relationship between the components
+   during transformation. This is essential for tasks like segmentation where the spatial
+   correspondence between image and mask must be preserved.
+
+   Parameters
+   ----------
+   x : Tuple[np.ndarray, np.ndarray]
+       A tuple containing paired data, typically (image, mask) or (data, label),
+       where both components need to be transformed consistently.
+
+   Returns
+   -------
+   Tuple[np.ndarray, np.ndarray]
+       The transformed pair of data with the same structure as the input but
+       with transformations applied consistently to both components.
+
+   A context transform that crops image-mask pairs while controlling class distribution.
+
+   This transform attempts to crop both the input image and its corresponding mask to a target size
+   while ensuring that no single class dominates the cropped region beyond a specified ratio.
+   It randomly selects crop locations and validates the class distribution in the mask before
+   accepting the crop. This helps maintain balanced class representation in cropped samples,
+   which is particularly useful for segmentation tasks where class imbalance can be problematic.
+
+   Parameters
+   ----------
+   target_size : Tuple[int, int]
+       The target size of the crop as (height, width) in pixels.
+   max_ratio : float, default=0.75
+       The maximum ratio of pixels that any single class can occupy in the cropped mask.
+       Must be between 0.0 and 1.0. Lower values enforce more balanced class distribution.
+   max_attempts : int, default=10
+       The maximum number of random crop attempts before accepting the last available crop.
+       Higher values increase the chance of finding a well-balanced crop but may slow processing.
+   ignore_index : int, default=-1
+       Label value in the mask to be ignored when computing class ratios.
+       Pixels with this label will not contribute to the class distribution calculation.
+   seed : Optional[int], default=None
+       Random seed for reproducible cropping. If None, uses system randomness.
+
+
+   .. py:method:: __call__(x)
+
+      Apply the context transformation to paired data.
+
+      This method should be overridden in subclasses to define the specific
+      transformation logic that operates on both components of the input tuple
+      simultaneously, ensuring consistency between related data.
+
+      Parameters
+      ----------
+      x : Tuple[np.ndarray, np.ndarray]
+          A tuple containing the paired data to be transformed.
+
+      Returns
+      -------
+      Tuple[np.ndarray, np.ndarray]
+          The transformed pair of data.
+
+      Raises
+      ------
+      NotImplementedError
+          If the subclass does not implement this method.
+
+
+
+   .. py:attribute:: ignore_index
+      :value: -1
+
+
+
+   .. py:attribute:: max_attempts
+      :value: 10
+
+
+
+   .. py:attribute:: max_ratio
+      :value: 0.75
+
+
+
+   .. py:attribute:: rng
+
+
+   .. py:attribute:: target_h_size
+
+
+   .. py:attribute:: target_w_size
+
+
+.. py:class:: ContextTransformPipeline(transforms)
+
+   Bases: :py:obj:`minerva.transforms.transform.TransformPipeline`
+
+
+   Apply a sequence of transforms to a single sample of data and return the
+   transformed data.
+
+   A transform pipeline that applies a sequence of transforms to image-mask pairs.
+
+   This pipeline extends the basic TransformPipeline to handle both context transforms
+   (which operate on image-mask pairs simultaneously) and regular transforms (which
+   are applied separately to each component). It intelligently determines whether each
+   transform in the sequence is a context transform or regular transform and applies
+   it appropriately, maintaining consistency between the image and mask throughout
+   the pipeline.
+
+   Parameters
+   ----------
+   transforms : Sequence[_Transform]
+       A sequence of transforms to be applied to the input data. Can contain a mix
+       of _ContextTransform instances (applied to the pair) and regular _Transform
+       instances (applied separately to image and mask).
+
+
+   .. py:method:: __call__(x)
+
+      Apply a sequence of transforms to a single sample of data and return
+      the transformed data.
+
+
+
+   .. py:attribute:: transforms
+
+
+.. py:class:: DataOnlyTransform(transform)
+
+   Bases: :py:obj:`_ContextTransform`
+
+
+   Base class for context transforms that operate on paired data samples.
+
+   Context transforms are specialized transforms that work with paired data such as
+   image-mask pairs, where the transformation needs to be applied consistently to both
+   components. Unlike regular transforms that operate on single inputs, context transforms
+   receive a tuple of related data and must maintain the relationship between the components
+   during transformation. This is essential for tasks like segmentation where the spatial
+   correspondence between image and mask must be preserved.
+
+   Parameters
+   ----------
+   x : Tuple[np.ndarray, np.ndarray]
+       A tuple containing paired data, typically (image, mask) or (data, label),
+       where both components need to be transformed consistently.
+
+   Returns
+   -------
+   Tuple[np.ndarray, np.ndarray]
+       The transformed pair of data with the same structure as the input but
+       with transformations applied consistently to both components.
+
+   A context transform that applies a regular transform only to the data component.
+
+   This transform wrapper allows regular transforms to be used in context transform
+   pipelines by applying them only to the first element of the input tuple (typically
+   the image/data) while leaving the second element (typically the mask/label) unchanged.
+   This is useful when you want to apply transforms like normalization, tensor conversion,
+   or other data preprocessing steps that should only affect the input data and not the labels.
+
+   Parameters
+   ----------
+   transform : _Transform
+       The regular transform to apply to the data component only. This can be any
+       transform that operates on single inputs (normalization, tensor conversion, etc.).
+
+
+   .. py:method:: __call__(x)
+
+      Apply the context transformation to paired data.
+
+      This method should be overridden in subclasses to define the specific
+      transformation logic that operates on both components of the input tuple
+      simultaneously, ensuring consistency between related data.
+
+      Parameters
+      ----------
+      x : Tuple[np.ndarray, np.ndarray]
+          A tuple containing the paired data to be transformed.
+
+      Returns
+      -------
+      Tuple[np.ndarray, np.ndarray]
+          The transformed pair of data.
+
+      Raises
+      ------
+      NotImplementedError
+          If the subclass does not implement this method.
+
+
+
+   .. py:attribute:: transform
+
+
+.. py:class:: _ContextTransform
+
+   Bases: :py:obj:`minerva.transforms.transform._Transform`
+
+
+   Base class for context transforms that operate on paired data samples.
+
+   Context transforms are specialized transforms that work with paired data such as
+   image-mask pairs, where the transformation needs to be applied consistently to both
+   components. Unlike regular transforms that operate on single inputs, context transforms
+   receive a tuple of related data and must maintain the relationship between the components
+   during transformation. This is essential for tasks like segmentation where the spatial
+   correspondence between image and mask must be preserved.
+
+   Parameters
+   ----------
+   x : Tuple[np.ndarray, np.ndarray]
+       A tuple containing paired data, typically (image, mask) or (data, label),
+       where both components need to be transformed consistently.
+
+   Returns
+   -------
+   Tuple[np.ndarray, np.ndarray]
+       The transformed pair of data with the same structure as the input but
+       with transformations applied consistently to both components.
+
+
+   .. py:method:: __call__(x)
+      :abstractmethod:
+
+
+      Apply the context transformation to paired data.
+
+      This method should be overridden in subclasses to define the specific
+      transformation logic that operates on both components of the input tuple
+      simultaneously, ensuring consistency between related data.
+
+      Parameters
+      ----------
+      x : Tuple[np.ndarray, np.ndarray]
+          A tuple containing the paired data to be transformed.
+
+      Returns
+      -------
+      Tuple[np.ndarray, np.ndarray]
+          The transformed pair of data.
+
+      Raises
+      ------
+      NotImplementedError
+          If the subclass does not implement this method.
+
+
+

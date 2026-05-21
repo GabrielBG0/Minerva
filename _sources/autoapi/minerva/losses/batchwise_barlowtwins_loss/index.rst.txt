@@ -1,0 +1,162 @@
+minerva.losses.batchwise_barlowtwins_loss
+=========================================
+
+.. py:module:: minerva.losses.batchwise_barlowtwins_loss
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.losses.batchwise_barlowtwins_loss.BarlowTwinsLoss
+   minerva.losses.batchwise_barlowtwins_loss.BatchWiseBarlowTwinLoss
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   minerva.losses.batchwise_barlowtwins_loss._normalize
+   minerva.losses.batchwise_barlowtwins_loss._off_diagonal
+
+
+Module Contents
+---------------
+
+.. py:class:: BarlowTwinsLoss(lambda_param = 0.005, gather_distributed = False)
+
+   Bases: :py:obj:`torch.nn.Module`
+
+
+   Implementation of the Barlow Twins loss function for self-supervised learning.
+
+   The loss encourages embeddings of two augmented views of the same input to be
+   similar (invariance) while reducing redundancy between the components of
+   their representations (decorrelation).
+
+   Initializes the BarlowTwinsLoss module.
+
+   Parameters
+   ----------
+   lambda_param : float, optional
+       Coefficient for off-diagonal penalty in the loss. Defaults to 5e-3.
+   gather_distributed : bool, optional
+       If True, performs all-reduce on the cross-correlation matrix across GPUs. Defaults to False.
+
+   Raises
+   ------
+   ValueError
+       If gather_distributed is True but torch.distributed is not available.
+
+
+   .. py:method:: forward(z_a, z_b)
+
+      Computes the Barlow Twins loss.
+
+      Parameters
+      ----------
+      z_a : Tensor
+          Embedding tensor from the first view. Shape: [batch_size, dim].
+      z_b : Tensor
+          Embedding tensor from the second view. Shape: [batch_size, dim].
+
+      Returns
+      -------
+      Tensor
+          Scalar loss value combining invariance and redundancy reduction terms.
+
+
+
+   .. py:attribute:: gather_distributed
+      :value: False
+
+
+
+   .. py:attribute:: lambda_param
+      :value: 0.005
+
+
+
+.. py:class:: BatchWiseBarlowTwinLoss(diag_lambda = 0.01, normalize = False)
+
+   Bases: :py:obj:`torch.nn.modules.loss._Loss`
+
+
+   Implementation of the Batch-wise Barlow Twins loss function (https://arxiv.org/abs/2310.07756).
+
+   Initializes the BatchWiseBarlowTwinLoss class.
+
+   Parameters
+   ----------
+   diag_lambda : float, optional
+       The value of the diagonal lambda parameter. Default is 0.01.
+   normalize : bool, optional
+       Whether to normalize the loss. Default is False.
+
+
+   .. py:method:: bt_loss_bs(p, z, lambd=0.01, normalize=False)
+
+
+   .. py:attribute:: diag_lambda
+      :value: 0.01
+
+
+
+   .. py:method:: forward(prediction_data, projection_data)
+
+      Calculates the loss between the prediction and projection data using a batch-wise
+      version of the Barlow Twins loss function.
+
+      Parameters
+      ----------
+      prediction_data : torch.Tensor
+          Prediction data tensor.
+      projection_data : torch.Tensor
+          Projection data tensor.
+
+      Returns
+      -------
+      torch.Tensor
+          The computed batch-wise Barlow Twins loss.
+
+
+
+   .. py:attribute:: normalize
+      :value: False
+
+
+
+.. py:function:: _normalize(z_a, z_b)
+
+   Normalizes each embedding tensor independently across the batch.
+
+   Parameters
+   ----------
+   z_a : Tensor
+       Embeddings from the first view.
+   z_b : Tensor
+       Embeddings from the second view.
+
+   Returns
+   -------
+   Tuple[Tensor, Tensor]
+       A tuple containing the normalized versions of `z_a` and `z_b`.
+
+
+.. py:function:: _off_diagonal(x)
+
+   Returns a flattened view of the off-diagonal elements of a square matrix.
+
+   Parameters
+   ----------
+   x : Tensor
+       A square 2D tensor (cross-correlation matrix).
+
+   Returns
+   -------
+   Tensor
+       A 1D tensor containing the flattened off-diagonal elements of the input matrix.
+
+

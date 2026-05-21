@@ -1,0 +1,73 @@
+minerva.schedulers.warmup_cosine_annealing
+==========================================
+
+.. py:module:: minerva.schedulers.warmup_cosine_annealing
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   minerva.schedulers.warmup_cosine_annealing.WarmupCosineAnnealingLR
+
+
+Module Contents
+---------------
+
+.. py:class:: WarmupCosineAnnealingLR(optimizer, warmup_epochs, total_epochs, min_lr = 0, last_epoch = -1)
+
+   Bases: :py:obj:`torch.optim.lr_scheduler._LRScheduler`
+
+
+   A custom learning rate scheduler that combines linear warmup with cosine
+   annealing. The learning rate increases linearly over the first 'warmup_epochs',
+   and then decreases until 'total_epochs' following a cosine curve.
+
+   Initializes the scheduler.
+
+   Parameters
+   ----------
+   optimizer : torch.optim.optimizer.Optimizer
+       Wrapped optimizer.
+   warmup_epochs : int
+       Number of epochs for linear warmup.
+   total_epochs : int
+       Total number of training epochs.
+   min_lr : float
+       Minimum learning rate expected at the end of the cosine annealing.
+   last_epoch: int
+       Index of the last epoch. Used for resuming training.
+
+
+   .. py:method:: get_lr()
+
+      Compute the next learning rate for each of the optimizer's
+      :attr:`~torch.optim.Optimizer.param_groups`.
+
+      Returns:
+          list[float | Tensor]: A :class:`list` of learning rates for each of
+          the optimizer's :attr:`~torch.optim.Optimizer.param_groups` with the
+          same types as their current ``group["lr"]``\s.
+
+      .. note::
+          If you're trying to inspect the most recent learning rate, use
+          :meth:`get_last_lr()` instead.
+
+      .. note::
+          The returned :class:`~torch.Tensor`\s are copies, and never alias
+          the optimizer's ``group["lr"]``\s.
+
+
+
+   .. py:attribute:: min_lr
+      :value: 0
+
+
+
+   .. py:attribute:: total_epochs
+
+
+   .. py:attribute:: warmup_epochs
+
+
