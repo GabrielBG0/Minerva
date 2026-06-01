@@ -1,0 +1,146 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  auto-release:
+    name: Check version and release
+    runs-on: ubuntu-latest
+    environment: pypi
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+        with:
+          python-version: "3.10"
+
+      - name: Get version from pyproject.toml
+        id: pyproject_version
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Skip if release tag already exists
+        id: tag_check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v${{ steps.pyproject_version.outputs.version }}" &>/dev/null 2>&1; then
+            echo "Release v${{ steps.pyproject_version.outputs.version }} already exists, skipping."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get latest release version
+        if: steps.tag_check.outputs.exists == 'false'
+        id: latest_version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LATEST=$(gh release list --limit 1 --json tagName --jq '.[0].tagName // ""')
+          LATEST="${LATEST#v}"
+          echo "latest=${LATEST:-0.0.0}" >> $GITHUB_OUTPUT
+
+      - name: Check if pyproject version is newer than latest release
+        if: steps.tag_check.outputs.exists == 'false'
+        id: version_check
+        run: |
+          uv run --with packaging python -c "
+          import re, sys
+          from packaging.version import Version
+
+          def normalize(v):
+              v = re.sub(r'-beta(\.\d+)?$', 'b0', v)
+              v = re.sub(r'-alpha(\.\d+)?$', 'a0', v)
+              v = re.sub(r'-rc(\.\d+)?$', 'rc0', v)
+              return v
+
+          current = normalize('${{ steps.pyproject_version.outputs.version }}')
+          latest = normalize('${{ steps.latest_version.outputs.latest }}')
+          try:
+              is_newer = Version(current) > Version(latest)
+          except Exception as e:
+              print(f'Version comparison failed: {e}', file=sys.stderr)
+              sys.exit(1)
+          print(f'is_newer={str(is_newer).lower()}')
+          " >> $GITHUB_OUTPUT
+
+      - name: Migrate __init__.py to use importlib.metadata
+        if: steps.tag_check.outputs.exists == 'false' && steps.version_check.outputs.is_newer == 'true'
+        id: sync
+        run: |
+          python - <<'EOF'
+          import re
+
+          path = 'minerva/__init__.py'
+          content = open(path).read()
+
+          if 'importlib.metadata' in content:
+              exit(0)
+
+          if re.search(r'^__version__\s*=', content, re.MULTILINE):
+              replacement = (
+                  'try:\n'
+                  '    from importlib.metadata import version\n'
+                  '    __version__ = version("minerva")\n'
+                  'except Exception:\n'
+                  '    __version__ = "unknown"'
+              )
+              new_content = re.sub(
+                  r'^__version__\s*=.*$',
+                  replacement,
+                  content,
+                  flags=re.MULTILINE,
+              )
+              open(path, 'w').write(new_content)
+          EOF
+
+          if git diff --quiet minerva/__init__.py; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit __init__.py migration
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add minerva/__init__.py
+          git commit -m "chore: use importlib.metadata for __version__"
+          git push
+
+      - name: Build package
+        if: steps.tag_check.outputs.exists == 'false' && steps.version_check.outputs.is_newer == 'true'
+        run: uv build
+
+      - name: Create GitHub Release
+        if: steps.tag_check.outputs.exists == 'false' && steps.version_check.outputs.is_newer == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ steps.pyproject_version.outputs.version }}" \
+            --title "v${{ steps.pyproject_version.outputs.version }}" \
+            --generate-notes \
+            dist/*
+
+      - name: Publish to PyPI
+        if: steps.tag_check.outputs.exists == 'false' && steps.version_check.outputs.is_newer == 'true'
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
