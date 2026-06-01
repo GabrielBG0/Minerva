@@ -40,9 +40,10 @@ jobs:
         id: tag_check
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.pyproject_version.outputs.version }}
         run: |
-          if gh release view "v${{ steps.pyproject_version.outputs.version }}" &>/dev/null 2>&1; then
-            echo "Release v${{ steps.pyproject_version.outputs.version }} already exists, skipping."
+          if gh release view "v${VERSION}" &>/dev/null 2>&1; then
+            echo "Release v${VERSION} already exists, skipping."
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
@@ -54,26 +55,28 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          LATEST=$(gh release list --limit 1 --json tagName --jq '.[0].tagName // ""')
-          LATEST="${LATEST#v}"
+          LATEST=$(gh release list --limit 100 --json tagName --jq '.[].tagName' | sed 's/^v//' | sort -V | tail -1)
           echo "latest=${LATEST:-0.0.0}" >> $GITHUB_OUTPUT
 
       - name: Check if pyproject version is newer than latest release
         if: steps.tag_check.outputs.exists == 'false'
         id: version_check
+        env:
+          VERSION: ${{ steps.pyproject_version.outputs.version }}
+          LATEST: ${{ steps.latest_version.outputs.latest }}
         run: |
           uv run --with packaging python -c "
-          import re, sys
+          import re, sys, os
           from packaging.version import Version
 
           def normalize(v):
-              v = re.sub(r'-beta(\.\d+)?$', 'b0', v)
-              v = re.sub(r'-alpha(\.\d+)?$', 'a0', v)
-              v = re.sub(r'-rc(\.\d+)?$', 'rc0', v)
+              v = re.sub(r'-beta(?:\.(\d+))?$', lambda m: f'b{m.group(1) or "0"}', v)
+              v = re.sub(r'-alpha(?:\.(\d+))?$', lambda m: f'a{m.group(1) or "0"}', v)
+              v = re.sub(r'-rc(?:\.(\d+))?$', lambda m: f'rc{m.group(1) or "0"}', v)
               return v
 
-          current = normalize('${{ steps.pyproject_version.outputs.version }}')
-          latest = normalize('${{ steps.latest_version.outputs.latest }}')
+          current = normalize(os.environ['VERSION'])
+          latest = normalize(os.environ.get('LATEST', '0.0.0'))
           try:
               is_newer = Version(current) > Version(latest)
           except Exception as e:
@@ -90,9 +93,10 @@ jobs:
         if: steps.tag_check.outputs.exists == 'false' && steps.version_check.outputs.is_newer == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.pyproject_version.outputs.version }}
         run: |
-          gh release create "v${{ steps.pyproject_version.outputs.version }}" \
-            --title "v${{ steps.pyproject_version.outputs.version }}" \
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
             --generate-notes \
             dist/*
 
