@@ -33,7 +33,7 @@ jobs:
       - name: Get version from pyproject.toml
         id: pyproject_version
         run: |
-          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          VERSION=$(grep -m1 '^version\s*=' pyproject.toml | sed 's/.*=\s*"\(.*\)"/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Skip if release tag already exists
